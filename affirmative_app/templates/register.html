@@ -1,0 +1,41 @@
+<!-- register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register - Affirmative</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Display flash messages -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="flash-messages">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('register') }}" method="post" class="register-form">
+            <h1>Register</h1>
+            <input type="text" id="username" name="username" placeholder="Username" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <input type="text" id="name" name="name" placeholder="Name" required>
+            <input type="text" id="pronoun" name="pronoun" placeholder="Pronoun" required>
+            <input type="text" id="city" name="city" placeholder="City" required>
+            <input type="text" id="state" name="state" placeholder="State" required>
+            <label for="role">I am a:</label>
+            <select id="role" name="role">
+                <option value="0">Client</option>
+                <option value="1">Care Navigator</option>
+            </select>
+            <button type="submit">Register</button>
+            <!-- Link to Login page if already have account -->
+            <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+        </form>
+    </div>
+</body>
+</html>
