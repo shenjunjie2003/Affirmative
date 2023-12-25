@@ -8,9 +8,28 @@ from affirmative_app import app
 from affirmative_app import db
 from sqlalchemy import text
 from affirmative_app.models import *
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        # Extract the form data
+        username = request.form['username']
+        password = request.form['password']
+
+        # Query the database for the username
+        user = User.query.filter_by(user_name=username).first()
+
+        # Check if the user was found and the password is correct
+        if user and check_password_hash(user.password, password):
+            # If the check passes, redirect to the index page
+            return redirect(url_for('index'))
+        else:
+            # If the user is not found or password is wrong, flash a message
+            flash('Invalid username or password. Please try again.')
+
+    # If it's a GET request or credentials are invalid, render the login page
     return render_template('login.html')
 
 
@@ -33,7 +52,7 @@ def register():
             return redirect(url_for('register'))
 
         # Hash the password for security
-        hashed_password = generate_password_hash(password, method='sha256')
+        hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
 
         # Create new User instance
         new_user = User(
@@ -44,6 +63,8 @@ def register():
 
         # Add the new user to the database
         db.session.add(new_user)
+        db.session.commit()
+
         # Create either Client or CareNavigator instance
         if role == '0':  # Client
             new_client = Client(
