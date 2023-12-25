@@ -34,18 +34,18 @@
     </style>
 </head>
 <body>
-
     <div class="search-container">
-        <form action="/search" method="GET">
+        <form action="/results" method="post">
             <div class="dropdown">
                 <label for="category">Category:</label>
                 <select id="category" name="category">
                     <option value="surgical">Surgical</option>
                     <option value="psychological">Psychological</option>
                     <option value="endodermal">Endodermal</option>
+                    <option value="care navigator">care navigator</option>
                 </select>
             </div>
-            <input class="search-input" type="text" name="query" placeholder="Zip code">
+            <input class="search-input" type="text" name="location" placeholder="Zip code">
             <button class="search-button" type="submit">Search</button>
         </form>
     </div>

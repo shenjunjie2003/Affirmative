@@ -11,3 +11,9 @@
 
     ALTER TABLE `user` 
     ADD COLUMN `profile_picture` VARCHAR(512) NULL DEFAULT NULL;
+
+    ALTER TABLE `care_navigator`
+    ADD COLUMN `zip_code` VARCHAR(512) NULL DEFAULT NULL;
+    
+    ALTER TABLE `provider`
+    ADD COLUMN `zip_code` VARCHAR(512) NULL DEFAULT NULL;

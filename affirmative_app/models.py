@@ -28,6 +28,7 @@ class CareNavigator(db.Model):
     location = db.Column(db.String(256), nullable=False)
     email = db.Column(db.String(256), nullable=False)
     insurance = db.Column(db.String(256), nullable=False)
+    zip_code = db.Column(db.String(256), nullable=False) # Zip code
 
 class NavigatorInsurance(db.Model):
     __tablename__ = 'navigator_insurance'
@@ -43,6 +44,7 @@ class Provider(db.Model):
     email = db.Column(db.String(256), nullable=False)
     insurance = db.Column(db.String(256), nullable=False)
     website = db.Column(db.String(256), nullable=False)
+    zip_code = db.Column(db.String(256), nullable=False) # Zip code
 
 class ProviderInsurance(db.Model):
     __tablename__ = 'provider_insurance'
@@ -78,7 +80,7 @@ class Service(db.Model):
     __tablename__ = 'service'
     service_ID = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(256), nullable=False)
-    broad_service = db.Column(db.Integer, nullable=False)
+    broad_service = db.Column(db.Integer, nullable=False) #0 for mental health, 1 for hormone therapy, 2 for surgery
 
 class Insurance(db.Model):
     __tablename__ = 'insurance'
