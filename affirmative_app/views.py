@@ -111,11 +111,18 @@ def results():
             care_navigator_results = CareNavigator.query.filter(CareNavigator.zip_code.ilike(f'%{zip}%')).all()
             return render_template('results.html', results=care_navigator_results)
         else:
+            if category == 'surgical':
+                service = 2
+            elif category == 'endodermal':
+                service = 1
+            else:
+                service = 3
+
             search_results = (
                 Provider.query
                 .join(ProviderService, Provider.provider_ID == ProviderService.provider_id)
                 .join(Service, ProviderService.service_id == Service.service_ID)
-                .filter(Service.broad_service == category, Provider.zip_code == zip)
+                .filter(Service.broad_service == service, Provider.zip_code == zip)
                 .all()
            )
             return render_template('results.html', results=search_results)
