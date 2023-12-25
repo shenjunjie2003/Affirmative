@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Page</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .search-container {
+            text-align: center;
+        }
+
+        .search-input {
+            padding: 10px;
+            font-size: 18px;
+            width: 300px;
+        }
+
+        .search-button {
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+
+        .dropdown {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="search-container">
+        <form action="/search" method="GET">
+            <div class="dropdown">
+                <label for="category">Category:</label>
+                <select id="category" name="category">
+                    <option value="surgical">Surgical</option>
+                    <option value="psychological">Psychological</option>
+                    <option value="endodermal">Endodermal</option>
+                </select>
+            </div>
+            <input class="search-input" type="text" name="query" placeholder="Zip code">
+            <button class="search-button" type="submit">Search</button>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -5,7 +5,10 @@ This file is the implementation of the routes for the application.
 
 from flask import render_template, request, redirect, url_for, flash, session
 from affirmative_app import app
-#from affirmative_app import db
+from affirmative_app import db
+from sqlalchemy import text
+from affirmative_app.models import *
+
 
 def login():
     return render_template('login.html')
@@ -81,3 +84,15 @@ def navigator_info():
         # Process and save navigator information
         pass
     return render_template('navigator_info.html')
+
+def test_db_connection():
+    try:
+        result = db.session.execute(text('SELECT 1'))
+        print('Database connection successful!')
+        return 'Database connection successful!'
+    except Exception as e:
+        print(f'Database connection error: {str(e)}')
+        return f'Database connection error: {str(e)}'
+
+def index():
+    return render_template('index.html')
