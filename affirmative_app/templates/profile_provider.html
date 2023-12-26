@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .profile-container {
+            display: flex;
+            padding: 20px;
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-right: 20px;
+            /* You can set a background image for the profile picture */
+            background-image: url('path-to-your-profile-picture.jpg');
+            background-size: cover;
+        }
+
+        .profile-info {
+            flex-grow: 1;
+        }
+
+        .profile-info h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .profile-info p {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+      
+
+        .profile-section {
+            margin-top: 20px;
+        }
+
+        .leave-review-button {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-picture"></div>
+        <div class="profile-info">
+            <h1>{{provider.name}}</h1>
+            <p>{{provider.location}}</p>
+            <p>{{provider.zip_code}}</p>
+            <p>{{provider.email}}</p>
+            <p>{{provider.website}}<a href={{provider.website}} target="_blank">{{provider.website}}</a></p>
+        </div>
+    </div>
+
+    <div class="profile-section">
+        <h2>Insurance</h2>
+        <!-- Add content for insurance section here -->
+    </div>
+
+    <div class="profile-section">
+        <h2>Finances</h2>
+        <!-- Add content for finances section here -->
+    </div>
+
+    <div class="profile-section">
+        <h2>Qualifications</h2>
+        <!-- Add content for qualifications section here -->
+    </div>
+
+    <button class="leave-review-button" onclick="location.href='/review/{{ provider.provider_ID }}'">Leave a Review</button>
+
+</body>
+</html>
+

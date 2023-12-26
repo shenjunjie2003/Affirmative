@@ -17,3 +17,10 @@
     
     ALTER TABLE `provider`
     ADD COLUMN `zip_code` VARCHAR(512) NULL DEFAULT NULL;
+
+    ALTER TABLE `provider` 
+    ADD COLUMN `finances` VARCHAR(512) NULL DEFAULT NULL;
+    ALTER TABLE `provider` 
+    ADD COLUMN `qualifications` VARCHAR(512) NULL DEFAULT NULL;
+    ALTER TABLE provider
+    ADD COLUMN profile_picture LONGBLOB;
