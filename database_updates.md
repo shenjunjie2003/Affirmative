@@ -44,3 +44,11 @@ Jonny:
     ALTER TABLE care_navigator MODIFY insurance VARCHAR(256);
     ALTER TABLE care_navigator MODIFY zip_code VARCHAR(256);
     ALTER TABLE care_navigator MODIFY email VARCHAR(256);
+
+`Jenny`
+    ALTER TABLE `provider` 
+    ADD COLUMN `finances` VARCHAR(512) NULL DEFAULT NULL;
+    ALTER TABLE `provider` 
+    ADD COLUMN `qualifications` VARCHAR(512) NULL DEFAULT NULL;
+    ALTER TABLE provider
+    ADD COLUMN profile_picture LONGBLOB;

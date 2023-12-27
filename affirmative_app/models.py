@@ -49,6 +49,9 @@ class Provider(db.Model):
     insurance = db.Column(db.String(256), nullable=False)
     website = db.Column(db.String(256), nullable=False)
     zip_code = db.Column(db.String(256), nullable=False) # Zip code
+    finances = db.Column(db.String(256), nullable=False)
+    qualifications = db.Column(db.String(256), nullable=False)
+    profile_picture = db.Column(db.LargeBinary, nullable=True)  
 
 class ProviderInsurance(db.Model):
     __tablename__ = 'provider_insurance'

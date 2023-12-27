@@ -35,20 +35,60 @@
 </head>
 <body>
     <div class="search-container">
-        <form action="/results" method="post">
+        <form id="searchForm" method="post">
             <div class="dropdown">
                 <label for="category">Category:</label>
                 <select id="category" name="category">
-                    <option value="surgical">Surgical</option>
-                    <option value="psychological">Psychological</option>
-                    <option value="endodermal">Endodermal</option>
-                    <option value="care navigator">care navigator</option>
+                    <option value="care_navigator">Care Navigator</option>
+                    <option value="provider">Provider</option>
                 </select>
             </div>
+    
+            <!-- Sub-options under "Provider" -->
+            <div id="provider-options" style="display: none;">
+                <label for="provider-category">Provider Category:</label>
+                <select id="provider-category" name="provider-category">
+                    <option value="psychological">Psychological</option>
+                    <option value="endodermal">Endodermal</option>
+                    <option value="surgical">Surgical</option>
+                </select>
+            </div>
+    
             <input class="search-input" type="text" name="location" placeholder="Zip code">
             <button class="search-button" type="submit">Search</button>
         </form>
     </div>
+
+    <!--Dynamically change the page rendered-->
+    <script>
+        // Function to trigger change event on the category dropdown
+    function triggerChange() {
+        var event = new Event('change');
+        document.getElementById('category').dispatchEvent(event);
+    }
+
+    // Attach the triggerChange function to the window.onload event
+    window.onload = triggerChange;
+
+    // Add your existing change event listener
+    document.getElementById('category').addEventListener('change', function () {
+        var providerOptions = document.getElementById('provider-options');
+        var searchForm = document.getElementById('searchForm');
+
+        if (this.value === 'provider') {
+            providerOptions.style.display = 'block';
+            searchForm.action = '/results_provider';  // Update the action to '/results_provider'
+        } else if (this.value === 'care_navigator') {
+            providerOptions.style.display = 'none';
+            searchForm.action = '/results_navigator';  // Update the action to '/results_navigator'
+        } else {
+            // If the selected category is neither "provider" nor "care_navigator,"
+            // you can handle it accordingly (e.g., provide a default action).
+            // This is where you can customize the behavior based on your requirements.
+            searchForm.action = '/default_action';
+        }
+    });
+    </script>
 
 </body>
 </html>

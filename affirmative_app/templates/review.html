@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Review Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0; /* Set a background color */
+        }
+
+        .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh; /* Use min-height instead of height */
+        flex-direction: column;
+        }
+
+        .banner {
+            background-color: #926BAE;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 0 0 20px 20px;
+            width: 100%; /* Set width to 100% to span the entire width of the viewport */
+        }
+
+        .doctor-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: white; /* Set the color to black */
+        }
+
+        .question-container {
+            margin-top: 20px;
+            background-color: #fff; /* Set a white background color for the question container */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+            width: 80%; /* Set a width for the question container */
+            text-align: left; /* Center the text in the question container */
+        }
+
+        .question {
+            margin-bottom: 10px;
+            color: #000; /* Set the color to black */
+        }
+
+        .choices-container {
+        display: flex;
+        align-items: flex-start; /* Align choices to the left */
+    }
+
+        .choice {
+            display: flex;
+            align-items: left;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .choice-button {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #926BAE;
+            border-radius: 50%;
+            background-color: #fff; /* Set a white background color initially */
+            margin-bottom: 5px; /* Add margin between button and text */
+            cursor: pointer;
+            margin-right: 10px; /* Add margin between button and text */
+        }
+
+        .choice-text {
+            color:  #926BAE;
+        }
+
+        .comment-box {
+        width: 80%;
+        margin-top: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-box textarea {
+            width: 100%; /* Make the textarea fill the entire width of the comment box */
+            border: 1px solid #926BAE; /* Add the border directly to the textarea */
+            border-radius: 5px;
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        }
+
+        .selected {
+            background-color: #926BAE; /* Add a background color for the selected state */
+        }
+
+        .submit-button {
+            background-color: #926BAE;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            align-items: center;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="banner">
+            <p>Your review is greatly appreciated and will help the community!</p>
+            <div class="doctor-name">{{ doctor.name }}</div>
+        </div>
+
+        <div class="question-container">
+            {% for question in questions %}
+            <div class="question">{{ loop.index }}. {{ question }}</div>
+            <div class="choices-container">
+                <div class="choice">
+                    <button class="choice-button" data-option="Strongly Agree"></button>
+                    <span class="choice-text">Strongly Agree</span>
+                </div>
+                <div class="choice">
+                    <button class="choice-button" data-option="Agree"></button>
+                    <span class="choice-text">Agree</span>
+                </div>
+                <div class="choice">
+                    <button class="choice-button" data-option="Neutral"></button>
+                    <span class="choice-text">Neutral</span>
+                </div>
+                <div class="choice">
+                    <button class="choice-button" data-option="Disagree"></button>
+                    <span class="choice-text">Disagree</span>
+                </div>
+                <div class="choice">
+                    <button class="choice-button" data-option="Strongly Disagree"></button>
+                    <span class="choice-text">Strongly Disagree</span>
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="question"><p>11. To your knowledge, do they have trans staff?</p></div>
+            <div class="choices-container">
+                <div class="choice">
+                    <button class="choice-button" data-option="Yes"></button>
+                    <span class="choice-text">Yes</span>
+                </div>
+                <div class="choice">
+                    <button class="choice-button" data-option="No"></button>
+                    <span class="choice-text">No</span>
+                </div>
+            </div>
+
+            <div class="comment-box">
+                <textarea id="comments" name="comments" placeholder="Additional Comments?" row = "8"></textarea>
+            </div>
+
+            <button class="submit-button">Submit Review</button>
+
+            
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const choiceContainers = document.querySelectorAll('.choices-container');
+
+    choiceContainers.forEach(container => {
+        const choiceButtons = container.querySelectorAll('.choice-button');
+
+        choiceButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Get the parent container for the current question
+                const parentContainer = button.closest('.choices-container');
+
+                // Clear the selected state for all buttons in the current container
+                const allButtons = parentContainer.querySelectorAll('.choice-button');
+                allButtons.forEach(btn => btn.classList.remove('selected'));
+
+                // Toggle the 'selected' class for the clicked button
+                button.classList.toggle('selected');
+            });
+        });
+    });
+
+    // Handle form submission
+    const submitButton = document.querySelector('.submit-button');
+    submitButton.addEventListener('click', function() {
+        submitReview();
+    });
+});
+
+function submitReview() {
+    // Your existing code for form submission
+    const selectedChoices = document.querySelectorAll('.choice-button.selected');
+    const comments = document.getElementById('comments').value;
+
+    if (selectedChoices.length === 0) {
+        alert('Please select at least one choice.');
+    } else {
+        // Assuming you have a Flask route for handling form submission
+        fetch('/submit_review', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                choices: Array.from(selectedChoices).map(choice => choice.dataset.option),
+                comments: comments,
+            }),
+        }).then(response => {
+            if (response.ok) {
+                // Redirect to the success page
+                window.location.href = '/submit_successful';
+            } else {
+                alert('Failed to submit the review. Please try again.');
+            }
+        });
+    }
+}
+</script>
+</body>
+</html>

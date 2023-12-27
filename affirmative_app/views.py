@@ -120,32 +120,28 @@ def index():
     return render_template('index.html')
 
 
-# Results page
-def results():
-    if request.method == 'POST':
-        # Get user input from the form
-        category = request.form.get('category')
+def results_provider():
+     if request.method == 'POST':
         zip = request.form.get('location')
+        category = request.form.get('provider-category') 
 
-        if category == 'care navigator':
-            care_navigator_results = CareNavigator.query.filter(CareNavigator.zip_code.ilike(f'%{zip}%')).all()
-            return render_template('results.html', results=care_navigator_results)
+        if category == 'surgical':
+            service = 2
+        elif category == 'endodermal':
+            service = 1
         else:
-            if category == 'surgical':
-                service = 2
-            elif category == 'endodermal':
-                service = 1
-            else:
-                service = 3
+            service = 0
 
-            search_results = (
+        print(service)
+        
+        search_results = (
                 Provider.query
                 .join(ProviderService, Provider.provider_ID == ProviderService.provider_id)
                 .join(Service, ProviderService.service_id == Service.service_ID)
                 .filter(Service.broad_service == service, Provider.zip_code == zip)
                 .all()
            )
-            return render_template('results.html', results=search_results)
+        return render_template('results.html', results=search_results)
         
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
@@ -168,3 +164,42 @@ def profile():
         # Handle unexpected role
         flash('Invalid user role.')
         return redirect(url_for('index'))
+        return render_template('results_provider.html', results=search_results)
+
+def results_navigator():
+    if request.method == 'POST':
+        # Get user input from the form
+        zip = request.form.get('location')
+
+
+        care_navigator_results = CareNavigator.query.filter(CareNavigator.zip_code.ilike(f'%{zip}%')).all()
+        return render_template('results_navigator.html', results=care_navigator_results)
+       
+def profile_navigator():
+    return render_template('profile_navigator.html')
+
+def profile_provider(provider_id):
+    provider = Provider.query.filter_by(provider_ID=provider_id).first()
+    return render_template('profile_provider.html', provider=provider)
+
+
+def review(provider_id):
+    # Retrieve data for the specific doctor based on the doctor_id
+    provider = Provider.query.filter_by(provider_ID=provider_id).first()
+    return render_template('review.html', doctor=provider, questions=questions)
+
+questions = [
+    "I am satisfied with my overall experience with this doctor.",
+    "The doctor seems knowledgeable about the latest practice.",
+    "The doctor seems knowledgeable about the trans community.",
+    "The doctor listened attentively to my concerns and questions during my appointment.",
+    "The doctor explained my condition and treatment options clearly and in a way I could understand.",
+    "The doctor's recommendations and treatment were effective in addressing my health concerns.",
+    "I felt comfortable discussing my medical history and concerns with the doctor.",
+    "The doctor's bedside manner and interpersonal skills were satisfactory.",
+    "I would recommend this doctor to other people.",
+    "Did the doctor or the doctor office help you with the insurance process?"
+]
+           
+
+           
