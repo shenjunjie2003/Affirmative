@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Care Navigator Profile - Affirmative</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Care Navigator Profile</h1>
+        <div class="profile-section">
+            <p>Name: {{ navigator.name }}</p>
+            <p>Pronoun: {{ navigator.pronoun }}</p>
+            <p>Email: {{ navigator.email }}</p>
+            <p>Insurances Supported: {{ navigator.insurance }}</p>
+            <p>Zip Code: {{ navigator.zip_code }}</p>
+            <p>State: {{ navigator.state }}</p>
+            <p>City: {{ navigator.city }}</p>
+            <p>Self Description: {{ navigator.self_description }}</p>
+            <p>Trans Caregiving Experience: {{ navigator.trans_caregiving_experience }}</p>
+            <p>Additional Experience: {{ navigator.additional_experience }}</p>
+            <a href="{{ url_for('edit_navigator_profile') }}">Edit</a>
+        </div>
+    </div>
+</body>
+</html>

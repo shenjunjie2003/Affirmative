@@ -25,9 +25,14 @@ class CareNavigator(db.Model):
     navigator_ID = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(256), nullable=False)
     pronoun = db.Column(db.String(256), nullable=False)
-    location = db.Column(db.String(256), nullable=False)
-    email = db.Column(db.String(256), nullable=False)
-    insurance = db.Column(db.String(256), nullable=False)
+    email = db.Column(db.String(256), nullable=True)  
+    insurance = db.Column(db.String(256), nullable=True)  
+    zip_code = db.Column(db.String(256), nullable=True) 
+    state = db.Column(db.String(256), nullable=False)  
+    city = db.Column(db.String(256), nullable=False)  
+    self_description = db.Column(db.Text, nullable=True)  
+    trans_caregiving_experience = db.Column(db.Text, nullable=True) 
+    additional_experience = db.Column(db.Text, nullable=True)  
 
 class NavigatorInsurance(db.Model):
     __tablename__ = 'navigator_insurance'
@@ -43,6 +48,7 @@ class Provider(db.Model):
     email = db.Column(db.String(256), nullable=False)
     insurance = db.Column(db.String(256), nullable=False)
     website = db.Column(db.String(256), nullable=False)
+    zip_code = db.Column(db.String(256), nullable=False) # Zip code
 
 class ProviderInsurance(db.Model):
     __tablename__ = 'provider_insurance'
@@ -78,9 +84,19 @@ class Service(db.Model):
     __tablename__ = 'service'
     service_ID = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(256), nullable=False)
-    broad_service = db.Column(db.Integer, nullable=False)
+    broad_service = db.Column(db.Integer, nullable=False) #0 for mental health, 1 for hormone therapy, 2 for surgery
 
 class Insurance(db.Model):
     __tablename__ = 'insurance'
     insurance_ID = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(256), nullable=False)
+
+class SavedNavigator(db.Model):
+    __tablename__ = 'saved_navigator'
+    client_id = db.Column(db.Integer, primary_key=True)
+    navigator_id = db.Column(db.Integer, primary_key=True)
+
+class SavedProvider(db.Model):
+    __tablename__ = 'saved_provider'
+    client_id = db.Column(db.Integer, primary_key=True)
+    provider_id = db.Column(db.Integer, primary_key=True)

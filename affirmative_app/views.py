@@ -106,6 +106,7 @@ def navigator_info():
         pass
     return render_template('navigator_info.html')
 
+#test database connection
 def test_db_connection():
     try:
         result = db.session.execute(text('SELECT 1'))
@@ -117,3 +118,53 @@ def test_db_connection():
 
 def index():
     return render_template('index.html')
+
+
+# Results page
+def results():
+    if request.method == 'POST':
+        # Get user input from the form
+        category = request.form.get('category')
+        zip = request.form.get('location')
+
+        if category == 'care navigator':
+            care_navigator_results = CareNavigator.query.filter(CareNavigator.zip_code.ilike(f'%{zip}%')).all()
+            return render_template('results.html', results=care_navigator_results)
+        else:
+            if category == 'surgical':
+                service = 2
+            elif category == 'endodermal':
+                service = 1
+            else:
+                service = 3
+
+            search_results = (
+                Provider.query
+                .join(ProviderService, Provider.provider_ID == ProviderService.provider_id)
+                .join(Service, ProviderService.service_id == Service.service_ID)
+                .filter(Service.broad_service == service, Provider.zip_code == zip)
+                .all()
+           )
+            return render_template('results.html', results=search_results)
+        
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+    if 'user_id' not in session:
+        # User is not logged in, redirect to the index page
+        return redirect(url_for('index'))
+
+    user_id = session['user_id']
+    user = User.query.get(user_id)
+
+    if user.role == 0:  # The user is a client
+        client = Client.query.get(user_id)
+        # Render a template for the client profile
+        return render_template('client_profile.html', client=client, user=user)
+    elif user.role == 1:  # The user is a care navigator
+        navigator = CareNavigator.query.get(user_id)
+        # Render a template for the care navigator profile
+        return render_template('navigator_profile.html', navigator=navigator, user=user)
+    else:
+        # Handle unexpected role
+        flash('Invalid user role.')
+        return redirect(url_for('index'))
