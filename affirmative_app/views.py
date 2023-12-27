@@ -141,7 +141,7 @@ def results_provider():
                 .filter(Service.broad_service == service, Provider.zip_code == zip)
                 .all()
            )
-        return render_template('results.html', results=search_results)
+        return render_template('results_provider.html', results=search_results)
         
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
