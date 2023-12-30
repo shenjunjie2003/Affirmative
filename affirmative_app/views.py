@@ -143,7 +143,7 @@ def results(procedure):
             .filter(Service.name == service)
             .all()
         )
-        return render_template('results.html', results=search_results, procedure=procedure)
+        return render_template('results.html', results=search_results, procedure=procedure, count = len(search_results))
     
     return render_template('results.html', procedure=procedure)
         

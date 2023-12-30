@@ -18,29 +18,44 @@
         #left-column {
             width: 20%;
             background-color: #e0e0e0;
+            margin-top: 70px;
             padding: 20px;
         }
 
         #center-column {
-            flex-grow: 1;
-            padding: 20px;
+            width: 25%;
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column; /* Change to column layout */
+            margin-left: 20px;
+        }
+
+        .center_header {
+            font-size: 18px;
+            font-weight: bold;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            margin-top: 90px;
+            height: 40px;
+            background-color: #959595;
+            width: 100%;
+            text-align: center;
         }
 
         #right-column {
-            width: 30%;
+            width: 50%;
             background-color: #e0e0e0;
             padding: 20px;
             display: none; /* Initially hidden */
+            overflow-y: auto;
         }
 
         .result-block {
-            width: calc(33.33% - 20px);
-            margin: 10px;
-            background-color: white;
-            padding: 15px;
+            width: 100%;
+            background-color: #C4C4C4;
             cursor: pointer;
+            color: black;
+            margin-bottom: 3px;
+            
         }
 
         .result-details {
@@ -49,11 +64,62 @@
             align-items: center;
         }
 
-        /* Add your other styles here */
+        .big_header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            border-bottom: 1px solid rgb(228, 228, 228);
+            z-index: 100;
+            background-color: #D2CACA;
+            padding: 0 20px;
+        }
 
+        .logo {
+            width: 50px;
+            height: 50px;
+            background-color: #C4BD91;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #result-container {
+        flex-grow: 1;
+        overflow-y: auto; /* Enable vertical scrolling for the results */
+        }
+
+        .center_footer {
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            height: 40px;
+            background-color: #959595;
+            width: 100%;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+
+    <header class = "big_header">
+        <div class="logo">
+            <div style="width: 100%; height: 100%; position: relative; background: #D2CACA">
+                <div style="width: 16.38px; height: 16.38px; left: 13.56px; top: 0px; position: absolute; background: #C4BD91"></div>
+                <div style="width: 16.38px; height: 16.38px; left: 13.56px; top: 27.12px; position: absolute; background: #C4BD91"></div>
+                <div style="width: 16.38px; height: 16.38px; left: 27.12px; top: 13.55px; position: absolute; background: #C4BD91"></div>
+                <div style="width: 16.38px; height: 16.38px; left: 0px; top: 13.55px; position: absolute; background: #C4BD91"></div>
+                <div style="width: 18.92px; height: 2.21px; left: 12.58px; top: 20.72px; position: absolute; background: #666644"></div>
+                <div style="width: 18.92px; height: 2.10px; left: 20.99px; top: 31.29px; position: absolute; transform: rotate(-90deg); transform-origin: 0 0; background: #666644"></div>
+            </div>
+        </div>
+    </header>
 
     <div id="left-column">
         <h2>{{procedure}}</h2>
@@ -87,16 +153,19 @@
     </div>
 
     <div id="center-column">
+        <header class="center_header">RESULTS ({{ count }})</header>
         {% if results %}
-            {% for result in search_results %}
-            <div class="result-block">
-                <h2><a href="{{ url_for('profile_provider', provider_id=result.id) }}">{{ result.name }}</a></h2>
-                <p>details</p>
-            </div>
+            {% for result in results %}
+                <div class="result-block" onclick="showResultDetails()">
+                    <h2><a href="{{ url_for('profile_provider', provider_id=result.provider_ID) }}">{{ result.name }}</a></h2>
+                    <p>details</p>
+                </div>
             {% endfor %}
         {% else %}
             <p>No results found.</p>
         {% endif %}
+        <footer class="center_footer">
+        </footer>
     </div>
 
     <div id="right-column">
