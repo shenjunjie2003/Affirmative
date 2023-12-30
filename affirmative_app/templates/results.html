@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: row;
+            min-height: 100vh;
+        }
+
+        #left-column {
+            width: 20%;
+            background-color: #e0e0e0;
+            padding: 20px;
+        }
+
+        #center-column {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #right-column {
+            width: 30%;
+            background-color: #e0e0e0;
+            padding: 20px;
+            display: none; /* Initially hidden */
+        }
+
+        .result-block {
+            width: calc(33.33% - 20px);
+            margin: 10px;
+            background-color: white;
+            padding: 15px;
+            cursor: pointer;
+        }
+
+        .result-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Add your other styles here */
+
+    </style>
+</head>
+<body>
+
+    <div id="left-column">
+        <h2>{{procedure}}</h2>
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender">
+            <option value="woman">Woman</option>
+            <option value="man">Man</option>
+            <option value="non-binary">Non-Binary</option>
+            <option value="transgender">Transgender</option>
+            <option value="genderfluid">Genderfluid</option>
+            <option value="agender">Agender</option>
+        </select>
+
+        <label for="meeting-form">Meeting Form:</label>
+        <select id="meeting-form" name="meeting-form">
+            <option value="in-person">In-person</option>
+            <option value="virtual">Virtual</option>
+            <option value="hybrid">Hybrid</option>
+        </select>
+
+        <label for="distance">Distance:</label>
+        <input type="text" id="distance" name="distance" placeholder="Enter Zip Code">
+
+        <label for="languages">Languages:</label>
+        <input type="text" id="languages" name="languages" placeholder="Enter Languages">
+
+        <label for="insurance">Insurances:</label>
+        <input type="text" id="insurances" name="insurances" placeholder="Enter Insurances">
+
+        <button onclick="applyFilters()">Apply Filters</button>
+    </div>
+
+    <div id="center-column">
+        {% if results %}
+            {% for result in search_results %}
+            <div class="result-block">
+                <h2><a href="{{ url_for('profile_provider', provider_id=result.id) }}">{{ result.name }}</a></h2>
+                <p>details</p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+
+    <div id="right-column">
+        <!-- Result details will be displayed here -->
+    </div>
+
+    <script>
+        // Sample function to simulate applying filters
+        function applyFilters() {
+            alert('Filters applied!');
+        }
+
+        // Sample function to simulate displaying details on result click
+        function showResultDetails() {
+            document.getElementById('right-column').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>

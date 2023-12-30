@@ -117,31 +117,35 @@ def test_db_connection():
         return f'Database connection error: {str(e)}'
 
 def index():
-    return render_template('index.html')
+    surgical_procedures = [
+        'Orchiectomy', 'Vaginoplasty', 'Hysterectomy', 'Oophrectomy',
+        'Metidoplasty', 'Phalloplasty', 'Breast Augmentation', 'Breast Removal',
+        'Facial Reconstructive', 'Body Contouring', 'Electrolysis',
+        'Hair removal - laser', 'Hair Transplantation'
+    ]
+    psychological_procedures = [
+        'Counseling with a social worker', 'Psychologist', 'Other Practitioner', 'Psychiatric Care', 'Medical Letter'
+    ]
+
+    return render_template('index.html', surgical_procedures=surgical_procedures, psychological_procedures=psychological_procedures)
 
 
-def results_provider():
-     if request.method == 'POST':
-        zip = request.form.get('location')
-        category = request.form.get('provider-category') 
+def results(procedure):
+    
+    if request.method == 'POST':
+        service = procedure.lower()
+        print(f"Received procedure: {service}")
 
-        if category == 'surgical':
-            service = 2
-        elif category == 'endodermal':
-            service = 1
-        else:
-            service = 0
-
-        print(service)
-        
         search_results = (
-                Provider.query
-                .join(ProviderService, Provider.provider_ID == ProviderService.provider_id)
-                .join(Service, ProviderService.service_id == Service.service_ID)
-                .filter(Service.broad_service == service, Provider.zip_code == zip)
-                .all()
-           )
-        return render_template('results_provider.html', results=search_results)
+            Provider.query
+            .join(ProviderService, Provider.provider_ID == ProviderService.provider_id)
+            .join(Service, ProviderService.service_id == Service.service_ID)
+            .filter(Service.name == service)
+            .all()
+        )
+        return render_template('results.html', results=search_results, procedure=procedure)
+    
+    return render_template('results.html', procedure=procedure)
         
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
@@ -166,14 +170,6 @@ def profile():
         return redirect(url_for('index'))
         return render_template('results_provider.html', results=search_results)
 
-def results_navigator():
-    if request.method == 'POST':
-        # Get user input from the form
-        zip = request.form.get('location')
-
-
-        care_navigator_results = CareNavigator.query.filter(CareNavigator.zip_code.ilike(f'%{zip}%')).all()
-        return render_template('results_navigator.html', results=care_navigator_results)
        
 def profile_navigator():
     return render_template('profile_navigator.html')

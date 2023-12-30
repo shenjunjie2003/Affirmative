@@ -87,7 +87,7 @@ class Service(db.Model):
     __tablename__ = 'service'
     service_ID = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(256), nullable=False)
-    broad_service = db.Column(db.Integer, nullable=False) #0 for mental health, 1 for hormone therapy, 2 for surgery
+    broad_service = db.Column(db.Integer, nullable=False) #0 for mental health, 1 for endodermal, 2 for surgery
 
 class Insurance(db.Model):
     __tablename__ = 'insurance'
