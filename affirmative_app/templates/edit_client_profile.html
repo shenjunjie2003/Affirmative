@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Client Profile</title>
+</head>
+<body>
+    <h1>Edit Client Profile</h1>
+    <form method="POST" action="{{ url_for('edit_profile') }}">
+        <label for="profile_picture">Profile Picture:</label>
+        <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+        <br>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ client.name }}" required>
+        <br>
+        <label for="pronoun">Pronoun:</label>
+        <input type="text" id="pronoun" name="pronoun" value="{{ client.pronoun }}" required>
+        <br>
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" value="{{ client.city }}" required>
+        <br>
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state" value="{{ client.state }}" required>
+        <br>
+        <input type="submit" value="Save Changes">
+    </form>
+    <a href="{{ url_for('profile') }}">Cancel</a>
+</body>
+</html>

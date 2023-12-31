@@ -41,17 +41,21 @@ class NavigatorInsurance(db.Model):
 
 class Provider(db.Model):
     __tablename__ = 'provider'
-    provider_ID = db.Column(db.Integer, primary_key=True)
+    provider_ID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(256), nullable=False)
     pronoun = db.Column(db.String(256), nullable=False)
-    location = db.Column(db.String(256), nullable=False)
-    email = db.Column(db.String(256), nullable=False)
-    insurance = db.Column(db.String(256), nullable=False)
-    website = db.Column(db.String(256), nullable=False)
-    zip_code = db.Column(db.String(256), nullable=False) # Zip code
-    finances = db.Column(db.String(256), nullable=False)
-    qualifications = db.Column(db.String(256), nullable=False)
-    profile_picture = db.Column(db.LargeBinary, nullable=True)  
+    location = db.Column(db.String(256), nullable=True)  
+    email = db.Column(db.String(256), nullable=True)  
+    insurance = db.Column(db.String(256), nullable=True)  
+    website = db.Column(db.String(256), nullable=True) 
+    zip_code = db.Column(db.String(256), nullable=True) 
+    finances = db.Column(db.String(256), nullable=True)  
+    qualifications = db.Column(db.String(256), nullable=True)  
+    profile_picture = db.Column(db.LargeBinary, nullable=True)
+    phone_number = db.Column(db.String(20), nullable=True)
+    gender = db.Column(db.Integer, nullable=True) # 0 for female, 1 for male, 2 for non-binary, 3 for transgender, 4 for genderfliud, 5 for agender
+    availability = db.Column(db.Integer, nullable=True)  # 0 for virtual, 1 for in-person, 2 for hybrid
+    category = db.Column(db.Integer, nullable=True) # 0 for social worker, 1 for psychologist, 2 for other practioner ... 
 
 class ProviderInsurance(db.Model):
     __tablename__ = 'provider_insurance'

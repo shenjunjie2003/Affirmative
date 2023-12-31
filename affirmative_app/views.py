@@ -9,10 +9,15 @@ from affirmative_app import db
 from sqlalchemy import text
 from affirmative_app.models import *
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if 'user_id' in session:
+        # User is already logged in, redirect to profile page
+        return redirect(url_for('profile'))
+
     if request.method == 'POST':
         # Extract the form data
         username = request.form['username']
@@ -23,8 +28,10 @@ def login():
 
         # Check if the user was found and the password is correct
         if user and check_password_hash(user.password, password):
-            # If the check passes, redirect to the index page
-            return redirect(url_for('index'))
+            # If the check passes, set the user_id in the session
+            session['user_id'] = user.user_ID
+            # Redirect to the profile page
+            return redirect(url_for('profile'))
         else:
             # If the user is not found or password is wrong, flash a message
             flash('Invalid username or password. Please try again.')
@@ -80,7 +87,8 @@ def register():
                 navigator_ID=new_user.user_ID,
                 name=name,
                 pronoun=pronoun,
-                location=f"{city}, {state}"
+                city=city,
+                state=state,
             )
             db.session.add(new_navigator)
 
@@ -147,28 +155,93 @@ def results(procedure):
     
     return render_template('results.html', procedure=procedure)
         
-@app.route('/profile', methods=['GET', 'POST'])
+@app.route('/profile')
 def profile():
     if 'user_id' not in session:
-        # User is not logged in, redirect to the index page
+        return redirect(url_for('login'))
+
+    user_id = session['user_id']
+    user = User.query.get(user_id)
+
+    if user.role == 0:  # Client
+        client = Client.query.get(user_id)
+        return render_template('client_profile.html', client=client, user=user)
+    elif user.role == 1:  # Care Navigator
+        navigator = CareNavigator.query.get(user_id)
+        return render_template('navigator_profile.html', navigator=navigator, user=user)
+    else:
+        flash('Invalid user role.')
+        return redirect(url_for('login'))
+    
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+
+    
+@app.route('/edit-profile', methods=['GET', 'POST'])
+def edit_profile():
+    if 'user_id' not in session:
         return redirect(url_for('index'))
 
     user_id = session['user_id']
     user = User.query.get(user_id)
 
-    if user.role == 0:  # The user is a client
+    if request.method == 'POST':
+        # Check if it's a client or navigator
+        if user.role == 0:  # Client
+            client = Client.query.get(user_id)
+            client.name = request.form['name']
+            client.pronoun = request.form['pronoun']
+            client.city = request.form['city']
+            client.state = request.form['state']
+            # Process the uploaded file if it exists
+            if 'profile_picture' in request.files:
+                file = request.files['profile_picture']
+                if file and file.filename and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    user.profile_picture = os.path.join('uploads', filename)
+            db.session.commit()
+            flash('Client profile updated successfully!')
+            return redirect(url_for('profile'))
+
+        elif user.role == 1:  # Care Navigator
+            navigator = CareNavigator.query.get(user_id)
+            navigator.name = request.form['name']
+            navigator.pronoun = request.form['pronoun']
+            navigator.email = request.form['email']
+            navigator.insurance = request.form['insurance']
+            navigator.zip_code = request.form['zip_code']
+            navigator.state = request.form['state']
+            navigator.city = request.form['city']
+            navigator.self_description = request.form['self_description']
+            navigator.trans_caregiving_experience = request.form['trans_caregiving_experience']
+            navigator.additional_experience = request.form['additional_experience']
+            
+            # Process the uploaded file if it exists
+            if 'profile_picture' in request.files:
+                file = request.files['profile_picture']
+                if file and file.filename and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    user.profile_picture = os.path.join('uploads', filename)
+
+            db.session.commit()
+            flash('Care Navigator profile updated successfully!')
+            return redirect(url_for('profile'))
+
+        # After updating, redirect back to the profile page
+        return redirect(url_for('profile'))
+
+    # Render the appropriate edit form based on the user role
+    if user.role == 0:  # Client
         client = Client.query.get(user_id)
-        # Render a template for the client profile
-        return render_template('client_profile.html', client=client, user=user)
-    elif user.role == 1:  # The user is a care navigator
+        return render_template('edit_client_profile.html', client=client, user=user)
+    elif user.role == 1:  # Care Navigator
         navigator = CareNavigator.query.get(user_id)
-        # Render a template for the care navigator profile
-        return render_template('navigator_profile.html', navigator=navigator, user=user)
+        return render_template('edit_navigator_profile.html', navigator=navigator, user=user)
     else:
-        # Handle unexpected role
         flash('Invalid user role.')
         return redirect(url_for('index'))
-        return render_template('results_provider.html', results=search_results)
 
        
 def profile_navigator():

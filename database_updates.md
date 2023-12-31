@@ -52,3 +52,20 @@ Jonny:
     ADD COLUMN `qualifications` VARCHAR(512) NULL DEFAULT NULL;
     ALTER TABLE provider
     ADD COLUMN profile_picture LONGBLOB;
+
+`Jonny 12.31`
+`Changed Provider table`
+    ALTER TABLE provider
+    MODIFY COLUMN location VARCHAR(256),
+    MODIFY COLUMN email VARCHAR(256),
+    MODIFY COLUMN insurance VARCHAR(256),
+    MODIFY COLUMN website VARCHAR(256),
+    MODIFY COLUMN zip_code VARCHAR(256),
+    MODIFY COLUMN finances VARCHAR(256),
+    MODIFY COLUMN qualifications VARCHAR(256),
+    ADD COLUMN phone_number VARCHAR(20),
+    ADD COLUMN gender INT,
+    ADD COLUMN availability INT;
+    ADD COLUMN category INT;
+
+    ALTER TABLE provider MODIFY provider_ID int NOT NULL AUTO_INCREMENT;

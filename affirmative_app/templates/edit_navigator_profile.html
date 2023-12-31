@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Care Navigator Profile</title>
+</head>
+<body>
+    <h1>Edit Care Navigator Profile</h1>
+    <form method="POST" action="{{ url_for('edit_profile') }}">
+        <label for="profile_picture">Profile Picture:</label>
+        <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+        <br>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ navigator.name }}" required>
+        <br>
+        <label for="pronoun">Pronoun:</label>
+        <input type="text" id="pronoun" name="pronoun" value="{{ navigator.pronoun }}" required>
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="{{ navigator.email }}">
+        <br>
+        <label for="insurance">Insurance:</label>
+        <input type="text" id="insurance" name="insurance" value="{{ navigator.insurance }}">
+        <br>
+        <label for="zip_code">Zip Code:</label>
+        <input type="text" id="zip_code" name="zip_code" value="{{ navigator.zip_code }}">
+        <br>
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state" value="{{ navigator.state }}" required>
+        <br>
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" value="{{ navigator.city }}" required>
+        <br>
+        <label for="self_description">Self Description:</label>
+        <textarea id="self_description" name="self_description">{{ navigator.self_description }}</textarea>
+        <br>
+        <label for="trans_caregiving_experience">Trans Caregiving Experience:</label>
+        <textarea id="trans_caregiving_experience" name="trans_caregiving_experience">{{ navigator.trans_caregiving_experience }}</textarea>
+        <br>
+        <label for="additional_experience">Additional Experience:</label>
+        <textarea id="additional_experience" name="additional_experience">{{ navigator.additional_experience }}</textarea>
+        <br>
+        <input type="submit" value="Save Changes">
+    </form>
+    <a href="{{ url_for('profile') }}">Cancel</a>
+</body>
+</html>
