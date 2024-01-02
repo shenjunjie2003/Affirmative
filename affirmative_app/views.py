@@ -3,7 +3,7 @@ views.py
 This file is the implementation of the routes for the application.
 """
 
-from flask import render_template, request, redirect, url_for, flash, session
+from flask import render_template, request, redirect, url_for, flash, session, jsonify
 from affirmative_app import app
 from affirmative_app import db
 from sqlalchemy import text
@@ -269,6 +269,16 @@ questions = [
     "I would recommend this doctor to other people.",
     "Did the doctor or the doctor office help you with the insurance process?"
 ]
+
+@app.route('/get_result_details/<int:provider_id>')
+def get_result_details(provider_id):
+    # Find the provider by ID
+    provider = next((provider for provider in Provider.query if provider['provider_ID'] == provider_id), None)
+
+    if provider:
+        return jsonify(provider)
+    else:
+        return jsonify({"error": "Provider not found"})
            
 
            

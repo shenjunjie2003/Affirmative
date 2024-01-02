@@ -24,29 +24,43 @@
 
         #center-column {
             width: 25%;
-            display: flex;
-            flex-direction: column; /* Change to column layout */
-            margin-left: 20px;
+            top: 40%;
+            position: fixed;
+            left: 37%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
+        .close-button {
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            color: black;
+            right: 10px;
+            transform: translateY(-50%);
+            font-size: 20px;
+            z-index: 102;
+        }
         .center_header {
             font-size: 18px;
             font-weight: bold;
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
-            margin-top: 90px;
-            height: 40px;
+            height: 60px;
             background-color: #959595;
-            width: 100%;
             text-align: center;
+            position: relative; /* Add this to make it relative */
         }
 
         #right-column {
             width: 50%;
             background-color: #e0e0e0;
             padding: 20px;
+            margin-top: 70px;
+            margin-left: 30%;
             display: none; /* Initially hidden */
             overflow-y: auto;
+            z-index: 10001;
         }
 
         .result-block {
@@ -54,8 +68,8 @@
             background-color: #C4C4C4;
             cursor: pointer;
             color: black;
+            height: 120px;
             margin-bottom: 3px;
-            
         }
 
         .result-details {
@@ -153,11 +167,12 @@
     </div>
 
     <div id="center-column">
+        <span class="close-button" onclick="closeCenterColumn()">×</span>
         <header class="center_header">RESULTS ({{ count }})</header>
         {% if results %}
             {% for result in results %}
-                <div class="result-block" onclick="showResultDetails()">
-                    <h2><a href="{{ url_for('profile_provider', provider_id=result.provider_ID) }}">{{ result.name }}</a></h2>
+                <div class="result-block">
+                    <h2><a href="#" id="result-link-{{ result.provider_ID }}" onclick="showResultDetails('{{ result.provider_ID }}')">{{ result.name }}</a></h2>
                     <p>details</p>
                 </div>
             {% endfor %}
@@ -169,7 +184,8 @@
     </div>
 
     <div id="right-column">
-        <!-- Result details will be displayed here -->
+        <span class="close-button" onclick="closeRightColumn()">×</span>
+        <div id="result-details-container">provider profile</div>
     </div>
 
     <script>
@@ -178,9 +194,30 @@
             alert('Filters applied!');
         }
 
+        // Function to close the center column
+        function closeCenterColumn() {
+            document.getElementById('center-column').style.display = 'none';
+        }
+
         // Sample function to simulate displaying details on result click
-        function showResultDetails() {
+        function showResultDetails(providerID) {
             document.getElementById('right-column').style.display = 'block';
+
+            // Make an AJAX request to get the result details
+            fetch(`/get_result_details/${providerID}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(result => {
+                    document.getElementById('result-details-container').innerHTML = `
+                        <h2>${result.name}</h2>
+                        <p>${result.details}</p>
+                    `;
+                })
+                .catch(error => console.error('Error:', error));
         }
     </script>
 
