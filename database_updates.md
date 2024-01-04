@@ -69,3 +69,10 @@ Jonny:
     ADD COLUMN category INT;
 
     ALTER TABLE provider MODIFY provider_ID int NOT NULL AUTO_INCREMENT;
+
+`Jenny 1.3`
+`Changed Provider table`
+    ALTER TABLE provider
+    ADD COLUMN education VARCHAR(40),
+    ADD COLUMN hospital VARCHAR(40),
+    ADD COLUMN languages VARCHAR(40)

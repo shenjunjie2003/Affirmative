@@ -273,12 +273,34 @@ questions = [
 @app.route('/get_result_details/<int:provider_id>')
 def get_result_details(provider_id):
     # Find the provider by ID
-    provider = next((provider for provider in Provider.query if provider['provider_ID'] == provider_id), None)
+    provider = Provider.query.filter_by(provider_ID=provider_id).first()    
 
     if provider:
-        return jsonify(provider)
+        # Convert the provider object to a dictionary
+        provider_data = {
+            "id": provider.provider_ID,
+            "name": provider.name,
+            "pronoun": provider.pronoun,
+            "location": provider.location,
+            "email": provider.email,
+            "insurance": provider.insurance,
+            "website": provider.website,
+            "zip_code": provider.zip_code,
+            "finances": provider.finances,
+            "qualifications": provider.qualifications,
+            "profile_picture": provider.profile_picture,
+            "phone_number": provider.phone_number,
+            "gender": provider.gender,
+            "availability": provider.availability,
+            "category": provider.category,
+            "education": provider.education,
+            "hospital": provider.hospital,
+            "languages": provider.languages
+            # Add more fields as needed
+        }
+        return jsonify(provider_data)
     else:
         return jsonify({"error": "Provider not found"})
            
 
-           
+
