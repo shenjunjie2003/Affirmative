@@ -56,6 +56,9 @@ class Provider(db.Model):
     gender = db.Column(db.Integer, nullable=True) # 0 for female, 1 for male, 2 for non-binary, 3 for transgender, 4 for genderfliud, 5 for agender
     availability = db.Column(db.Integer, nullable=True)  # 0 for virtual, 1 for in-person, 2 for hybrid
     category = db.Column(db.Integer, nullable=True) # 0 for social worker, 1 for psychologist, 2 for other practioner ... 
+    education = db.Column(db.String(256), nullable=True)
+    hospital = db.Column(db.String(256), nullable=True)
+    languages = db.Column(db.String(256), nullable=True)
 
 class ProviderInsurance(db.Model):
     __tablename__ = 'provider_insurance'
