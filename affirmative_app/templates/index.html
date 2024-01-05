@@ -15,6 +15,10 @@
         padding-top: 70px;
         }
 
+        .container {
+            display: flex;
+        }
+
         header {
             display: flex;
             justify-content: space-between;
@@ -41,23 +45,30 @@
         }
 
         .searching {
-            left: 0;
-            bottom: 0;
-            top: 80px;
             background-color: white;
-            width: 280px;
+            width: 20%;
             z-index: 200;
             padding-top: 5px;
-            overflow-y: auto; /* Allow vertical scrolling */
-            max-height: calc(100vh - 55px); /* Set max height relative to viewport height */
+            overflow-y: auto;
+            max-height: calc(100vh - 55px);
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
+        .intro{
+            width: 80%;
+            padding: 20px;
+            margin-top: 120px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center vertically */
+        }
+
         .search_bar {
             width: 90%;
-            height: 120%;
+            height: 70%;
             background: #959595;
             border-radius: 30px;
             box-sizing: border-box;
@@ -145,6 +156,9 @@
         </nav>
     </header>
 
+    <div class="container">
+
+    
     <div class="searching">
         <div>
             <input class = "search_bar" type = "text">
@@ -174,4 +188,28 @@
                 </form>
         </nav>
     </div>
+
+    <div class="intro">
+        <div>
+            <h1 style="color: #C4BD91;">Transgender Healthcare Care Navigation Affirmed</h1>
+            <p style="color: #666644; font-size: 16px; top: 50px;">
+                Welcome to our platform dedicated to providing affirming healthcare navigation for transgender individuals. <br>
+    We are committed to creating a supportive environment for all. <br>
+                Check out our database for provider resources. <br>
+                Register and subscribe for more features!
+            </p>
+        </div>
+        
+        <section style="margin-top: 230px;">
+            <div>
+                <h2 style="color: #D2CACA; font-size: 24px; margin-bottom: 10px;">Contact Us</h2>
+                <p style="color: #666644; font-size: 16px;">
+                    For inquiries, support, or collaboration, feel free to contact us through the following channels:
+                </p>
+                <ul style="list-style-type: none; padding: 0;">
+                    <li style="color: #666644; font-size: 16px; margin-bottom: 5px;">Email: <a href="mailto:info@example.com" style="color: #C4BD91; text-decoration: none;">info@example.com</a></li>
+                </div>
+    </div>
+</div>
+</body>
        
