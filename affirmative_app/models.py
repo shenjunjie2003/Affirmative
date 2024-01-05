@@ -59,6 +59,9 @@ class Provider(db.Model):
     education = db.Column(db.String(256), nullable=True)
     hospital = db.Column(db.String(256), nullable=True)
     languages = db.Column(db.String(256), nullable=True)
+    specialties = db.Column(db.String(256), nullable=True)
+    certification = db.Column(db.String(256), nullable=True)
+
 
 class ProviderInsurance(db.Model):
     __tablename__ = 'provider_insurance'

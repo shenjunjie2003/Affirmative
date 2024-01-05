@@ -8,6 +8,7 @@ from affirmative_app import app
 from affirmative_app import db
 from sqlalchemy import text
 from affirmative_app.models import *
+from affirmative_app.globals import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 
@@ -139,21 +140,13 @@ def index():
 
 
 def results(procedure):
-    
-    if request.method == 'POST':
-        service = procedure.lower()
-        print(f"Received procedure: {service}")
 
-        search_results = (
-            Provider.query
-            .join(ProviderService, Provider.provider_ID == ProviderService.provider_id)
-            .join(Service, ProviderService.service_id == Service.service_ID)
-            .filter(Service.name == service)
-            .all()
-        )
-        return render_template('results.html', results=search_results, procedure=procedure, count = len(search_results))
+    service = procedure.lower()
+    print(f"Received procedure: {service}")
+    category_id = provider_cat_dict[service]
+    providers  = Provider.query.filter_by(category=category_id).all()
+    return render_template('results.html', providers=providers, procedure=procedure, count = len(providers))
     
-    return render_template('results.html', procedure=procedure)
         
 @app.route('/profile')
 def profile():

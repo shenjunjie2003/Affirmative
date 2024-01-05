@@ -76,3 +76,8 @@ Jonny:
     ADD COLUMN education VARCHAR(40),
     ADD COLUMN hospital VARCHAR(40),
     ADD COLUMN languages VARCHAR(40)
+
+`Jonny 1.4`
+`Adjusted provider table`
+ALTER TABLE provider ADD COLUMN specialties VARCHAR(256);
+ALTER TABLE provider ADD COLUMN certification VARCHAR(256);
