@@ -3,89 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='results_style.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='results_style.css') }}">
     <title>Search Results</title>
 </head>
 <body>
 
-    <div class="container">
-
-        <aside class="filter-column">
-            <form action="/search" method="get">
-                <h2>{{procedure}}</h2>
-                <label for="gender">Gender:</label>
-                <select id="gender" name="gender">
-                    <option value="0">Female</option>
-                    <option value="1">Male</option>
-                    <option value="2">Non-Binary</option>
-                    <option value="3">Transgender</option>
-                    <option value="4">Genderfluid</option>
-                    <option value="5">Agender</option>
-                </select>
-
-                <label for="availability">Availability:</label>
-                <select id="availability" name="availability">
-                    <option value="0">Virtual</option>
-                    <option value="1">In-Person</option>
-                    <option value="2">Hybrid</option>
-                </select>
-
-                <label for="languages">Language:</label>
-                <select id="languages" name="languages">
-                    <option value="English">English</option>
-                    <option value="Chinese">Chinese</option>
-                    <option value="Spanish">Spanish</option>
-                    <option value="French">French</option>
-                    <option value="Portuguese">Portuguese</option>
-                </select>
-
-                <label for="location">Location:</label>
-                <input type="text" id="location" name="location">
-
-                <label for="insurance">Insurance:</label>
-                <input type="text" id="insurance" name="insurance">
-
-                <input type="submit" value="Apply Filters">
-            </form>
-        </aside>
-
-        <!-- Results Column -->
-        <section class="results-column">
-            <header class="results-header">
-                <h2>RESULTS (150)</h2>
-                <button class="close-button" onclick="closeCenterColumn()">×</button>
-            </header>
-            <div class="results-list">
-                {% for provider in providers %}
-                    <div class="provider-card">
-                        <h3 class="provider-name">{{ provider.name }}</h3>
-                        <div class="provider-details">
-                            <p><strong>Location:</strong> {{ provider.location }}</p>
-                            <p><strong>Phone:</strong> {{ provider.phone_number }}</p>
-                            <p><strong>Email:</strong> {{ provider.email }}</p>
-                            <p><strong>Specialties:</strong> {{ provider.specialties }}</p>
-                            <p><strong>Certifications:</strong> {{ provider.certifications }}</p>
-                            <p><strong>Languages Spoken:</strong> {{ provider.languages }}</p>
-                        </div>
-                        <button class="details-button" onclick="showProviderDetails('{{ provider.id }}')">Details</button>
-                    </div>
-                {% else %}
-                    <p>No providers found.</p>
-                {% endfor %}
+    <header class = "big_header">
+        <div class="logo">
+            <div style="width: 100%; height: 100%; position: relative; background: #D2CACA">
+                <div style="width: 16.38px; height: 16.38px; left: 13.56px; top: 0px; position: absolute; background: #C4BD91"></div>
+                <div style="width: 16.38px; height: 16.38px; left: 13.56px; top: 27.12px; position: absolute; background: #C4BD91"></div>
+                <div style="width: 16.38px; height: 16.38px; left: 27.12px; top: 13.55px; position: absolute; background: #C4BD91"></div>
+                <div style="width: 16.38px; height: 16.38px; left: 0px; top: 13.55px; position: absolute; background: #C4BD91"></div>
+                <div style="width: 18.92px; height: 2.21px; left: 12.58px; top: 20.72px; position: absolute; background: #666644"></div>
+                <div style="width: 18.92px; height: 2.10px; left: 20.99px; top: 31.29px; position: absolute; transform: rotate(-90deg); transform-origin: 0 0; background: #666644"></div>
             </div>
-        </section>
+        </div>
+    </header>
 
-        <!-- Detailed Info Column -->
-        <aside class="info-column">
-            <!-- Detailed provider information will be displayed here -->
-            <!-- This is a placeholder for the detailed view -->
-            <header class="info-header">
-                <h2>Provider Details</h2>
-                <button onclick="closeRightColumn()">×</button>
-            </header>
-        </aside>
+    <div id="left-column">
+        <h2>{{procedure}}</h2>
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender">
+            <option value="woman">Woman</option>
+            <option value="man">Man</option>
+            <option value="non-binary">Non-Binary</option>
+            <option value="transgender">Transgender</option>
+            <option value="genderfluid">Genderfluid</option>
+            <option value="agender">Agender</option>
+        </select>
 
+        <label for="meeting-form">Meeting Form:</label>
+        <select id="meeting-form" name="meeting-form">
+            <option value="in-person">In-person</option>
+            <option value="virtual">Virtual</option>
+            <option value="hybrid">Hybrid</option>
+        </select>
+
+        <label for="distance">Distance:</label>
+        <input type="text" id="distance" name="distance" placeholder="Enter Zip Code">
+
+        <label for="languages">Languages:</label>
+        <input type="text" id="languages" name="languages" placeholder="Enter Languages">
+
+        <label for="insurance">Insurances:</label>
+        <input type="text" id="insurances" name="insurances" placeholder="Enter Insurances">
+
+        <button onclick="applyFilters()">Apply Filters</button>
     </div>
 
+    <div id="center-column">
+        <span class="close-button" onclick="closeCenterColumn()">×</span>
+        <header class="center_header">RESULTS ({{ count }})</header>
+        {% if results %}
+            {% for result in results %}
+                <div class="result-block" onclick="showResultDetails('{{ result.provider_ID }}')">
+                    <h3>{{ result.name }}</h3>
+                    <p><strong>Location:</strong> {{ result.location }}</p>
+                    <p><strong>Specialties:</strong> {{ result.specialties }}</p>
+                    <p><strong>Certifications:</strong> {{ result.certification }}</p>
+                    <p><strong>Languages Spoken:</strong> {{ result.languages }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+        <footer class="center_footer">
+        </footer>
+    </div>
+
+    <div id="right-column">
+        <div class="title">
+            <span class="close-button" onclick="closeRightColumn()">×</span>
+            <div id="details-provider-name"></div>
+            <div id="details-provider-pronoun"></div>
+        </div>
+        <div class="bio">
+            <p class = "title-location">location</p>
+            <p id="details-provider-location"></p>
+            <p class = "title-email">email</p>
+            <p id="details-provider-email"></p>
+            <p class = "title-phone_number">phone_number</p>    
+            <p id="details-provider-phone_number"></p>
+        </div>
+
+    </div>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </body>
 </html>

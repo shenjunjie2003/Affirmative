@@ -144,8 +144,8 @@ def results(procedure):
     service = procedure.lower()
     print(f"Received procedure: {service}")
     category_id = provider_cat_dict[service]
-    providers  = Provider.query.filter_by(category=category_id).all()
-    return render_template('results.html', providers=providers, procedure=procedure, count = len(providers))
+    results  = Provider.query.filter_by(category=category_id).all()
+    return render_template('results.html', results=results, procedure=procedure, count = len(results))
     
         
 @app.route('/profile')
