@@ -141,11 +141,19 @@ def index():
 
 def results(procedure):
 
-    service = procedure.lower()
-    print(f"Received procedure: {service}")
-    category_id = provider_cat_dict[service]
-    results  = Provider.query.filter_by(category=category_id).all()
-    return render_template('results.html', results=results, procedure=procedure, count = len(results))
+    if request.method == 'POST':
+        service = procedure.lower()
+        print(f"Received procedure: {service}")
+        search_results = (
+            Provider.query
+            .join(ProviderService, Provider.provider_ID == ProviderService.provider_id)
+            .join(Service, ProviderService.service_id == Service.service_ID)
+            .filter(Service.name == service)
+            .all()
+        )
+        return render_template('results.html', results=search_results, procedure=procedure, count = len(search_results))
+    
+    return render_template('results.html', procedure=procedure)
     
         
 @app.route('/profile')

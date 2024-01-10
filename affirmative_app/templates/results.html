@@ -88,6 +88,26 @@
         </div>
 
     </div>
-    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts.js') }}">
+        function showResultDetails(providerID) {
+            document.getElementById('right-column').style.display = 'block';
+
+            // Make an AJAX request to get the result details
+            fetch(`/get_result_details/${providerID}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(result => {
+                    document.getElementById('result-details-container').innerHTML = `
+                        <h2>${result.name}</h2>
+                        <p>${result.details}</p>
+                    `;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
 </body>
 </html>
