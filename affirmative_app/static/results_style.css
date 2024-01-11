@@ -7,26 +7,20 @@ body {
     flex-direction: row;
     min-height: 100vh;
 }
-
 #left-column {
     width: 20%;
     background-color: #e0e0e0;
     margin-top: 70px;
     padding: 20px;
 }
-
 #center-column {
     width: 25%;
-    display: flex;
-    flex-direction: column; /* Change to column layout */
-    margin-left: 20px;
     top: 40%;
     position: fixed;
     left: 37%;
     transform: translate(-50%, -50%);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-
 .close-button {
     cursor: pointer;
     position: absolute;
@@ -37,30 +31,28 @@ body {
     font-size: 20px;
     z-index: 102;
 }
-
 .center_header {
     font-size: 18px;
     font-weight: bold;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    margin-top: 90px;
-    height: 40px;
     height: 60px;
     background-color: #959595;
-    width: 100%;
     text-align: center;
     position: relative; /* Add this to make it relative */
 }
 
 #right-column {
     width: 50%;
-    background-color: #e0e0e0;
+    background-color: white;
     padding: 20px;
     margin-top: 70px;
     margin-left: 30%;
     display: none; /* Initially hidden */
     overflow-y: auto;
     z-index: 10001;
+    display: flex;
+    flex-direction: column;
 }
 
 .result-block {
@@ -80,17 +72,17 @@ body {
 
 .big_header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 70px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    border-bottom: 1px solid rgb(228, 228, 228);
-    z-index: 100;
-    background-color: #D2CACA;
-    padding: 0 20px;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            border-bottom: 1px solid rgb(228, 228, 228);
+            z-index: 100;
+            background-color: #D2CACA;
+            padding: 0 20px;
 }
 
 .logo {
@@ -117,4 +109,43 @@ overflow-y: auto; /* Enable vertical scrolling for the results */
     background-color: #959595;
     width: 100%;
     text-align: center;
+}
+
+#details-provider-pronoun {
+    color: black;
+    font-size: 10px;
+    font-family: Avenir;
+    font-weight: 200;
+    text-transform: capitalize;
+    word-wrap: break-word;
+}
+
+
+#details-provider-name {
+    color: #666644;
+    font-size: 25px;
+    font-family: Avenir;
+    font-weight: 800;
+    text-transform: uppercase;
+    word-wrap: break-word;
+    margin-right: 10px; /* Add margin to separate from pronoun */
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+bio p {
+    margin: 5px 0;
+}
+
+.title-location,
+.title-email,
+.title-phone_number {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 5px;
 }
