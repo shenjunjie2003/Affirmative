@@ -81,3 +81,11 @@ Jonny:
 `Adjusted provider table`
 ALTER TABLE provider ADD COLUMN specialties VARCHAR(256);
 ALTER TABLE provider ADD COLUMN certification VARCHAR(256);
+
+`Jonny 1.13`
+`Add provider-language table`
+CREATE TABLE `provider_language` (
+  `provider_id` int NOT NULL,
+  `language_id` int NOT NULL,
+  PRIMARY KEY (`provider_id`,`language_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

@@ -154,7 +154,62 @@ def results(procedure):
         return render_template('results.html', results=search_results, procedure=procedure, count = len(search_results))
     
     return render_template('results.html', procedure=procedure)
-    
+
+
+def apply_filters():
+    # Extract query parameters
+    distance = request.args.get('distance', default=None, type=int)
+    procedure = request.args.get('procedure', default=None)
+    gender = gender_table.get(request.args.get('gender', ''), None)
+    meeting_form = availability_table.get(request.args.get('meetingForm', ''), None)
+    language = language_dict.get(request.args.get('language', ''), None)
+    insurance = insurance_dict.get(request.args.get('insurance', ''), None)
+
+    # Initial query to get providers in the given category
+    query = (
+        Provider.query
+        .join(ProviderService, Provider.provider_ID == ProviderService.provider_id)
+        .join(Service, ProviderService.service_id == Service.service_ID)
+        .filter(Service.name == procedure)
+    )
+
+    # Apply additional filters with explicit joins
+    if gender is not None:
+        query = query.filter(Provider.gender == gender)
+    if meeting_form is not None:
+        query = query.filter(Provider.availability == meeting_form)
+
+    # For language and insu
+    # rance, ensure explicit joins with the many-to-many relationship tables
+    print(language)
+    if language is not None:
+        query = query.join(ProviderLanguage, Provider.provider_ID == ProviderLanguage.provider_id).filter(ProviderLanguage.language_id == language)
+    if insurance is not None:
+        query = query.join(ProviderInsurance, Provider.provider_ID == ProviderInsurance.provider_id).filter(ProviderInsurance.insurance_id == insurance)
+
+
+    # Execute the query
+    filtered_results = query.all()
+
+    if distance is not None:
+        filtered_results = sorted(filtered_results, key=lambda provider: abs(int(provider.zip_code or 0) - distance))
+
+    # Convert the results to a list of dictionaries (or a similar structure that can be JSON serialized)
+    filtered_results_dicts = [provider_to_dict(provider) for provider in filtered_results]
+
+    return jsonify(filtered_results_dicts)
+
+def provider_to_dict(provider):
+    # Convert a Provider object to a dictionary
+    return {
+        'provider_ID': provider.provider_ID,
+        'name': provider.name,
+        'pronoun': provider.pronoun,
+        'location': provider.location,
+        'specialties': provider.specialties,
+        'languages': provider.languages,
+        # Add other fields as necessary
+    }
         
 @app.route('/profile')
 def profile():

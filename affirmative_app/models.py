@@ -68,6 +68,11 @@ class ProviderInsurance(db.Model):
     provider_id = db.Column(db.Integer, primary_key=True)
     insurance_id = db.Column(db.Integer, primary_key=True)
 
+class ProviderLanguage(db.Model):
+    __tablename__ = 'provider_language'
+    provider_id = db.Column(db.Integer, primary_key=True)
+    language_id = db.Column(db.Integer, primary_key=True)
+
 class ProviderService(db.Model):
     __tablename__ = 'provider_service'
     provider_id = db.Column(db.Integer, primary_key=True)
