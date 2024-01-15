@@ -51,7 +51,7 @@ class Provider(db.Model):
     zip_code = db.Column(db.String(256), nullable=True) 
     finances = db.Column(db.String(256), nullable=True)  
     qualifications = db.Column(db.String(256), nullable=True)  
-    profile_picture = db.Column(db.LargeBinary, nullable=True)
+    profile_picture = db.Column(db.String(256), nullable=True)  
     phone_number = db.Column(db.String(20), nullable=True)
     gender = db.Column(db.Integer, nullable=True) # 0 for female, 1 for male, 2 for non-binary, 3 for transgender, 4 for genderfliud, 5 for agender
     availability = db.Column(db.Integer, nullable=True)  # 0 for virtual, 1 for in-person, 2 for hybrid

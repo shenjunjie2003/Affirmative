@@ -89,3 +89,8 @@ CREATE TABLE `provider_language` (
   `language_id` int NOT NULL,
   PRIMARY KEY (`provider_id`,`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+`Jonny 1.15`
+`change profile_picture type from blob to varchar`
+ALTER TABLE `provider`
+CHANGE COLUMN `profile_picture` `profile_picture` VARCHAR(256) DEFAULT NULL;
