@@ -31,6 +31,7 @@ body {
 #center-column {
     width: 25%;
     position: relative; 
+    margin-left: 5%;
     margin-top: 70px; 
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     height: calc(100vh - 70px);
@@ -59,7 +60,7 @@ body {
     background-color: white;
     padding: 20px;
     margin-top: 70px;
-    margin-left: 30%;
+    margin-left: 5%;
     display: none; /* Initially hidden */
     overflow-y: auto;
     z-index: 10001;
@@ -153,6 +154,23 @@ body {
     margin-right: 10px; /* Add margin to separate from pronoun */
 }
 
+#details-provider-location{
+    color: black;
+    font-size: 14px;
+    font-family: Avenir;
+    font-weight: 400;
+    text-transform: capitalize;
+    word-wrap: break-word
+}
+#details-provider-zip_code{
+    color: black;
+    font-size: 14px;
+    font-family: Avenir;
+    font-weight: 400;
+    text-transform: capitalize;
+    word-wrap: break-word
+}
+
 .title {
     display: flex;
     justify-content: space-between;
@@ -160,14 +178,58 @@ body {
     margin-bottom: 20px;
 }
 
-bio p {
+.bio{
     margin: 5px 0;
+    display: flex;
+    flex-direction: row;
 }
 
 .title-location,
 .title-email,
 .title-phone_number {
-    font-weight: bold;
+    color: black;
+    font-size: 20px;
+    font-family: Avenir;
+    font-weight: 800;
     text-transform: uppercase;
-    margin-bottom: 5px;
+    word-wrap: break-word
+}
+
+.subdivision {
+    margin-bottom: 20px;
+}
+
+.about {
+    color: black;
+    font-size: 20px;
+    font-family: Avenir;
+    font-weight: 800;
+    text-transform: uppercase;
+    word-wrap: break-word;
+    margin-bottom: 10px;
+}
+
+.about-text {
+    color: black;
+    font-size: 14px;
+    font-family: Avenir;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+.finances,
+.insurance,
+.qualifications {
+    color: black;
+    font-size: 20px;
+    font-family: Avenir;
+    font-weight: 800;
+    text-transform: uppercase;
+    word-wrap: break-word;
+}
+
+/* Add more styles as needed */
+
+.subdivision p {
+    margin-bottom: 10px;
 }

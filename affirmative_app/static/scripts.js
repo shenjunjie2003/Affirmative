@@ -111,22 +111,40 @@ fetch(`/get_result_details/${providerID}`)
     document.getElementById('details-provider-phone_number').innerHTML = `
         <h2>${provider.phone_number}</h2>
     `;
-    /*document.getElementById('details-provider-profile_picture').innerHTML = `
-        <h2>${provider.profile_picture}</h2>
-    `;*/
+    document.getElementById('details-provider-insurance').innerHTML = `
+        <h2>${provider.insurance}</h2>
+    `;
+    document.getElementById('details-provider-website').innerHTML = `
+        <h2>${provider.website}</h2>
+    `;
+    document.getElementById('details-provider-zip_code').innerHTML = `
+        <h2>${provider.zip_code}</h2>
+    `;
+    document.getElementById('details-provider-finances').innerHTML = `
+        <h2>${provider.finances}</h2>
+    `;
+    document.getElementById('details-provider-qualifications').innerHTML = `
+    <h2>${provider.qualifications}</h2>
+    `;
+    document.getElementById('details-provider-category').innerHTML = `
+    <h2>${provider.category}</h2>
+    `;
+    document.getElementById('details-provider-education').innerHTML = `
+    <h2>${provider.education}</h2>
+    `;
+    document.getElementById('details-provider-hospital').innerHTML = `
+    <h2>${provider.hospital}</h2>
+    `;
+    document.getElementById('details-provider-languages').innerHTML = `
+    <h2>${provider.languages}</h2>
+    `;
+    document.getElementById('details-provider-profile_picture').innerHTML = `
+    <img src="${provider.profile_picture}" alt="Profile Picture">
+    `;
 
 
 
-    /*
-        <p id="details-provider-insurance">${provider.insurance}</p>
-        <p id="details-provider-website">${provider.website}</p>
-        <p id="details-provider-zip_code">${provider.zip_code}</p>
-        <p id="details-provider-finances">${provider.finances}</p>
-        <p id="details-provider-qualifications">${provider.qualifications}</p>
-        <p id = "details-provider-category">${provider.category}</p>
-        <p id = "details-provider-education">${provider.education}</p>
-        <p id = "details-provider-hospital">${provider.hospital}</p>
-        <p id = "details-provider-languages">${provider.languages}</p>*/
+       
 })
 .catch(error => console.error('Error:', error));
 }
