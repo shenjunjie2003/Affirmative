@@ -84,7 +84,7 @@ function closeRightColumn() {
 }
 
 function showResultDetails(providerID) {
-    document.getElementById('right-column').style.display = 'block';
+    document.getElementById('right-column').style.display = 'flex';
 
     // Make an AJAX request to get the result details
 fetch(`/get_result_details/${providerID}`)
