@@ -12,10 +12,10 @@
     <header class = "big_header">
         <div class="logo">
             <div style="width: 100%; height: 100%; position: relative; background: #D2CACA">
-                <div style="width: 16.38px; height: 16.38px; left: 13.56px; top: 0px; position: absolute; background: #C4BD91"></div>
-                <div style="width: 16.38px; height: 16.38px; left: 13.56px; top: 27.12px; position: absolute; background: #C4BD91"></div>
-                <div style="width: 16.38px; height: 16.38px; left: 27.12px; top: 13.55px; position: absolute; background: #C4BD91"></div>
-                <div style="width: 16.38px; height: 16.38px; left: 0px; top: 13.55px; position: absolute; background: #C4BD91"></div>
+                <div style="width: 16.38px; height: 16.38px; left: 13.56px; top: 0px; position: absolute; border-radius: 50%; background: #C4BD91"></div>
+                <div style="width: 16.38px; height: 16.38px; left: 13.56px; top: 27.12px; position: absolute; border-radius: 50%; background: #C4BD91"></div>
+                <div style="width: 16.38px; height: 16.38px; left: 27.12px; top: 13.55px; position: absolute; border-radius: 50%; background: #C4BD91"></div>
+                <div style="width: 16.38px; height: 16.38px; left: 0px; top: 13.55px; position: absolute; border-radius: 50%;background: #C4BD91"></div>
                 <div style="width: 18.92px; height: 2.21px; left: 12.58px; top: 20.72px; position: absolute; background: #666644"></div>
                 <div style="width: 18.92px; height: 2.10px; left: 20.99px; top: 31.29px; position: absolute; transform: rotate(-90deg); transform-origin: 0 0; background: #666644"></div>
             </div>
@@ -77,7 +77,6 @@
     </div>
 
     <div id="center-column">
-        <span class="close-button" onclick="closeCenterColumn()">×</span>
         <div class="results-container">
             {% if results %}
                 {% for result in results %}
@@ -102,40 +101,63 @@
                 <h2 id="details-provider-name" class="provider-name"></h2>
                 <h2 id="details-provider-pronoun" class="provider-pronoun"></h2>
             </div>
-            <span class="close-button" onclick="closeRightColumn()">x</span>
+            <div class="close-button" onclick="closeRightColumn()">
+                <img src="/static/uploads/np_x_1099163_000000 1.png" alt="Image">
+            </div>
         </div>
         <div class="bio">
             <div class="profile-pic">
-                <img id="details-provider-profile_picture" alt="Profile Picture">
+                <img id="details-provider-profile_picture" src = "/static/uploads/default_profile_pic.png">
             </div>
             <div class="location-and-contact">
                 <div class="location">
                     <h3 class="title-location">LOCATION</h3>
-                    <p id="details-provider-location"></p>
+                    <p id="details-provider-address"></p>
+                    <p id="details-provider-cityandstate"></p>
                     <p id="details-provider-zip_code"></p>
                 </div>
-                <div class="email">
-                    <h3 class="title-email">EMAIL</h3>
-                    <p id="details-provider-email"></p>
-                </div>
-                <div class="phone">
-                    <h3 class="title-phone_number">PHONE</h3>    
-                    <p id="details-provider-phone_number"></p>
+                <div class = "email_and_phone">
+                    <div class="email">
+                        <h3 class="title-email">EMAIL</h3>
+                        <p id="details-provider-email"></p>
+                    </div>
+                    <div class="phone">
+                        <h3 class="title-phone_number">PHONE</h3>    
+                        <p id="details-provider-phone_number"></p>
+                    </div>
                 </div>
             </div>
-            <div class="contact-buttons">
-                <button id="email-button">Email</button>
-                <button id="phone-button">Phone</button>
-                <button id="bookmark-button">Bookmark</button>
+            <div class="bookmark_buttons">
+                <button class="bookmark-button">Bookmark</button>
             </div>
         </div>
-        <div class="subdivision about">
+        <div class="subdivision_about">
             <h3 class="about-title">ABOUT</h3>
-            <p id="details-provider-speciality" class="title-specialities"></p>
-            <p id="details-provider-education" class="title-education"></p>
-            <p id="details-provider-hospital" class="title-hospital"></p>
+            <div class = "about-text">   
+                <div class="specialities">
+                    <h3 class="title-specialities">SPECIALITIES</h3>    
+                    <p id="details-provider-specialities"></p>
+                </div>
+                <div class="gender">
+                    <h3 class="title-education">GENDER</h3>
+                    <p id="details-provider-gender"></p>
+                </div>
+                <div class="education">
+                    <h3 class="title-education">EDUCATION</h3>
+                    <p id="details-provider-education"></p>
+                </div>
+                <div class="hospital">
+                    <h3 class="title-hospital">HOSPITAL AFFILIATIONS</h3>
+                    <p id="details-provider-hospital"></p>
+                </div>
+                <div class="languages">
+                    <h3 class="title-languages">LANGUAGES SPOKEN</h3>
+                    <p id="details-provider-languages"></p>
+                </div>
+            </div> 
             <p id="details-provider-languages" class="title-languages"></p>
         </div>
+
         <div class="subdivision finances">
             <h3 class="finances-title">FINANCES</h3>
             <p id="details-provider-finances"></p>

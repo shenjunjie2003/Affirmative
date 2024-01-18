@@ -403,27 +403,53 @@ def get_result_details(provider_id):
 
     if provider:
         # Convert the provider object to a dictionary
+
+        insurance = (
+            ProviderInsurance.query
+            .join(Provider, Provider.provider_ID == ProviderInsurance.provider_id)
+            .filter(Provider.provider_ID == provider_id)
+            .limit(5)
+            .all()
+        )
+
+        insurance_ids = [row.insurance_id for row in insurance]
+
+        insurance_names = [insurance_dict_reverse.get(insurance_id, "Unknown") for insurance_id in insurance_ids]
+
+
+        languages = (
+            ProviderLanguage.query
+            .join(Provider, Provider.provider_ID == ProviderLanguage.provider_id)
+            .filter(Provider.provider_ID == provider_id)
+            .limit(5)
+            .all()
+        )
+
+        language_ids = [row.language_id for row in languages]  
+        language_names = [language_dict_reverse.get(language_id, "Unknown") for language_id in language_ids]
+
         provider_data = {
             "id": provider.provider_ID,
             "name": provider.name,
             "pronoun": provider.pronoun,
-            "location": provider.location,
+            "address": provider.address,
+            "state": provider.state,
+            "city": provider.city,
             "email": provider.email,
-            "insurance": provider.insurance,
-            "website": provider.website,
+            "insurance": insurance_names,
             "zip_code": provider.zip_code,
             "finances": provider.finances,
             "qualifications": provider.qualifications,
-            "profile_picture": provider.profile_picture,
             "phone_number": provider.phone_number,
             "gender": provider.gender,
-            "availability": provider.availability,
-            "category": provider.category,
             "education": provider.education,
             "hospital": provider.hospital,
-            "languages": provider.languages
+            "languages": language_names,
+            "specialties": provider.specialties,
+            "education": provider.education,
             # Add more fields as needed
         }
+        print(provider_data)
         return jsonify(provider_data)
     else:
         return jsonify({"error": "Provider not found"})

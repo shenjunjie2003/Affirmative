@@ -53,7 +53,7 @@ body {
 
 #left-column {
     flex: 0 0 20%; /* You can adjust the flex-basis as needed */
-    max-width: 20%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 20% */
+    max-width: 25%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 20% */
     background-color: #e0e0e0;
     padding: 20px;
     margin-top: 70px;
@@ -131,20 +131,13 @@ button:hover {
 
 #center-column {
     flex: 1; /* Grow and shrink as needed */
-    max-width: 40%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 60% */
+    max-width: 25%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 60% */
     margin-top: 70px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     height: calc(100vh - 70px); /* Full height minus header */
 }
 
-.close-button {
-    cursor: pointer;
-    position: absolute; /* Position it absolutely within its relative parent */
-    top: 0; /* Align to the top */
-    right: 0; /* Align to the right */
-    z-index: 10; /* Make sure it's above other elements */
-}
 
 .center_header {
     font-size: 18px;
@@ -235,26 +228,33 @@ button:hover {
 /*------------------------------------------ Right column ------------------------------------------ */
 #right-column {
     flex: 0 0 40%; /* Change the flex-basis to 40%, giving it more room */
-    max-width: 40%;
     position: static;
-    width: 35%; /* Adjust the width as necessary */
+    width: 50%; /* Adjust the width as necessary */
     background-color: #fff;
-    padding: 20px;
+    padding: 10px;
     box-sizing: border-box;
     overflow-y: auto;
     position: fixed;
     top: 70px; /* Align with the top of your other columns */
     right: 0; /* Align with the right side of the viewport */
     bottom: 0; /* Stretch to the bottom of the viewport */
-    display: flex;
+    display: none; /* Hide the column by default */
     flex-direction: column;
+}
+
+.close-button {
+    cursor: pointer;
+    position: absolute; /* Position it absolutely within its relative parent */
+    top: 25px; /* Align to the top */
+    right: 10px; /* Align to the right */
+    z-index: 10; /* Make sure it's above other elements */
+    font-size: 50px;
 }
 
 .name-and-pronoun {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
 }
 
 .provider-name h2 {
@@ -274,17 +274,24 @@ button:hover {
 
 #details-provider-pronoun {
     color: black;
-    font-size: 10px;
+    font-size: 15px;
     font-family: Avenir;
     font-weight: 200;
     text-transform: capitalize;
     word-wrap: break-word;
 }
 
+.email_and_phone{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
 
 #details-provider-name {
     color: #666644;
-    font-size: 25px;
+    font-size: 35px;
     font-family: Avenir;
     font-weight: 800;
     text-transform: uppercase;
@@ -292,7 +299,8 @@ button:hover {
     margin-right: 10px;
 }
 
-#details-provider-location,
+#details-provider-cityandstate,
+#details-provider-address,
 #details-provider-zip_code,
 #details-provider-email,
 #details-provider-phone_number,
@@ -305,7 +313,7 @@ button:hover {
 #details-provider-insurance,
 #details-provider-qualifications {
     color: black;
-    font-size: 10px;
+    font-size: 13px;
     font-family: Avenir;
     word-wrap: break-word;
 }
@@ -343,6 +351,7 @@ button:hover {
 }
 
 .about-text {
+    background-color:#D9D9D9 ;
     color: black;
     font-size: 14px;
     font-family: Avenir;
@@ -352,6 +361,7 @@ button:hover {
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 15px;
     row-gap: 40px;
+    padding-left: 5%;
 }
 
 .finances,
@@ -366,17 +376,10 @@ button:hover {
 }
 
 .profile-pic img {
-    width: 100px; /* Adjust as needed */
-    height: 100px; /* Adjust as needed */
+    width: 180px; /* Adjust as needed */
+    height: 180px; /* Adjust as needed */
     border-radius: 50%;
-    margin-bottom: 20px;
-}
-
-.buttons {
-    flex: 1; /* Make buttons take 1/3 of the space */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    margin-bottom: 3%;
 }
 
 /* Arrange the elements within the location and contact div */
@@ -384,35 +387,46 @@ button:hover {
     display: flex;
     flex-direction: column;
     margin-right: 5%;
-    width: 100%;
+    width: 33%;
     align-items: flex-start;
 }
 
 .location, .email, .phone {
-    margin-bottom: 10px; /* Adjust as needed for spacing between location and contact */
-    margin-right: 10%;
+    margin-right: 15%;
 }
 
-.contact-buttons button {
-    margin-bottom: 10px;
+.bookmark-button {
     width: 100%;
     padding: 10px;
     border: none;
-    border-radius: 4px;
+    height: 40px;
+    border-radius: 50%;
+    border-radius: 10px;
     background-color: #C4BD91;
+    margin-right: 10%;
     color: white;
     cursor: pointer;
+    margin-top: 40%;
 }
 
-.contact-buttons button:hover {
+.bookmark_buttons {
+    width: 20%;
+    align-items: center;
+}
+
+#bookmark_button:hover {
     background-color: #a69f7c; /* Darker shade for hover effect */
 }
 
-.contact{
-    display: flex;
-    flex-direction: row;
+.profile-pic{
+    width: 33%;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    right: 0; /* Align with the right side of the viewport */
+    bottom: 0; /* Stretch to the bottom of the viewport */
+    flex-direction: column;
     align-items: center;
-    flex: 2;
 }
 
 /* Add more styles as needed */

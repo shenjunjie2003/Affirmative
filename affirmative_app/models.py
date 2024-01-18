@@ -66,7 +66,9 @@ class Provider(db.Model):
     demand = db.Column(db.Integer, nullable=True)
     communities = db.Column(db.Integer, nullable=True)
     ethnicity = db.Column(db.String(256), nullable=True)
-
+    state = db.Column(db.String(256), nullable=True)
+    city = db.Column(db.String(256), nullable=True)
+    address = db.Column(db.String(256), nullable=True)
 
 class ProviderInsurance(db.Model):
     __tablename__ = 'provider_insurance'
