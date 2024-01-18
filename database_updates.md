@@ -91,6 +91,37 @@ CREATE TABLE `provider_language` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 `Jonny 1.15`
-`change profile_picture type from blob to varchar`
 ALTER TABLE `provider`
 CHANGE COLUMN `profile_picture` `profile_picture` VARCHAR(256) DEFAULT NULL;
+
+ALTER TABLE `provider`
+ADD COLUMN `state` VARCHAR(256) DEFAULT NULL,
+ADD COLUMN `city` VARCHAR(256) DEFAULT NULL,
+ADD COLUMN `address` VARCHAR(256) DEFAULT NULL;
+
+ALTER TABLE patient ADD COLUMN state VARCHAR(256);
+ALTER TABLE patient ADD COLUMN city VARCHAR(256);
+ALTER TABLE patient ADD COLUMN address VARCHAR(256);
+ALTER TABLE patient ADD COLUMN environment VARCHAR(256);
+ALTER TABLE patient ADD COLUMN insurance VARCHAR(256);
+ALTER TABLE patient ADD COLUMN accessibility VARCHAR(256);
+ALTER TABLE patient ADD COLUMN ethnicity VARCHAR(256);
+ALTER TABLE patient ADD COLUMN gender VARCHAR(256);
+ALTER TABLE patient ADD COLUMN language VARCHAR(256);
+ALTER TABLE provider ADD COLUMN year_of_experience INT;
+ALTER TABLE provider ADD COLUMN badges INT;
+ALTER TABLE provider ADD COLUMN demand INT;
+ALTER TABLE provider ADD COLUMN communities INT;
+ALTER TABLE provider ADD COLUMN ethnicity VARCHAR(256);
+
+
+ALTER TABLE patient ADD COLUMN preferred_gender VARCHAR(256);
+ALTER TABLE patient ADD COLUMN preferred_ethnicity VARCHAR(256);
+
+
+`Jonny 1.16`
+CREATE TABLE `patient_provider_saved` (
+  `patient_id` int NOT NULL,
+  `provider_id` int NOT NULL,
+  PRIMARY KEY (`patient_id`,`provider_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

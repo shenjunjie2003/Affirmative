@@ -61,6 +61,11 @@ class Provider(db.Model):
     languages = db.Column(db.String(256), nullable=True)
     specialties = db.Column(db.String(256), nullable=True)
     certification = db.Column(db.String(256), nullable=True)
+    year_of_experience = db.Column(db.Integer, nullable=True)
+    badges = db.Column(db.Integer, nullable=True)
+    demand = db.Column(db.Integer, nullable=True)
+    communities = db.Column(db.Integer, nullable=True)
+    ethnicity = db.Column(db.String(256), nullable=True)
 
 
 class ProviderInsurance(db.Model):
@@ -83,6 +88,17 @@ class Patient(db.Model):
     user_ID = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(256), nullable=False)
     email = db.Column(db.String(256), nullable=False)
+    state = db.Column(db.String(256), nullable=True)
+    city = db.Column(db.String(256), nullable=True)
+    address = db.Column(db.String(256), nullable=True)
+    environment = db.Column(db.String(256), nullable=True)
+    insurance = db.Column(db.String(256), nullable=True)
+    accessibility = db.Column(db.String(256), nullable=True)
+    ethnicity = db.Column(db.String(256), nullable=True)
+    gender = db.Column(db.String(256), nullable=True)
+    language = db.Column(db.String(256), nullable=True)
+    preferred_gender = db.Column(db.String(256), nullable=True)
+    preferred_ethnicity = db.Column(db.String(256), nullable=True)
 
 class ReviewForProvider(db.Model):
     __tablename__ = 'review_for_provider'
@@ -117,4 +133,9 @@ class SavedNavigator(db.Model):
 class SavedProvider(db.Model):
     __tablename__ = 'saved_provider'
     client_id = db.Column(db.Integer, primary_key=True)
+    provider_id = db.Column(db.Integer, primary_key=True)
+
+class PatientProviderSaved(db.Model):
+    __tablename__ = 'patient_provider_saved'
+    patient_id = db.Column(db.Integer, primary_key=True)
     provider_id = db.Column(db.Integer, primary_key=True)

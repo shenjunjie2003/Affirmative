@@ -3,6 +3,7 @@ views.py
 This file is the implementation of the routes for the application.
 """
 
+import random
 from flask import render_template, request, redirect, url_for, flash, session, jsonify
 from affirmative_app import app
 from affirmative_app import db
@@ -136,7 +137,27 @@ def index():
         'Counseling with a social worker', 'Psychologist', 'Other Practitioner', 'Psychiatric Care', 'Medical Letter'
     ]
 
-    return render_template('index.html', surgical_procedures=surgical_procedures, psychological_procedures=psychological_procedures)
+    patients = Patient.query.limit(4).all()
+
+    def get_gender_string(gender_number):
+        try:
+            gender_number = int(gender_number)
+        except ValueError:
+            return "Unknown"
+        return gender_table_reverse.get(gender_number, "Unknown")
+    
+    
+    for patient in patients:
+        patient.display_gender = get_gender_string(patient.preferred_gender)
+        saved_providers = db.session.query(Provider.name).join(
+            PatientProviderSaved, 
+            PatientProviderSaved.provider_id == Provider.provider_ID
+        ).filter(PatientProviderSaved.patient_id == patient.user_ID).all()
+        patient.saved_provider_names = [provider.name for provider in saved_providers]
+
+    return render_template('index.html', patients=patients, 
+                           surgical_procedures=surgical_procedures, 
+                           psychological_procedures=psychological_procedures)
 
 
 def results(procedure):
@@ -149,6 +170,7 @@ def results(procedure):
             .join(ProviderService, Provider.provider_ID == ProviderService.provider_id)
             .join(Service, ProviderService.service_id == Service.service_ID)
             .filter(Service.name == service)
+            .limit(5)
             .all()
         )
         return render_template('results.html', results=search_results, procedure=procedure, count = len(search_results))
@@ -179,9 +201,7 @@ def apply_filters():
     if meeting_form is not None:
         query = query.filter(Provider.availability == meeting_form)
 
-    # For language and insu
-    # rance, ensure explicit joins with the many-to-many relationship tables
-    print(language)
+    # For language and insurance, ensure explicit joins with the many-to-many relationship tables
     if language is not None:
         query = query.join(ProviderLanguage, Provider.provider_ID == ProviderLanguage.provider_id).filter(ProviderLanguage.language_id == language)
     if insurance is not None:
@@ -190,26 +210,76 @@ def apply_filters():
 
     # Execute the query
     filtered_results = query.all()
-
     if distance is not None:
         filtered_results = sorted(filtered_results, key=lambda provider: abs(int(provider.zip_code or 0) - distance))
+    else:
+        filtered_results = sorted(filtered_results, key=lambda provider: abs(int(provider.zip_code or 0) - 48105))
+
+    # If less than 5 reuslts, give random results
+    if len(filtered_results) < 5:
+        results = query.all()
+        results = random.sample(results, min(5, len(results)))
+        for provider in results:
+            provider.label = "Not Match but Recommended"
+
+        filtered_results_dicts = [provider_to_dict(provider) for provider in results]
+        return jsonify(filtered_results_dicts)
+        
+
+    # Label the results
+    random_indices = random.sample(range(8), 2)
+
+    results_to_display = []
+
+    shortest_distance = False
+    if random_indices[0] == 2:
+        results_to_display.append(filtered_results[0])
+        results_to_display[0].label = label_dict[2]
+        filtered_results.pop(0)
+        shortest_distance = True
+        other_index = 1
+    elif random_indices[1] == 2:
+        results_to_display.append(filtered_results[0])
+        results_to_display[0].label = label_dict[2]
+        filtered_results.pop(0)
+        shortest_distance = True
+        other_index = 0
+
+    for i in range(3):
+        results_to_display.append(filtered_results[0])
+        results_to_display[-1].label = "Best Match"
+        filtered_results.pop(0)
+
+    if shortest_distance:
+        results_to_display.append(filtered_results[0])
+        results_to_display[-1].label = label_dict[random_indices[other_index]]
+        filtered_results.pop(0)
+        results_to_display.append(results_to_display.pop(0))
+    else:
+        random.shuffle(filtered_results)
+        results_to_display.append(filtered_results.pop(0))
+        results_to_display[-1].label = label_dict[random_indices[0]]
+        results_to_display.append(filtered_results.pop(0))
+        results_to_display[-1].label = label_dict[random_indices[1]]
 
     # Convert the results to a list of dictionaries (or a similar structure that can be JSON serialized)
-    filtered_results_dicts = [provider_to_dict(provider) for provider in filtered_results]
+    filtered_results_dicts = [provider_to_dict(provider) for provider in results_to_display]
 
     return jsonify(filtered_results_dicts)
 
 def provider_to_dict(provider):
     # Convert a Provider object to a dictionary
-    return {
+    provider_dict = {
         'provider_ID': provider.provider_ID,
         'name': provider.name,
         'pronoun': provider.pronoun,
         'location': provider.location,
         'specialties': provider.specialties,
         'languages': provider.languages,
-        # Add other fields as necessary
     }
+    if hasattr(provider, 'label'):
+        provider_dict['label'] = provider.label
+    return provider_dict
         
 @app.route('/profile')
 def profile():

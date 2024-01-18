@@ -1,0 +1,218 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    padding-top: 70px;
+}
+
+.container {
+    display: flex;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid rgb(228, 228, 228);
+    z-index: 100;
+    background-color: #D2CACA;
+    padding: 0 20px;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    background-color: #C4BD91;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searching {
+    background-color: white;
+    width: 20%;
+    z-index: 200;
+    padding-top: 5px;
+    overflow-y: auto;
+    max-height: calc(100vh - 55px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.intro{
+    width: 80%;
+    padding: 20px;
+    margin-top: 120px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center vertically */
+}
+
+.search_bar {
+    width: 90%;
+    height: 70%;
+    background: #959595;
+    border-radius: 30px;
+    box-sizing: border-box;
+    padding-left: 30px;
+    padding-right: 20px;
+    padding-top: 5px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+nav {
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+section {
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 70%;
+}
+
+form {
+    font-size: 16px;
+    cursor: pointer;
+    width: 90%;
+    box-sizing: border-box;
+    margin-bottom: 13px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.category-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.category-title {
+    width: 100%;
+    height: 100%;
+    color: black;
+    font-size: 20px;
+    font-family: Avenir;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 10px; /* Added margin bottom to separate titles */
+}
+
+.service-type {
+    color: black;
+    font-size: 14px;
+    font-family: Avenir;
+    font-weight: 400;
+    width: 100%;
+    text-transform: capitalize;
+    line-height: 40px;
+    padding: 3px;
+    border-radius: 20px; 
+    border-color: white;
+}
+
+.patient-cards-container {
+    width: 80%;
+    padding: 20px;
+    margin-top: 70px; /* Adjust if needed to align with the header */
+    display: flex;
+    flex-wrap: wrap; /* Allows multiple cards to wrap in the container */
+    justify-content: space-around; /* Distributes space around the items */
+    align-items: flex-start; /* Aligns items to the start of the cross axis */
+}
+
+.patient-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: calc(25% - 2%); /* Adjust width and account for margin */
+    margin: 1%; /* Margin on all sides */
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px; /* Add more space at the bottom */
+    min-height: 350px; /* Set a minimum height */
+}
+.patient-card h2 {
+    margin-bottom: 10px; /* Consistent margin for headings */
+}
+
+.patient-card p {
+    color: #666; /* Lighter text for less emphasis */
+    font-size: 14px; /* Standard font size */
+    margin-bottom: 10px; /* Uniform space between paragraphs */
+}
+
+.patient-card h2,
+.patient-card p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 10px; /* Consistent margin for paragraphs */
+}
+
+.patient-card p:last-of-type {
+    margin-bottom: 60px; /* This should be at least the height of your saved-providers block */
+}
+
+/* Saved Providers List */
+.saved-providers {
+    margin-top: auto; /* Pushes the saved providers to the bottom of the card */
+    padding-top: 10px;
+    border-top: 1px solid #e1e1e1; /* Separating line for the section */
+}
+
+.saved-providers strong {
+    color: #333; /* Match the heading color */
+    font-size: 16px; /* Slightly larger font size for the subheading */
+}
+
+.saved-providers ul {
+    list-style: none; /* No bullets for the list */
+    padding-left: 0; /* No padding on the left */
+    margin-top: 5px; /* Spacing above the list */
+}
+
+.saved-providers li {
+    font-size: 14px; /* Matching font size for list items */
+    line-height: 1.6; /* Adequate line height for readability */
+    margin-bottom: 5px; /* Space between list items */
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 1200px) {
+    .patient-card {
+        width: calc(33.333% - 2%); /* 3 cards per row */
+    }
+}
+
+@media (max-width: 992px) {
+    .patient-card {
+        width: calc(50% - 2%); /* 2 cards per row */
+    }
+}
+
+@media (max-width: 768px) {
+    .patient-card {
+        width: 100%; /* Full width on small screens */
+        margin-bottom: 20px; /* Less margin on small screens */
+    }
+}

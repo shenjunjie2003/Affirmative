@@ -32,10 +32,36 @@ language_dict = {
     "japanese": 6,
 }
 
+language_dict_reverse = {
+    0: "english",
+    1: "chinese",
+    2: "spanish",
+    3: "portuguese",
+    4: "french",
+    5: "korean",
+    6: "japanese",
+}
+
 insurance_dict = {
-    "insurance#1": 1,
-    "insurance#2": 2,
-    "insurance#3": 3,
+    "Aetna": 1,
+    "Blue Cross": 2,
+    "Blue Care Network": 3,
+    "Blue Shield": 4,
+    "CHAMPVA": 5,
+    "ComPsych": 6,
+    "Humana": 7,
+    "McLaren": 8,
+}
+
+insurance_dict_reverse = {
+    1: "Aetna",
+    2: "Blue Cross",
+    3: "Blue Care Network",
+    4: "Blue Shield",
+    5: "CHAMPVA",
+    6: "ComPsych",
+    7: "Humana",
+    8: "McLaren",
 }
 
 gender_table = {
@@ -47,8 +73,33 @@ gender_table = {
     "agender": 5,
 }
 
+gender_table_reverse = {
+    0: "Female",
+    1: "Male",
+    2: "Non-binary",
+    3: "Transgender",
+    4: "Genderfluid",
+    5: "Agender",
+}
+
 availability_table = {
     "virtual": 0,
     "in-person": 1,
     "hybrid": 2,
+}
+
+availability_table_reverse = {
+    0: "virtual",
+    1: "in-person",
+    2: "hybrid",
+}
+
+label_dict = {
+    0: "Best Review",
+    1: "Most Experienced",
+    2: "Closest to You",
+    3: "Most Affordable",
+    4: "Most Available",
+    5: "High Demand",
+    7: "Insurance Match",
 }

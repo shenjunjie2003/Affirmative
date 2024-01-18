@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='results_style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
     <title>Search Results</title>
 </head>
 <body>
@@ -77,11 +78,11 @@
 
     <div id="center-column">
         <span class="close-button" onclick="closeCenterColumn()">×</span>
-        <header class="center_header">RESULTS ({{ count }})</header>
         <div class="results-container">
             {% if results %}
                 {% for result in results %}
                     <div class="result-block">
+                        <p class="label"> Recommended </p>
                         <h3>{{ result.name }} </h3>
                         <p>Specialties: {{ result.specialties }}</p>
                         <p>Location: {{ result.location }}</p>
@@ -97,78 +98,58 @@
 
     <div id="right-column">
         <div class="title">
-            <div class = "name and pronoun">
-                <div id="details-provider-name"></div>
-                <div id="details-provider-pronoun"></div>
+            <div class="name-and-pronoun">
+                <h2 id="details-provider-name" class="provider-name"></h2>
+                <h2 id="details-provider-pronoun" class="provider-pronoun"></h2>
             </div>
             <span class="close-button" onclick="closeRightColumn()">x</span>
         </div>
         <div class="bio">
-            <div class = "profile-pic">
-                <img id="details-provider-profile_picture" src="path/to/profile_picture.jpg" alt="Profile Picture">
+            <div class="profile-pic">
+                <img id="details-provider-profile_picture" alt="Profile Picture">
             </div>
-            <div class = "location and contact">
-                <div class = "location">
-                    <p class = "title-location">location</p>
+            <div class="location-and-contact">
+                <div class="location">
+                    <h3 class="title-location">LOCATION</h3>
                     <p id="details-provider-location"></p>
                     <p id="details-provider-zip_code"></p>
                 </div>
-                <div class = "email">
-                    <p class = "title-email">email</p>
+                <div class="email">
+                    <h3 class="title-email">EMAIL</h3>
                     <p id="details-provider-email"></p>
                 </div>
-                <div class = "phone">
-                    <p class = "title-phone_number">phone</p>    
+                <div class="phone">
+                    <h3 class="title-phone_number">PHONE</h3>    
                     <p id="details-provider-phone_number"></p>
                 </div>
             </div>
-            <div class = "buttons">
-                <button>Email</button>
-                <button>Phone</button>
-                <button>Bookmark</button>
+            <div class="contact-buttons">
+                <button id="email-button">Email</button>
+                <button id="phone-button">Phone</button>
+                <button id="bookmark-button">Bookmark</button>
             </div>
         </div>
-        <div class = "subdivision about">
-            <p class="about">About</p>
-            <div class = "about-text">
-                <div>
-                    <p class = "title-specialities">SPECIALITIES</p> 
-                    <p id="details-provider-speciality"></p>
-                </div>
-               <div>
-                    <p class = "title-education">education</p> 
-                    <p id="details-provider-gender"></p>
-               </div>
-               <div>
-                    <p class = "title-hospital">hospitalaffiliations</p> 
-                    <p id="details-provider-hospital"></p>
-               </div>
-               <div>
-                    <p class = "title-hospital">languagesspoken</p> 
-                    <p id="details-provider-languages"></p>
-               </div>
-               <div>
-                    <p class = "title-education">education</p> 
-                    <p id="details-provider-education"></p>
-               </div>
-            </div>
+        <div class="subdivision about">
+            <h3 class="about-title">ABOUT</h3>
+            <p id="details-provider-speciality" class="title-specialities"></p>
+            <p id="details-provider-education" class="title-education"></p>
+            <p id="details-provider-hospital" class="title-hospital"></p>
+            <p id="details-provider-languages" class="title-languages"></p>
         </div>
-
         <div class="subdivision finances">
-            <p class="about">Finances</p>
+            <h3 class="finances-title">FINANCES</h3>
             <p id="details-provider-finances"></p>
         </div>
-
         <div class="subdivision insurance">
-            <p class="about">insurance</p>
+            <h3 class="insurance-title">INSURANCE</h3>
             <p id="details-provider-insurance"></p>
         </div>
-
         <div class="subdivision qualifications">
-            <p class="about">qualifications</p>
+            <h3 class="qualifications-title">QUALIFICATIONS</h3>
             <p id="details-provider-qualifications"></p>
         </div>
     </div>
+    
 
     <script src="{{ url_for('static', filename='scripts.js') }}">
     </script>
