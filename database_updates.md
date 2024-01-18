@@ -125,3 +125,16 @@ CREATE TABLE `patient_provider_saved` (
   `provider_id` int NOT NULL,
   PRIMARY KEY (`patient_id`,`provider_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+`Jonny 1.17`
+CREATE TABLE care_navigator_patient_relate (
+    care_navigator_id INT NOT NULL,
+    patient_id INT NOT NULL,
+    PRIMARY KEY (care_navigator_id, patient_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+ALTER TABLE `care_navigator` 
+MODIFY `navigator_ID` int NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `patient`
+MODIFY `user_ID` int NOT NULL AUTO_INCREMENT;

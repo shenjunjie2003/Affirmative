@@ -1,3 +1,5 @@
+var currentProviderId = null;
+
 function applyFilters() {
 
     // Collect filter values
@@ -105,6 +107,7 @@ function closeRightColumn() {
 
 function showResultDetails(providerID) {
     document.getElementById('right-column').style.display = 'flex';
+    currentProviderId = providerID;
 
     // Make an AJAX request to get the result details
     fetch(`/get_result_details/${providerID}`)
@@ -148,3 +151,41 @@ function showResultDetails(providerID) {
         alert('Failed to load provider details.');
     });
 }
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    var bookmarkButton = document.getElementById('bookmark-button');
+    var saveBookmarkButton = document.getElementById('save-bookmark');
+    var providerId = currentProviderId; // You need to set this variable appropriately
+
+    if (bookmarkButton) {
+        bookmarkButton.onclick = function() {
+            var dropdown = document.getElementById('bookmark-dropdown');
+            dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+        };
+    }
+
+    if (saveBookmarkButton) {
+        saveBookmarkButton.onclick = function() {
+            var checkedPatients = Array.from(document.querySelectorAll('.patient-checkbox:checked')).map(cb => cb.value);
+            var uncheckedPatients = Array.from(document.querySelectorAll('.patient-checkbox:not(:checked)')).map(cb => cb.value);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/update_bookmarks', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({
+                provider_id: providerId,
+                checked_patients: checkedPatients,
+                unchecked_patients: uncheckedPatients
+            }));
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    document.getElementById('bookmark-dropdown').style.display = 'none';
+                    alert('Your changes have been saved successfully.');
+                } else {
+                    alert('An error occurred while saving your changes. Please try again.');
+                }
+            };
+        };
+    }
+});

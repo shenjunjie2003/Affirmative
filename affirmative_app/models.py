@@ -22,7 +22,7 @@ class Client(db.Model):
 
 class CareNavigator(db.Model):
     __tablename__ = 'care_navigator'
-    navigator_ID = db.Column(db.Integer, primary_key=True)
+    navigator_ID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(256), nullable=False)
     pronoun = db.Column(db.String(256), nullable=False)
     email = db.Column(db.String(256), nullable=True)  
@@ -85,7 +85,7 @@ class ProviderService(db.Model):
 
 class Patient(db.Model):
     __tablename__ = 'patient'
-    user_ID = db.Column(db.Integer, primary_key=True)
+    user_ID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(256), nullable=False)
     email = db.Column(db.String(256), nullable=False)
     state = db.Column(db.String(256), nullable=True)
@@ -139,3 +139,8 @@ class PatientProviderSaved(db.Model):
     __tablename__ = 'patient_provider_saved'
     patient_id = db.Column(db.Integer, primary_key=True)
     provider_id = db.Column(db.Integer, primary_key=True)
+    
+class CareNavigatorPatientRelate(db.Model):
+    __tablename__ = 'care_navigator_patient_relate'
+    care_navigator_id = db.Column(db.Integer, primary_key=True)
+    patient_id = db.Column(db.Integer, primary_key=True)

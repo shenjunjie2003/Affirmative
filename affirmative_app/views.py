@@ -10,35 +10,27 @@ from affirmative_app import db
 from sqlalchemy import text
 from affirmative_app.models import *
 from affirmative_app.globals import *
+from affirmative_app.helpers import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if 'user_id' in session:
-        # User is already logged in, redirect to profile page
-        return redirect(url_for('profile'))
-
     if request.method == 'POST':
-        # Extract the form data
-        username = request.form['username']
-        password = request.form['password']
+        # Generate demo data and retrieve the care navigator ID
+        navigator_id = generate_demo_data()
+        
+        # Flash a message saying demo data has been generated
+        flash('Demo data has been generated successfully. You are now logged in as the demo navigator.')
 
-        # Query the database for the username
-        user = User.query.filter_by(user_name=username).first()
+        # Set the unique navigator ID in the session
+        session['user_id'] = navigator_id
+        
+        # Redirect to the index page
+        return redirect(url_for('index'))
 
-        # Check if the user was found and the password is correct
-        if user and check_password_hash(user.password, password):
-            # If the check passes, set the user_id in the session
-            session['user_id'] = user.user_ID
-            # Redirect to the profile page
-            return redirect(url_for('profile'))
-        else:
-            # If the user is not found or password is wrong, flash a message
-            flash('Invalid username or password. Please try again.')
-
-    # If it's a GET request or credentials are invalid, render the login page
+    # If it's a GET request, render the login page
     return render_template('login.html')
 
 
@@ -127,6 +119,12 @@ def test_db_connection():
         return f'Database connection error: {str(e)}'
 
 def index():
+    
+    if 'user_id' not in session:  
+        return redirect(url_for('login'))
+    
+    care_navigator_id = session['user_id']
+
     surgical_procedures = [
         'Orchiectomy', 'Vaginoplasty', 'Hysterectomy', 'Oophrectomy',
         'Metidoplasty', 'Phalloplasty', 'Breast Augmentation', 'Breast Removal',
@@ -137,7 +135,12 @@ def index():
         'Counseling with a social worker', 'Psychologist', 'Other Practitioner', 'Psychiatric Care', 'Medical Letter'
     ]
 
-    patients = Patient.query.limit(4).all()
+    patients = db.session.query(Patient).join(
+        CareNavigatorPatientRelate,
+        CareNavigatorPatientRelate.patient_id == Patient.user_ID
+    ).filter(
+        CareNavigatorPatientRelate.care_navigator_id == care_navigator_id
+    ).limit(4).all()
 
     def get_gender_string(gender_number):
         try:
@@ -150,13 +153,15 @@ def index():
     for patient in patients:
         patient.display_gender = get_gender_string(patient.preferred_gender)
         saved_providers = db.session.query(Provider.name).join(
-            PatientProviderSaved, 
+            PatientProviderSaved,
             PatientProviderSaved.provider_id == Provider.provider_ID
-        ).filter(PatientProviderSaved.patient_id == patient.user_ID).all()
+        ).filter(
+            PatientProviderSaved.patient_id == patient.user_ID
+        ).all()
         patient.saved_provider_names = [provider.name for provider in saved_providers]
 
-    return render_template('index.html', patients=patients, 
-                           surgical_procedures=surgical_procedures, 
+    return render_template('index.html', patients=patients,
+                           surgical_procedures=surgical_procedures,
                            psychological_procedures=psychological_procedures)
 
 
@@ -210,60 +215,32 @@ def apply_filters():
 
     # Execute the query
     filtered_results = query.all()
-    if distance is not None:
-        filtered_results = sorted(filtered_results, key=lambda provider: abs(int(provider.zip_code or 0) - distance))
-    else:
-        filtered_results = sorted(filtered_results, key=lambda provider: abs(int(provider.zip_code or 0) - 48105))
+    base_zip_code = distance if distance is not None else 48105
+    filtered_results.sort(key=lambda provider: abs(int(provider.zip_code or 0) - base_zip_code))
 
-    # If less than 5 reuslts, give random results
-    if len(filtered_results) < 5:
-        results = query.all()
-        results = random.sample(results, min(5, len(results)))
+
+    # If fewer than 4 results, give random results
+    if len(filtered_results) < 4:
+        # random.sample may raise a ValueError if the sample size is larger than the population size
+        # Therefore, ensure the sample size is not larger than the length of filtered_results
+        sample_size = min(5, len(filtered_results))
+        results = random.sample(filtered_results, sample_size)
         for provider in results:
             provider.label = "Not Match but Recommended"
-
-        filtered_results_dicts = [provider_to_dict(provider) for provider in results]
-        return jsonify(filtered_results_dicts)
-        
-
-    # Label the results
-    random_indices = random.sample(range(8), 2)
-
-    results_to_display = []
-
-    shortest_distance = False
-    if random_indices[0] == 2:
-        results_to_display.append(filtered_results[0])
-        results_to_display[0].label = label_dict[2]
-        filtered_results.pop(0)
-        shortest_distance = True
-        other_index = 1
-    elif random_indices[1] == 2:
-        results_to_display.append(filtered_results[0])
-        results_to_display[0].label = label_dict[2]
-        filtered_results.pop(0)
-        shortest_distance = True
-        other_index = 0
-
-    for i in range(3):
-        results_to_display.append(filtered_results[0])
-        results_to_display[-1].label = "Best Match"
-        filtered_results.pop(0)
-
-    if shortest_distance:
-        results_to_display.append(filtered_results[0])
-        results_to_display[-1].label = label_dict[random_indices[other_index]]
-        filtered_results.pop(0)
-        results_to_display.append(results_to_display.pop(0))
     else:
-        random.shuffle(filtered_results)
-        results_to_display.append(filtered_results.pop(0))
-        results_to_display[-1].label = label_dict[random_indices[0]]
-        results_to_display.append(filtered_results.pop(0))
-        results_to_display[-1].label = label_dict[random_indices[1]]
+        # Assign labels to the first four results
+        results = filtered_results[:4]  # Get the first four results
+        results[0].label = "Best Match"  # Assign "Best Match" to the first result
+        
+        # Choose three unique random labels for the next three results
+        remaining_labels = [label for key, label in label_dict.items() if key != 0]
+        random_labels = random.sample(remaining_labels, 3)
+        
+        for i in range(1, 4):  # Assign labels to the second, third, and fourth results
+            results[i].label = random_labels[i - 1]
 
     # Convert the results to a list of dictionaries (or a similar structure that can be JSON serialized)
-    filtered_results_dicts = [provider_to_dict(provider) for provider in results_to_display]
+    filtered_results_dicts = [provider_to_dict(provider) for provider in results]
 
     return jsonify(filtered_results_dicts)
 
@@ -428,5 +405,24 @@ def get_result_details(provider_id):
     else:
         return jsonify({"error": "Provider not found"})
            
+@app.route('/update_bookmarks', methods=['POST'])
+def update_bookmarks():
+    data = request.json
+    provider_id = data['provider_id']
+    checked_patients = set(map(int, data['checked_patients']))
+    unchecked_patients = set(map(int, data['unchecked_patients']))
+    
+    # Handle checked patients
+    for patient_id in checked_patients:
+        # Check if the entry already exists to avoid duplicates
+        exists = PatientProviderSaved.query.filter_by(patient_id=patient_id, provider_id=provider_id).first()
+        if not exists:
+            new_bookmark = PatientProviderSaved(patient_id=patient_id, provider_id=provider_id)
+            db.session.add(new_bookmark)
 
+    # Handle unchecked patients
+    for patient_id in unchecked_patients:
+        PatientProviderSaved.query.filter_by(patient_id=patient_id, provider_id=provider_id).delete()
 
+    db.session.commit()
+    return jsonify(status='success'), 200

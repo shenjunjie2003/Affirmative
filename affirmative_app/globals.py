@@ -97,9 +97,8 @@ availability_table_reverse = {
 label_dict = {
     0: "Best Review",
     1: "Most Experienced",
-    2: "Closest to You",
+    2: "Most Qualified",
     3: "Most Affordable",
     4: "Most Available",
     5: "High Demand",
-    7: "Insurance Match",
 }
