@@ -15,6 +15,7 @@ app.config['SESSION_COOKIE_NAME'] = 'session'
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['SESSION_COOKIE_SECURE'] = True  # Use True for HTTPS
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'  # or 'None' if necessary
 # app.config['SECRET_KEY'] = os.urandom(24)
 
 app.config.from_object(Config)
