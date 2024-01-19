@@ -191,7 +191,9 @@ def results(procedure):
             CareNavigatorPatientRelate.care_navigator_id == care_navigator_id
         ).all()
 
-        return render_template('results.html', results=search_results, procedure=procedure, count=len(search_results), patients=patients)
+        filtered_results_dicts = [provider_to_dict(provider) for provider in search_results]
+
+        return render_template('results.html', results=filtered_results_dicts, procedure=procedure, count=len(filtered_results_dicts), patients=patients)
 
     return render_template('results.html', procedure=procedure)
 
@@ -242,15 +244,22 @@ def apply_filters():
             provider.label = "Not Match but Recommended"
     else:
         # Assign labels to the first four results
-        results = filtered_results[:4]  # Get the first four results
-        results[0].label = "Best Match"  # Assign "Best Match" to the first result
-        
-        # Choose three unique random labels for the next three results
-        remaining_labels = [label for key, label in label_dict.items() if key != 0]
-        random_labels = random.sample(remaining_labels, 3)
-        
-        for i in range(1, 4):  # Assign labels to the second, third, and fourth results
-            results[i].label = random_labels[i - 1]
+        temp_results = filtered_results[:7]  
+        temp_results[0].label = "Best Match"  # Assign "Best Match" to the first result
+
+        results = []
+        results.append(temp_results[0])
+
+        temp_results = temp_results[1:]
+        for i, provider in enumerate(temp_results):
+            label_key = i % len(label_dict)  # Loop through the label_dict keys
+            provider.label = label_dict.get(label_key, "Label not found")
+
+        selected_providers = random.sample(temp_results, 3)
+
+        for item in selected_providers:
+            results.append(item)
+
 
     # Convert the results to a list of dictionaries (or a similar structure that can be JSON serialized)
     filtered_results_dicts = [provider_to_dict(provider) for provider in results]
@@ -259,13 +268,38 @@ def apply_filters():
 
 def provider_to_dict(provider):
     # Convert a Provider object to a dictionary
+    languages = (
+        ProviderLanguage.query
+        .join(Provider, Provider.provider_ID == ProviderLanguage.provider_id)
+        .filter(Provider.provider_ID == int(provider.provider_ID))
+        .limit(5)
+        .all()
+    )
+
+    language_ids = [row.language_id for row in languages]  
+    language_names = [language_dict_reverse.get(language_id, "Unknown") for language_id in language_ids]
+
+    language_return = ""
+    for language in language_names:
+        language_return += language + ", "
+
+    language_return = language_return[:-2]
+
+    location = provider.address + ", " + provider.city + ", " + provider.state + ", " + provider.zip_code
+
+
     provider_dict = {
         'provider_ID': provider.provider_ID,
         'name': provider.name,
         'pronoun': provider.pronoun,
-        'location': provider.location,
+        'location': location,
         'specialties': provider.specialties,
-        'languages': provider.languages,
+        'languages': language_return,
+        'state': provider.state,
+        'city': provider.city,
+        'address': provider.address,
+        'zip_code': provider.zip_code,
+        'category': provider.category,
     }
     if hasattr(provider, 'label'):
         provider_dict['label'] = provider.label

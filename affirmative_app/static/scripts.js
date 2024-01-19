@@ -85,16 +85,15 @@ function updateResults(data) {
 
         // Create and add the specialties paragraph
         var specialties = document.createElement('p');
-        specialties.textContent = 'Specialties: ' + (result.specialties || 'None');
+        specialties.textContent = 'Specialties: ' + (result.category || 'None');
 
         // Create and add the location paragraph
         var location = document.createElement('p');
-        location.textContent = 'Location: ' + result.location;
+        location.textContent = 'Location: ' + result.address + ', ' + result.city + ', ' + result.state + ', ' + result.zip_code;
 
         // Create and add the languages paragraph
         var languages = document.createElement('p');
-        var languagesSpoken = Array.isArray(result.languages) ? result.languages.join(', ') : 'None';
-        languages.textContent = 'Languages Spoken: ' + languagesSpoken;
+        languages.textContent = 'Languages Spoken: ' + result.languages;
 
         // Create and style the view details button
         var viewDetailsButton = document.createElement('button');
@@ -145,7 +144,7 @@ function showResultDetails(providerID) {
         document.getElementById('details-provider-zip_code').textContent = provider.zip_code || 'N/A';
         document.getElementById('details-provider-email').textContent = provider.email || 'N/A';
         document.getElementById('details-provider-phone_number').textContent = provider.phone_number || 'N/A';
-        document.getElementById('details-provider-specialities').textContent = provider.speciality || 'N/A';
+        document.getElementById('details-provider-specialities').textContent = provider.specialties || 'N/A';
         document.getElementById('details-provider-gender').textContent = provider.gender|| 'N/A';
         document.getElementById('details-provider-hospital').textContent = provider.hospital || 'N/A';
         document.getElementById('details-provider-languages').textContent = provider.languages || 'N/A';
