@@ -1,7 +1,5 @@
-import os
-
 class Config(object):
-    SECRET_KEY = os.urandom(24)  # Replace with your actual secret key
+    SECRET_KEY = 'your-very-long-and-complex-secret-key-here'  # Replace with your actual secret key
     DEBUG = False  # Set to True if you want to enable Flask's debug mode
 
     # Database configuration

@@ -26,6 +26,7 @@ def login():
 
         # Set the unique navigator ID in the session
         session['user_id'] = navigator_id
+        # session.permanent = True
         
         # Redirect to the index page
         return redirect(url_for('index'))
