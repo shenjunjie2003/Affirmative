@@ -147,18 +147,20 @@ function showResultDetails(providerID) {
         document.getElementById('details-provider-phone_number').textContent = provider.phone_number || 'N/A';
         document.getElementById('details-provider-specialities').textContent = provider.speciality || 'N/A';
         document.getElementById('details-provider-gender').textContent = provider.gender|| 'N/A';
-        document.getElementById('details-provider-education').textContent = provider.education || 'N/A';
         document.getElementById('details-provider-hospital').textContent = provider.hospital || 'N/A';
         document.getElementById('details-provider-languages').textContent = provider.languages || 'N/A';
-        document.getElementById('details-provider-finances').textContent = provider.finances || 'N/A';
         document.getElementById('details-provider-insurance').textContent = provider.insurance || 'N/A';
-        document.getElementById('details-provider-qualifications').textContent = provider.qualifications || 'N/A';
         document.getElementById('details-provider-address').textContent = provider.address || 'N/A';
 
         var city = provider.city || 'N/A';
         var state = provider.state || 'N/A';
         var location = city + ', ' + state;
         document.getElementById('details-provider-cityandstate').textContent = location;
+
+        var qualifications = provider.qualifications || 'N/A';
+        var edu = provider.education || 'N/A';
+        document.getElementById('details-provider-education').textContent = qualifications + ', ' + edu;
+        //console.log(qualifications + ',' + edu);
 
         return fetch(`/bookmarked_patients/${currentProviderId}`);
     })

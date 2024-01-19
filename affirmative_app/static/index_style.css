@@ -216,3 +216,25 @@ form {
         margin-bottom: 20px; /* Less margin on small screens */
     }
 }
+
+.patient-cards-title {
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.patient-cards-title h1 {
+    color: #333; /* Match the heading color */
+    font-size: 35px; /* Adjust the font size */
+    margin-left: 5%; /* Remove default margin */
+    display: flex;
+    align-items: center; /* Center vertically */
+    font-family: Avenir;
+}
+
+.main-content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
