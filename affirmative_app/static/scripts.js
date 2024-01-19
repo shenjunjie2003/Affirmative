@@ -1,5 +1,26 @@
 var currentProviderId = null;
 
+document.addEventListener('DOMContentLoaded', (event) => {
+    var bookmarkButton = document.getElementById('bookmark-button');
+    var saveBookmarkButton = document.getElementById('save-bookmark');
+
+    if (bookmarkButton) {
+        bookmarkButton.addEventListener('click', function() {
+            var dropdown = document.getElementById('bookmark-dropdown');
+            dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+        });
+    }
+
+    if (saveBookmarkButton) {
+        saveBookmarkButton.addEventListener('click', function() {
+            handleSaveBookmark(currentProviderId);
+        });
+    }
+
+    // Add any other DOMContentLoaded functionalities here
+});
+
+
 function applyFilters() {
 
     // Collect filter values
@@ -121,71 +142,85 @@ function showResultDetails(providerID) {
         // Update the HTML elements in the right column dynamically
         document.getElementById('details-provider-name').textContent = provider.name || 'N/A';
         document.getElementById('details-provider-pronoun').textContent = provider.pronoun || 'N/A';
-        document.getElementById('details-provider-location').textContent = provider.location || 'N/A';
         document.getElementById('details-provider-zip_code').textContent = provider.zip_code || 'N/A';
         document.getElementById('details-provider-email').textContent = provider.email || 'N/A';
         document.getElementById('details-provider-phone_number').textContent = provider.phone_number || 'N/A';
-        document.getElementById('details-provider-speciality').textContent = provider.speciality || 'N/A';
+        document.getElementById('details-provider-specialities').textContent = provider.speciality || 'N/A';
+        document.getElementById('details-provider-gender').textContent = provider.gender|| 'N/A';
         document.getElementById('details-provider-education').textContent = provider.education || 'N/A';
         document.getElementById('details-provider-hospital').textContent = provider.hospital || 'N/A';
         document.getElementById('details-provider-languages').textContent = provider.languages || 'N/A';
         document.getElementById('details-provider-finances').textContent = provider.finances || 'N/A';
         document.getElementById('details-provider-insurance').textContent = provider.insurance || 'N/A';
         document.getElementById('details-provider-qualifications').textContent = provider.qualifications || 'N/A';
-        
-        if (provider.profile_picture) {
-            document.getElementById('details-provider-profile_picture').src = provider.profile_picture;
-            document.getElementById('details-provider-profile_picture').alt = 'Profile picture of ' + provider.name;
-        } else {
-            document.getElementById('details-provider-profile_picture').src = 'path/to/default_profile_picture.jpg'; // Path to a default image
-            document.getElementById('details-provider-profile_picture').alt = 'Default profile picture';
-        }
+        document.getElementById('details-provider-address').textContent = provider.address || 'N/A';
 
-        // Make sure to handle any buttons or links that need to be updated with dynamic data
-        // For example:
-        // document.getElementById('email-button').href = `mailto:${provider.email}`;
-        // document.getElementById('phone-button').href = `tel:${provider.phone_number}`;
+        var city = provider.city || 'N/A';
+        var state = provider.state || 'N/A';
+        var location = city + ', ' + state;
+        document.getElementById('details-provider-cityandstate').textContent = location;
+
+        return fetch(`/bookmarked_patients/${currentProviderId}`);
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(bookmarkedPatientIds => {
+        // Get all patient checkboxes and update their checked state based on the bookmarked patients
+        var patientCheckboxes = document.querySelectorAll('.patient-checkbox');
+        patientCheckboxes.forEach(checkbox => {
+            checkbox.checked = bookmarkedPatientIds.includes(parseInt(checkbox.value));
+        });
+        
+        // Display the right column after updating the provider details and the bookmarked state
+        document.getElementById('right-column').style.display = 'flex';
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Failed to load provider details.');
+        alert('An error occurred while fetching the details. Please try again.');
     });
+    // Now check if the save bookmark event listener has been attached
+    var saveBookmarkButton = document.getElementById('save-bookmark');
+    if (!isSaveBookmarkEventAttached) {
+        saveBookmarkButton.addEventListener('click', saveBookmarkEventHandler);
+        isSaveBookmarkEventAttached = true; // Set the flag to true after attaching the event
+    }
 }
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    var bookmarkButton = document.getElementById('bookmark-button');
-    var saveBookmarkButton = document.getElementById('save-bookmark');
-    var providerId = currentProviderId; // You need to set this variable appropriately
+function saveBookmarkEventHandler() {
+    handleSaveBookmark(currentProviderId);
+}
 
-    if (bookmarkButton) {
-        bookmarkButton.onclick = function() {
-            var dropdown = document.getElementById('bookmark-dropdown');
-            dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
-        };
-    }
 
-    if (saveBookmarkButton) {
-        saveBookmarkButton.onclick = function() {
-            var checkedPatients = Array.from(document.querySelectorAll('.patient-checkbox:checked')).map(cb => cb.value);
-            var uncheckedPatients = Array.from(document.querySelectorAll('.patient-checkbox:not(:checked)')).map(cb => cb.value);
+function handleSaveBookmark(providerId) {
+    var checkedPatients = Array.from(document.querySelectorAll('.patient-checkbox:checked')).map(cb => cb.value);
+    var uncheckedPatients = Array.from(document.querySelectorAll('.patient-checkbox:not(:checked)')).map(cb => cb.value);
 
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/update_bookmarks', true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify({
-                provider_id: providerId,
-                checked_patients: checkedPatients,
-                unchecked_patients: uncheckedPatients
-            }));
-
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    document.getElementById('bookmark-dropdown').style.display = 'none';
-                    alert('Your changes have been saved successfully.');
-                } else {
-                    alert('An error occurred while saving your changes. Please try again.');
-                }
-            };
-        };
-    }
-});
+    // Perform the AJAX request with providerId
+    fetch('/update_bookmarks', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            provider_id: providerId,
+            checked_patients: checkedPatients,
+            unchecked_patients: uncheckedPatients
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            document.getElementById('bookmark-dropdown').style.display = 'none';
+            alert('Your changes have been saved successfully.');
+        } else {
+            alert('An error occurred while saving your changes. Please try again.');
+        }
+    })
+    .catch(error => {
+        alert('An error occurred while saving your changes. Please try again.');
+    });
+}

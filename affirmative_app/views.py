@@ -166,6 +166,10 @@ def index():
 
 
 def results(procedure):
+    care_navigator_id = session.get('user_id')  # Get the current care navigator's ID from the session
+
+    if care_navigator_id is None:
+        return redirect(url_for('login'))  # Redirect to login if the user is not logged in
 
     if request.method == 'POST':
         service = procedure.lower()
@@ -178,8 +182,17 @@ def results(procedure):
             .limit(5)
             .all()
         )
-        return render_template('results.html', results=search_results, procedure=procedure, count = len(search_results))
-    
+
+        # Query the patients associated with the logged-in care navigator
+        patients = db.session.query(Patient).join(
+            CareNavigatorPatientRelate,
+            CareNavigatorPatientRelate.patient_id == Patient.user_ID
+        ).filter(
+            CareNavigatorPatientRelate.care_navigator_id == care_navigator_id
+        ).all()
+
+        return render_template('results.html', results=search_results, procedure=procedure, count=len(search_results), patients=patients)
+
     return render_template('results.html', procedure=procedure)
 
 
@@ -380,25 +393,50 @@ def get_result_details(provider_id):
 
     if provider:
         # Convert the provider object to a dictionary
+
+        insurance = (
+            ProviderInsurance.query
+            .join(Provider, Provider.provider_ID == ProviderInsurance.provider_id)
+            .filter(Provider.provider_ID == provider_id)
+            .limit(5)
+            .all()
+        )
+
+        insurance_ids = [row.insurance_id for row in insurance]
+
+        insurance_names = [insurance_dict_reverse.get(insurance_id, "Unknown") for insurance_id in insurance_ids]
+
+
+        languages = (
+            ProviderLanguage.query
+            .join(Provider, Provider.provider_ID == ProviderLanguage.provider_id)
+            .filter(Provider.provider_ID == provider_id)
+            .limit(5)
+            .all()
+        )
+
+        language_ids = [row.language_id for row in languages]  
+        language_names = [language_dict_reverse.get(language_id, "Unknown") for language_id in language_ids]
+
         provider_data = {
             "id": provider.provider_ID,
             "name": provider.name,
             "pronoun": provider.pronoun,
-            "location": provider.location,
+            "address": provider.address,
+            "state": provider.state,
+            "city": provider.city,
             "email": provider.email,
-            "insurance": provider.insurance,
-            "website": provider.website,
+            "insurance": insurance_names,
             "zip_code": provider.zip_code,
             "finances": provider.finances,
             "qualifications": provider.qualifications,
-            "profile_picture": provider.profile_picture,
             "phone_number": provider.phone_number,
             "gender": provider.gender,
-            "availability": provider.availability,
-            "category": provider.category,
             "education": provider.education,
             "hospital": provider.hospital,
-            "languages": provider.languages
+            "languages": language_names,
+            "specialties": provider.specialties,
+            "education": provider.education,
             # Add more fields as needed
         }
         return jsonify(provider_data)
@@ -407,11 +445,12 @@ def get_result_details(provider_id):
            
 @app.route('/update_bookmarks', methods=['POST'])
 def update_bookmarks():
+    print(2123123)
     data = request.json
-    provider_id = data['provider_id']
+    provider_id = data.get('provider_id')
     checked_patients = set(map(int, data['checked_patients']))
     unchecked_patients = set(map(int, data['unchecked_patients']))
-    
+
     # Handle checked patients
     for patient_id in checked_patients:
         # Check if the entry already exists to avoid duplicates
@@ -426,3 +465,12 @@ def update_bookmarks():
 
     db.session.commit()
     return jsonify(status='success'), 200
+
+
+@app.route('/bookmarked_patients/<int:provider_id>')
+def get_bookmarked_patients(provider_id):
+    # Query the database for all patients who have bookmarked this provider
+    bookmarked_patients = PatientProviderSaved.query.filter_by(provider_id=provider_id).all()
+    # Extract the patient IDs and send them back as JSON
+    patient_ids = [patient.patient_id for patient in bookmarked_patients]
+    return jsonify(patient_ids)

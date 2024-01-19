@@ -36,6 +36,29 @@ body {
     flex-direction: row;
 }
 
+.go-back-button {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    background-color: #C4BD91; /* Color that matches the theme */
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif; /* Using the same font family as the header */
+    font-weight: 700; /* Same font weight as the logo */
+    font-size: 0.9em; /* Slightly smaller text for the button */
+    text-transform: uppercase;
+    z-index: 101; /* Ensure it's above other elements */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: background-color 0.3s ease;
+}
+
+.go-back-button:hover {
+    background-color: #a69f7c; /* Slightly darker on hover for visual feedback */
+}
+
 /* Make sure to add the responsive design if needed */
 @media (max-width: 768px) {
     #left-column,
@@ -53,7 +76,7 @@ body {
 
 #left-column {
     flex: 0 0 20%; /* You can adjust the flex-basis as needed */
-    max-width: 20%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 20% */
+    max-width: 25%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 20% */
     background-color: #e0e0e0;
     padding: 20px;
     margin-top: 70px;
@@ -131,20 +154,13 @@ button:hover {
 
 #center-column {
     flex: 1; /* Grow and shrink as needed */
-    max-width: 40%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 60% */
+    max-width: 25%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 60% */
     margin-top: 70px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     height: calc(100vh - 70px); /* Full height minus header */
 }
 
-.close-button {
-    cursor: pointer;
-    position: absolute; /* Position it absolutely within its relative parent */
-    top: 0; /* Align to the top */
-    right: 0; /* Align to the right */
-    z-index: 10; /* Make sure it's above other elements */
-}
 
 .center_header {
     font-size: 18px;
@@ -235,26 +251,33 @@ button:hover {
 /*------------------------------------------ Right column ------------------------------------------ */
 #right-column {
     flex: 0 0 40%; /* Change the flex-basis to 40%, giving it more room */
-    max-width: 40%;
     position: static;
-    width: 35%; /* Adjust the width as necessary */
+    width: 50%; /* Adjust the width as necessary */
     background-color: #fff;
-    padding: 20px;
+    padding: 10px;
     box-sizing: border-box;
     overflow-y: auto;
     position: fixed;
     top: 70px; /* Align with the top of your other columns */
     right: 0; /* Align with the right side of the viewport */
     bottom: 0; /* Stretch to the bottom of the viewport */
-    display: flex;
+    display: none; /* Hide the column by default */
     flex-direction: column;
+}
+
+.close-button {
+    cursor: pointer;
+    position: absolute; /* Position it absolutely within its relative parent */
+    top: 25px; /* Align to the top */
+    right: 10px; /* Align to the right */
+    z-index: 10; /* Make sure it's above other elements */
+    font-size: 50px;
 }
 
 .name-and-pronoun {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
 }
 
 .provider-name h2 {
@@ -274,17 +297,24 @@ button:hover {
 
 #details-provider-pronoun {
     color: black;
-    font-size: 10px;
+    font-size: 15px;
     font-family: Avenir;
     font-weight: 200;
     text-transform: capitalize;
     word-wrap: break-word;
 }
 
+.email_and_phone{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
 
 #details-provider-name {
     color: #666644;
-    font-size: 25px;
+    font-size: 35px;
     font-family: Avenir;
     font-weight: 800;
     text-transform: uppercase;
@@ -292,7 +322,8 @@ button:hover {
     margin-right: 10px;
 }
 
-#details-provider-location,
+#details-provider-cityandstate,
+#details-provider-address,
 #details-provider-zip_code,
 #details-provider-email,
 #details-provider-phone_number,
@@ -305,7 +336,7 @@ button:hover {
 #details-provider-insurance,
 #details-provider-qualifications {
     color: black;
-    font-size: 10px;
+    font-size: 13px;
     font-family: Avenir;
     word-wrap: break-word;
 }
@@ -343,6 +374,7 @@ button:hover {
 }
 
 .about-text {
+    background-color:#D9D9D9 ;
     color: black;
     font-size: 14px;
     font-family: Avenir;
@@ -352,6 +384,7 @@ button:hover {
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 15px;
     row-gap: 40px;
+    padding-left: 5%;
 }
 
 .finances,
@@ -366,17 +399,10 @@ button:hover {
 }
 
 .profile-pic img {
-    width: 100px; /* Adjust as needed */
-    height: 100px; /* Adjust as needed */
+    width: 180px; /* Adjust as needed */
+    height: 180px; /* Adjust as needed */
     border-radius: 50%;
-    margin-bottom: 20px;
-}
-
-.buttons {
-    flex: 1; /* Make buttons take 1/3 of the space */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    margin-bottom: 3%;
 }
 
 /* Arrange the elements within the location and contact div */
@@ -384,35 +410,93 @@ button:hover {
     display: flex;
     flex-direction: column;
     margin-right: 5%;
-    width: 100%;
+    width: 33%;
     align-items: flex-start;
 }
 
 .location, .email, .phone {
-    margin-bottom: 10px; /* Adjust as needed for spacing between location and contact */
-    margin-right: 10%;
+    margin-right: 15%;
 }
 
-.contact-buttons button {
-    margin-bottom: 10px;
+.bookmark-button {
     width: 100%;
     padding: 10px;
     border: none;
-    border-radius: 4px;
+    height: 40px;
+    border-radius: 50%;
+    border-radius: 10px;
     background-color: #C4BD91;
+    margin-right: 10%;
     color: white;
     cursor: pointer;
+    margin-top: 40%;
 }
 
-.contact-buttons button:hover {
+.bookmark_buttons {
+    width: 20%;
+    align-items: center;
+}
+
+#bookmark_button:hover {
     background-color: #a69f7c; /* Darker shade for hover effect */
 }
 
-.contact{
-    display: flex;
-    flex-direction: row;
+#bookmark-dropdown {
+    display: none; /* Keeps the dropdown hidden until toggled */
+    position: absolute; /* Positions the dropdown relative to its container */
+    right: 10px; /* Adjusts the right position to align with the bookmark button */
+    top: 50px; /* Positions the dropdown below the bookmark button */
+    width: auto; /* Sets the width of the dropdown */
+    background-color: #fff; /* Sets the background color */
+    border: 1px solid #ccc; /* Sets the border around the dropdown */
+    border-radius: 4px; /* Rounds the corners of the dropdown */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for depth */
+    z-index: 1000; /* Ensures the dropdown is above other elements */
+    padding: 10px; /* Adds space inside the dropdown */
+    box-sizing: border-box; /* Ensures padding is included in the width */
+}
+
+.patient-bookmark-form {
+    margin: 0; /* Removes default margin */
+    padding: 0; /* Removes default padding */
+}
+
+.patient-bookmark-form label {
+    display: block; /* Each label is on a new line */
+    padding: 5px; /* Adds space around the label text */
+    cursor: pointer; /* Indicates an interactive element */
+}
+
+.patient-bookmark-form input[type="checkbox"] {
+    margin-right: 5px; /* Adds space between the checkbox and the label text */
+}
+
+.save-bookmark {
+    background-color: #C4BD91; /* Matches the styling of other buttons */
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 10px; /* Adds space above the button */
+    width: 100%; /* Full width of the dropdown */
+}
+
+.save-bookmark:hover {
+    background-color: #a69f7c; /* Darker shade for hover effect */
+}
+
+.profile-pic{
+    width: 33%;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    right: 0; /* Align with the right side of the viewport */
+    bottom: 0; /* Stretch to the bottom of the viewport */
+    flex-direction: column;
     align-items: center;
-    flex: 2;
 }
 
 /* Add more styles as needed */
