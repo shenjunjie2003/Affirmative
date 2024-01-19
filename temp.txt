@@ -1,36 +1,100 @@
-2024-01-19T03:36:10.633958+00:00 app[api]: Initial release by user sjunjie@umich.edu
-2024-01-19T03:36:10.633958+00:00 app[api]: Release v1 created by user sjunjie@umich.edu
-2024-01-19T03:36:10.760568+00:00 app[api]: Release v2 created by user sjunjie@umich.edu
-2024-01-19T03:36:10.760568+00:00 app[api]: Enable Logplex by user sjunjie@umich.edu
-2024-01-19T03:38:51.000000+00:00 app[api]: Build started by user sjunjie@umich.edu
-2024-01-19T03:39:02.000000+00:00 app[api]: Build failed -- check your build output: https://dashboard.heroku.com/apps/d73babcb-79ef-4319-99e4-e65e42330c0f/activity/builds/a9ba01bc-5e50-401f-ae83-fee7349fdfef
-2024-01-19T03:43:15.000000+00:00 app[api]: Build started by user sjunjie@umich.edu
-2024-01-19T03:43:25.000000+00:00 app[api]: Build failed -- check your build output: https://dashboard.heroku.com/apps/d73babcb-79ef-4319-99e4-e65e42330c0f/activity/builds/61e19074-a3e2-456e-ac54-759f0af88715
-2024-01-19T03:43:34.000000+00:00 app[api]: Build started by user sjunjie@umich.edu
-2024-01-19T03:43:53.945599+00:00 app[api]: Deploy 052a60f4 by user sjunjie@umich.edu
-2024-01-19T03:43:53.945599+00:00 app[api]: Release v3 created by user sjunjie@umich.edu
-2024-01-19T03:43:58.000000+00:00 app[api]: Build succeeded
-2024-01-19T03:44:03.821538+00:00 heroku[router]: at=error code=H14 desc="No web processes running" method=GET path="/" host=affirmative-b9753633e8e0.herokuapp.com request_id=b15ca682-64b2-41e8-899e-f66ea250666c fwd="35.2.80.155" dyno= connect= service= status=503 bytes= protocol=https
-2024-01-19T03:44:04.051635+00:00 heroku[router]: at=error code=H14 desc="No web processes running" method=GET path="/favicon.ico" host=affirmative-b9753633e8e0.herokuapp.com request_id=3fc41c84-b5d6-431a-bb3a-497b2bb3c518 fwd="35.2.80.155" dyno= connect= service= status=503 bytes= protocol=https
-2024-01-19T03:44:55.244213+00:00 heroku[router]: at=error code=H14 desc="No web processes running" method=GET path="/" host=affirmative-b9753633e8e0.herokuapp.com request_id=923b7a76-4554-4a7f-8f28-89d1b62b7eb7 fwd="35.2.80.155" dyno= connect= service= status=503 bytes= protocol=https
-2024-01-19T03:44:55.448650+00:00 heroku[router]: at=error code=H14 desc="No web processes running" method=GET path="/favicon.ico" host=affirmative-b9753633e8e0.herokuapp.com request_id=0de98012-c1b6-430a-bb4e-693eca46b8e0 fwd="35.2.80.155" dyno= connect= service= status=503 bytes= protocol=https
-2024-01-19T03:48:56.801380+00:00 app[api]: Attach CLEARDB_DATABASE (@ref:cleardb-rigid-93430) by user sjunjie@umich.edu
-2024-01-19T03:48:56.801380+00:00 app[api]: Running release v4 commands by user sjunjie@umich.edu
-2024-01-19T03:48:56.811598+00:00 app[api]: @ref:cleardb-rigid-93430 completed provisioning, setting CLEARDB_DATABASE_URL. by user sjunjie@umich.edu
-2024-01-19T03:48:56.811598+00:00 app[api]: Release v5 created by user sjunjie@umich.edu
-2024-01-19T04:33:20.756194+00:00 heroku[router]: at=error code=H14 desc="No web processes running" method=GET path="/" host=affirmative-b9753633e8e0.herokuapp.com request_id=02191781-37a7-4aa9-9f29-174f3db332f3 fwd="35.2.80.155" dyno= connect= service= status=503 bytes= protocol=https
-2024-01-19T04:33:21.022589+00:00 heroku[router]: at=error code=H14 desc="No web processes running" method=GET path="/favicon.ico" host=affirmative-b9753633e8e0.herokuapp.com request_id=4d7d8256-e534-47c3-abac-b4fce0d9733f fwd="35.2.80.155" dyno= connect= service= status=503 bytes= protocol=https
-2024-01-19T04:52:32.968458+00:00 heroku[router]: at=error code=H14 desc="No web processes running" method=GET path="/" host=affirmative-b9753633e8e0.herokuapp.com request_id=188d6a9a-87e2-41f3-99db-0cfaecd0bacc fwd="35.2.80.155" dyno= connect= service= status=503 bytes= protocol=https
-2024-01-19T04:52:33.110664+00:00 heroku[router]: at=error code=H14 desc="No web processes running" method=GET path="/favicon.ico" host=affirmative-b9753633e8e0.herokuapp.com request_id=94d6a73f-5248-494c-ae1a-1c44555c7dc0 fwd="35.2.80.155" dyno= connect= service= status=503 bytes= protocol=https
-2024-01-19T04:52:45.000000+00:00 app[api]: Build started by user sjunjie@umich.edu
-2024-01-19T04:53:07.509139+00:00 app[api]: Deploy d282b85b by user sjunjie@umich.edu
-2024-01-19T04:53:07.509139+00:00 app[api]: Release v6 created by user sjunjie@umich.edu
-2024-01-19T04:53:12.000000+00:00 app[api]: Build succeeded
-2024-01-19T04:53:15.573721+00:00 heroku[router]: at=error code=H14 desc="No web processes running" method=GET path="/" host=affirmative-b9753633e8e0.herokuapp.com request_id=b05f7646-6dba-4f63-b65f-e84be39215a0 fwd="35.2.80.155" dyno= connect= service= status=503 bytes= protocol=https
-2024-01-19T04:53:15.741638+00:00 heroku[router]: at=error code=H14 desc="No web processes running" method=GET path="/favicon.ico" host=affirmative-b9753633e8e0.herokuapp.com request_id=86ea6a0b-69e6-453b-87b1-8d3a1fd89e45 fwd="35.2.80.155" dyno= connect= service= status=503 bytes= protocol=https
-2024-01-19T04:55:37.000000+00:00 app[api]: Build started by user sjunjie@umich.edu
-2024-01-19T04:55:52.590744+00:00 app[api]: Release v7 created by user sjunjie@umich.edu
-2024-01-19T04:55:52.590744+00:00 app[api]: Deploy 9be2a610 by user sjunjie@umich.edu
-2024-01-19T04:55:57.000000+00:00 app[api]: Build succeeded
-2024-01-19T04:55:59.376653+00:00 heroku[router]: at=error code=H14 desc="No web processes running" method=GET path="/" host=affirmative-b9753633e8e0.herokuapp.com request_id=2178b423-c668-44fd-ab8c-26d700648587 fwd="35.2.80.155" dyno= connect= service= status=503 bytes= protocol=https
-2024-01-19T04:55:59.515122+00:00 heroku[router]: at=error code=H14 desc="No web processes running" method=GET path="/favicon.ico" host=affirmative-b9753633e8e0.herokuapp.com request_id=3eef3caa-87b1-4605-9e29-72f93ae98614 fwd="35.2.80.155" dyno= connect= service= status=503 bytes= protocol=https
+2024-01-19T05:06:17.612170+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+2024-01-19T05:06:17.612170+00:00 app[web.1]: return util.import_app(self.app_uri)
+2024-01-19T05:06:17.612170+00:00 app[web.1]: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2024-01-19T05:06:17.612171+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/util.py", line 371, in import_app
+2024-01-19T05:06:17.612171+00:00 app[web.1]: mod = importlib.import_module(module)
+2024-01-19T05:06:17.612171+00:00 app[web.1]: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2024-01-19T05:06:17.612174+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+2024-01-19T05:06:17.612175+00:00 app[web.1]: return _bootstrap._gcd_import(name[level:], package, level)
+2024-01-19T05:06:17.612176+00:00 app[web.1]: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2024-01-19T05:06:17.612176+00:00 app[web.1]: File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+2024-01-19T05:06:17.612176+00:00 app[web.1]: File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2024-01-19T05:06:17.612176+00:00 app[web.1]: File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2024-01-19T05:06:17.612176+00:00 app[web.1]: File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2024-01-19T05:06:17.612177+00:00 app[web.1]: File "<frozen importlib._bootstrap_external>", line 994, in exec_module
+2024-01-19T05:06:17.612177+00:00 app[web.1]: File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2024-01-19T05:06:17.612177+00:00 app[web.1]: File "/app/app.py", line 1, in <module>
+2024-01-19T05:06:17.612177+00:00 app[web.1]: from affirmative_app import app##, db  # Assuming your package is named affirmative_app
+2024-01-19T05:06:17.612177+00:00 app[web.1]: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2024-01-19T05:06:17.612178+00:00 app[web.1]: File "/app/affirmative_app/__init__.py", line 3, in <module>
+2024-01-19T05:06:17.612178+00:00 app[web.1]: from .config import *
+2024-01-19T05:06:17.612178+00:00 app[web.1]: ModuleNotFoundError: No module named 'affirmative_app.config'
+2024-01-19T05:06:17.612238+00:00 app[web.1]: [2024-01-19 05:06:17 +0000] [8] [INFO] Worker exiting (pid: 8)
+2024-01-19T05:06:17.613051+00:00 app[web.1]: [2024-01-19 05:06:17 +0000] [7] [ERROR] Exception in worker process
+2024-01-19T05:06:17.613051+00:00 app[web.1]: Traceback (most recent call last):
+2024-01-19T05:06:17.613051+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/arbiter.py", line 609, in spawn_worker
+2024-01-19T05:06:17.613051+00:00 app[web.1]: worker.init_process()
+2024-01-19T05:06:17.613051+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/workers/base.py", line 134, in init_process
+2024-01-19T05:06:17.613051+00:00 app[web.1]: self.load_wsgi()
+2024-01-19T05:06:17.613052+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/workers/base.py", line 146, in load_wsgi
+2024-01-19T05:06:17.613052+00:00 app[web.1]: self.wsgi = self.app.wsgi()
+2024-01-19T05:06:17.613052+00:00 app[web.1]: ^^^^^^^^^^^^^^^
+2024-01-19T05:06:17.613052+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/app/base.py", line 67, in wsgi
+2024-01-19T05:06:17.613052+00:00 app[web.1]: self.callable = self.load()
+2024-01-19T05:06:17.613052+00:00 app[web.1]: ^^^^^^^^^^^
+2024-01-19T05:06:17.613052+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/app/wsgiapp.py", line 58, in load
+2024-01-19T05:06:17.613053+00:00 app[web.1]: return self.load_wsgiapp()
+2024-01-19T05:06:17.613053+00:00 app[web.1]: ^^^^^^^^^^^^^^^^^^^
+2024-01-19T05:06:17.613053+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+2024-01-19T05:06:17.613053+00:00 app[web.1]: return util.import_app(self.app_uri)
+2024-01-19T05:06:17.613053+00:00 app[web.1]: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2024-01-19T05:06:17.613053+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/util.py", line 371, in import_app
+2024-01-19T05:06:17.613054+00:00 app[web.1]: mod = importlib.import_module(module)
+2024-01-19T05:06:17.613054+00:00 app[web.1]: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2024-01-19T05:06:17.613054+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+2024-01-19T05:06:17.613054+00:00 app[web.1]: return _bootstrap._gcd_import(name[level:], package, level)
+2024-01-19T05:06:17.613054+00:00 app[web.1]: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2024-01-19T05:06:17.613054+00:00 app[web.1]: File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+2024-01-19T05:06:17.613055+00:00 app[web.1]: File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2024-01-19T05:06:17.613055+00:00 app[web.1]: File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2024-01-19T05:06:17.613055+00:00 app[web.1]: File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2024-01-19T05:06:17.613055+00:00 app[web.1]: File "<frozen importlib._bootstrap_external>", line 994, in exec_module
+2024-01-19T05:06:17.613056+00:00 app[web.1]: File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2024-01-19T05:06:17.613056+00:00 app[web.1]: File "/app/app.py", line 1, in <module>
+2024-01-19T05:06:17.613056+00:00 app[web.1]: from affirmative_app import app##, db  # Assuming your package is named affirmative_app
+2024-01-19T05:06:17.613056+00:00 app[web.1]: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2024-01-19T05:06:17.613056+00:00 app[web.1]: File "/app/affirmative_app/__init__.py", line 3, in <module>
+2024-01-19T05:06:17.613057+00:00 app[web.1]: from .config import *
+2024-01-19T05:06:17.613057+00:00 app[web.1]: ModuleNotFoundError: No module named 'affirmative_app.config'
+2024-01-19T05:06:17.613210+00:00 app[web.1]: [2024-01-19 05:06:17 +0000] [7] [INFO] Worker exiting (pid: 7)
+2024-01-19T05:06:17.685708+00:00 app[web.1]: [2024-01-19 05:06:17 +0000] [2] [ERROR] Worker (pid:8) exited with code 3
+2024-01-19T05:06:17.687215+00:00 app[web.1]: [2024-01-19 05:06:17 +0000] [2] [ERROR] Worker (pid:7) exited with code 3
+2024-01-19T05:06:17.687251+00:00 app[web.1]: Traceback (most recent call last):
+2024-01-19T05:06:17.687261+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/arbiter.py", line 209, in run
+2024-01-19T05:06:17.687470+00:00 app[web.1]: self.sleep()
+2024-01-19T05:06:17.687506+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/arbiter.py", line 360, in sleep
+2024-01-19T05:06:17.687598+00:00 app[web.1]: ready = select.select([self.PIPE[0]], [], [], 1.0)
+2024-01-19T05:06:17.687793+00:00 app[web.1]: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2024-01-19T05:06:17.687818+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+2024-01-19T05:06:17.687873+00:00 app[web.1]: self.reap_workers()
+2024-01-19T05:06:17.687894+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/arbiter.py", line 530, in reap_workers
+2024-01-19T05:06:17.687982+00:00 app[web.1]: raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+2024-01-19T05:06:17.688025+00:00 app[web.1]: gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>
+2024-01-19T05:06:17.688037+00:00 app[web.1]: 
+2024-01-19T05:06:17.688038+00:00 app[web.1]: During handling of the above exception, another exception occurred:
+2024-01-19T05:06:17.688041+00:00 app[web.1]: 
+2024-01-19T05:06:17.688051+00:00 app[web.1]: Traceback (most recent call last):
+2024-01-19T05:06:17.688060+00:00 app[web.1]: File "/app/.heroku/python/bin/gunicorn", line 8, in <module>
+2024-01-19T05:06:17.688099+00:00 app[web.1]: sys.exit(run())
+2024-01-19T05:06:17.688168+00:00 app[web.1]: ^^^^^
+2024-01-19T05:06:17.688180+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/app/wsgiapp.py", line 67, in run
+2024-01-19T05:06:17.688232+00:00 app[web.1]: WSGIApplication("%(prog)s [OPTIONS] [APP_MODULE]").run()
+2024-01-19T05:06:17.688255+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/app/base.py", line 236, in run
+2024-01-19T05:06:17.688332+00:00 app[web.1]: super().run()
+2024-01-19T05:06:17.688345+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/app/base.py", line 72, in run
+2024-01-19T05:06:17.688410+00:00 app[web.1]: Arbiter(self).run()
+2024-01-19T05:06:17.688431+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/arbiter.py", line 229, in run
+2024-01-19T05:06:17.688506+00:00 app[web.1]: self.halt(reason=inst.reason, exit_status=inst.exit_status)
+2024-01-19T05:06:17.688528+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/arbiter.py", line 342, in halt
+2024-01-19T05:06:17.688601+00:00 app[web.1]: self.stop()
+2024-01-19T05:06:17.688642+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/arbiter.py", line 396, in stop
+2024-01-19T05:06:17.688697+00:00 app[web.1]: time.sleep(0.1)
+2024-01-19T05:06:17.688717+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+2024-01-19T05:06:17.688773+00:00 app[web.1]: self.reap_workers()
+2024-01-19T05:06:17.688791+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/gunicorn/arbiter.py", line 530, in reap_workers
+2024-01-19T05:06:17.688881+00:00 app[web.1]: raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+2024-01-19T05:06:17.688918+00:00 app[web.1]: gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>
+2024-01-19T05:06:17.761439+00:00 heroku[web.1]: Process exited with status 1
+2024-01-19T05:06:17.782936+00:00 heroku[web.1]: State changed from up to crashed
+2024-01-19T05:06:18.924690+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=affirmative-b9753633e8e0.herokuapp.com request_id=43bd3d20-407b-4243-a8a9-16eede4f2e27 fwd="35.2.80.155" dyno= connect= service= status=503 bytes= protocol=https
+2024-01-19T05:06:19.191639+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/favicon.ico" host=affirmative-b9753633e8e0.herokuapp.com request_id=7e1c4ff2-627a-4e48-80c2-1f71350613f6 fwd="35.2.80.155" dyno= connect= service= status=503 bytes= protocol=https
