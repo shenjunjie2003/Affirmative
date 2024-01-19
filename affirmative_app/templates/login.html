@@ -7,8 +7,24 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <div class="badge">
+        <p class="badge-text">Affirmative</p>
+        <p class="slogan-text"> Transgender Healthcare Affirmed</p>
+    </div>
     <div class="container">
         <form action="{{ url_for('login') }}" method="post" class="login-form">
+            <div class="logo-container">
+                <div class="logo">
+                    <div style="width: 100%; height: 100%; position: relative; background: #D2CACA">
+                        <div style="width: 16.38px; height: 16.38px; left: 13.56px; top: 0px; position: absolute; border-radius: 50%; background: #C4BD91"></div>
+                        <div style="width: 16.38px; height: 16.38px; left: 13.56px; top: 27.12px; position: absolute; border-radius: 50%; background: #C4BD91"></div>
+                        <div style="width: 16.38px; height: 16.38px; left: 27.12px; top: 13.55px; position: absolute; border-radius: 50%; background: #C4BD91"></div>
+                        <div style="width: 16.38px; height: 16.38px; left: 0px; top: 13.55px; position: absolute; border-radius: 50%;background: #C4BD91"></div>
+                        <div style="width: 18.92px; height: 2.21px; left: 12.58px; top: 20.72px; position: absolute; background: #666644"></div>
+                        <div style="width: 18.92px; height: 2.10px; left: 20.99px; top: 31.29px; position: absolute; transform: rotate(-90deg); transform-origin: 0 0; background: #666644"></div>
+                    </div>
+                </div>
+            </div>
             <h1>Login</h1>
             <input type="text" id="username" name="username" placeholder="Username" required>
             <input type="password" id="password" name="password" placeholder="Password" required>
