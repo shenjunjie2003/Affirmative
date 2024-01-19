@@ -431,11 +431,11 @@ def get_result_details(provider_id):
             "finances": provider.finances,
             "qualifications": provider.qualifications,
             "phone_number": provider.phone_number,
-            "gender": provider.gender,
+            "gender": gender_table_reverse.get(provider.gender, "Unknown"),
             "education": provider.education,
             "hospital": provider.hospital,
             "languages": language_names,
-            "specialties": provider.specialties,
+            "specialties": provider.category,
             "education": provider.education,
             # Add more fields as needed
         }
