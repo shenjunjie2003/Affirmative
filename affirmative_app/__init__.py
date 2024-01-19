@@ -20,6 +20,7 @@ app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'  # or 'None' if necessary
 
 app.config.from_object(Config)
 
+
 db = SQLAlchemy(app)
 
 from affirmative_app import routes

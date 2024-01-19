@@ -239,8 +239,9 @@ def apply_filters():
     if len(filtered_results) < 4:
         # random.sample may raise a ValueError if the sample size is larger than the population size
         # Therefore, ensure the sample size is not larger than the length of filtered_results
-        sample_size = min(5, len(filtered_results))
-        results = random.sample(filtered_results, sample_size)
+        sample_size = 3
+        provider_list = query.all()
+        results = random.sample(provider_list, sample_size)
         for provider in results:
             provider.label = "Not Match but Recommended"
     else:
