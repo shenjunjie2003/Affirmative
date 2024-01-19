@@ -138,3 +138,7 @@ MODIFY `navigator_ID` int NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `patient`
 MODIFY `user_ID` int NOT NULL AUTO_INCREMENT;
+
+`Jonny 1.18`
+ALTER TABLE provider
+MODIFY category varchar(256) DEFAULT NULL;
