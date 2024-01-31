@@ -9,3 +9,7 @@ class Config(object):
     MYSQL_DATABASE_HOST = 'us-cluster-east-01.k8s.cleardb.net'
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://b405e5cd5117bb:b22b9c56@us-cluster-east-01.k8s.cleardb.net/heroku_29aebe8b6ee46de'
     SQLALCHEMY_TRACK_MODIFICATIONS = False  # Optional: Reduces overhead if you don't need it
+
+# dbusername = 'root'
+# dbpassword = '030129happyjjday'
+# dbname = 'Affirmative'

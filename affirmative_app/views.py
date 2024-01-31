@@ -142,6 +142,7 @@ def index():
     ).filter(
         CareNavigatorPatientRelate.care_navigator_id == care_navigator_id
     ).limit(4).all()
+    print("eeeee:", db.engine.pool.status())
 
     def get_gender_string(gender_number):
         try:
@@ -159,6 +160,7 @@ def index():
         ).filter(
             PatientProviderSaved.patient_id == patient.user_ID
         ).all()
+        print("ffff:", db.engine.pool.status())
         patient.saved_provider_names = [provider.name for provider in saved_providers]
 
     return render_template('index.html', patients=patients,
@@ -183,6 +185,7 @@ def results(procedure):
             .limit(5)
             .all()
         )
+        print("ggggg:", db.engine.pool.status())
 
         # Query the patients associated with the logged-in care navigator
         patients = db.session.query(Patient).join(
@@ -191,6 +194,7 @@ def results(procedure):
         ).filter(
             CareNavigatorPatientRelate.care_navigator_id == care_navigator_id
         ).all()
+        print("hhhh:", db.engine.pool.status())
 
         filtered_results_dicts = [provider_to_dict(provider) for provider in search_results]
 
@@ -231,6 +235,7 @@ def apply_filters():
 
     # Execute the query
     filtered_results = query.all()
+    print("iiii:", db.engine.pool.status())
     base_zip_code = distance if distance is not None else 48105
     filtered_results.sort(key=lambda provider: abs(int(provider.zip_code or 0) - base_zip_code))
 
@@ -239,8 +244,17 @@ def apply_filters():
     if len(filtered_results) < 4:
         # random.sample may raise a ValueError if the sample size is larger than the population size
         # Therefore, ensure the sample size is not larger than the length of filtered_results
-        sample_size = min(5, len(filtered_results))
-        results = random.sample(filtered_results, sample_size)
+        query_2 = (
+        Provider.query
+        .join(ProviderService, Provider.provider_ID == ProviderService.provider_id)
+        .join(Service, ProviderService.service_id == Service.service_ID)
+        .filter(Service.name == procedure)
+        .limit(10)
+    )
+        sample_size = 3
+        provider_list = query_2.all()
+        print("jjjjj:", db.engine.pool.status())
+        results = random.sample(provider_list, sample_size)
         for provider in results:
             provider.label = "Not Match but Recommended"
     else:
@@ -276,6 +290,8 @@ def provider_to_dict(provider):
         .limit(5)
         .all()
     )
+
+    print("aaaaa:", db.engine.pool.status())
 
     language_ids = [row.language_id for row in languages]  
     language_names = [language_dict_reverse.get(language_id, "Unknown") for language_id in language_ids]
@@ -436,6 +452,7 @@ def get_result_details(provider_id):
             .limit(5)
             .all()
         )
+        print("bbbbb:", db.engine.pool.status())
 
         insurance_ids = [row.insurance_id for row in insurance]
 
@@ -449,6 +466,7 @@ def get_result_details(provider_id):
             .limit(5)
             .all()
         )
+        print("ccccc:", db.engine.pool.status())
 
         language_ids = [row.language_id for row in languages]  
         language_names = [language_dict_reverse.get(language_id, "Unknown") for language_id in language_ids]
@@ -506,6 +524,7 @@ def update_bookmarks():
 def get_bookmarked_patients(provider_id):
     # Query the database for all patients who have bookmarked this provider
     bookmarked_patients = PatientProviderSaved.query.filter_by(provider_id=provider_id).all()
+    print("dddddd:", db.engine.pool.status())
     # Extract the patient IDs and send them back as JSON
     patient_ids = [patient.patient_id for patient in bookmarked_patients]
     return jsonify(patient_ids)
