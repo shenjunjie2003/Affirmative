@@ -10,11 +10,9 @@
 <body>
 
     <header class = "big_header">
-        <div class="go-back">
-            <button onclick="window.location.href='/';">Go Back</button>
-        </div>
+       
         <div class="logo">
-            <div style="width: 100%; height: 100%; position: relative; background: #D2CACA">
+            <div style="width: 100%; height: 100%; position: relative; background: #f0f0f0">
                 <div style="width: 16.38px; height: 16.38px; left: 13.56px; top: 0px; position: absolute; border-radius: 50%; background: #C4BD91"></div>
                 <div style="width: 16.38px; height: 16.38px; left: 13.56px; top: 27.12px; position: absolute; border-radius: 50%; background: #C4BD91"></div>
                 <div style="width: 16.38px; height: 16.38px; left: 27.12px; top: 13.55px; position: absolute; border-radius: 50%; background: #C4BD91"></div>
@@ -26,6 +24,9 @@
     </header>
 
     <div id="left-column">
+        <div class="go-back">
+            <button onclick="window.location.href='/';">Replace this</button>
+        </div>
         <h2 id="procedure-title">{{procedure}}</h2>
         
         <div class="sort-section">
@@ -94,8 +95,8 @@
                         <h3>{{ result.name }} </h3>
                         <p>Specialties: {{ result.category }}</p>
                         <p>Location: {{ result.location }}</p>
-                        <p>Languages Spoken: {{ result.languages }}</p>
-                        <button onclick="showResultDetails('{{ result.provider_ID }}')">View Details</button>
+                        <p >Languages Spoken: {{ result.languages }}</p>
+                        <button onclick="showResultDetails('{{ result.provider_ID }}')">replace</button>
                     </div>
                 {% endfor %}
             {% else %}

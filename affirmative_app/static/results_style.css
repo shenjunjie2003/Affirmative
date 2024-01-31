@@ -9,14 +9,15 @@
     left: 0;
     right: 0;
     z-index: 100;
-    background-color: #D2CACA;
+    background-color: #f0f0f0;
     padding: 0 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
     width: 50px;
     height: 50px;
-    background-color: #C4BD91;
+    background-color: #f0f0f0;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -24,7 +25,7 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Avenir, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f0f0f0;
@@ -34,6 +35,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: row;
+    background-color: #474735;
 }
 
 .go-back-button {
@@ -76,7 +78,7 @@ body {
 
 #left-column {
     flex: 0 0 20%; /* You can adjust the flex-basis as needed */
-    max-width: 25%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 20% */
+    width:20%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 20% */
     background-color: #e0e0e0;
     padding: 20px;
     margin-top: 70px;
@@ -90,6 +92,7 @@ body {
     font-size: 24px;
     color: #333;
     margin-bottom: 20px;
+    text-transform: uppercase;
     font-weight: bold;
 }
 
@@ -154,50 +157,47 @@ button:hover {
 
 #center-column {
     flex: 1; /* Grow and shrink as needed */
-    max-width: 25%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 60% */
+    max-width: 26%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 60% */
     margin-top: 70px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
+    background-color: #474735;
     height: calc(100vh - 70px); /* Full height minus header */
 }
 
 
-.center_header {
-    font-size: 18px;
-    font-weight: bold;
-    height: 60px;
-    background-color: #959595;
-    text-align: center;
-    position: relative; /* Ensure this is relative to allow for content below */
-    z-index: 101; /* Above the content but below the header */
-}
 
 .result-block {
     /* Other existing styles... */
     border-left: 5px solid #C4BD91; /* Add a colored border on the left for visual interest */
-    padding: 15px; .name-and-pronoun {
+    padding: 15px; 
+    margin-bottom: 20px; /* Increase margin for more space between entries */
+    background-color: #fff; /* Optional: change to a white background for better readability */
+    margin-left: 4.5%;
+}
+
+/*
+.name-and-pronoun {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }/* Increase padding to give content more room */
-    margin-bottom: 20px; /* Increase margin for more space between entries */
-    background-color: #fff; /* Optional: change to a white background for better readability */
-}
 
-.result-block h3, .result-block p {
-    margin: 5px 0; /* Add some margin to the top and bottom */
+.result-block p {
+    margin: 3px 0; /* Add some margin to the top and bottom */
     font-size: 14px; /* Adjust the font size as needed */
     color: black; /* Make sure the text is readable */
-    font-family: Arial, sans-serif; /* Keep the font consistent with the rest of the design */
-    color: #333; /* Darker color for better readability */
 }
+
 
 .result-block h3 {
     margin: 10px 0; /* Add more vertical space around the name */
-    font-size: 18px; /* Increase font size for the name */
+    font-size: 20px; /* Increase font size for the name */
     color: #333; /* Keeping the text color dark for readability */
     /* Rest of your styles... */
+    font-family: Avenir, sans-serif; /* Keep the font consistent with the rest of the design */
+    text-transform: uppercase;
 }
 
 .result-block button {
@@ -215,15 +215,14 @@ button:hover {
 }
 
 .result-block .label {
-    display: inline-block; /* Treat the label as an inline block element */
-    background: #C4BD91;  /* A pleasant green background */
-    color: white; /* White text color for contrast */
-    font-family: 'Roboto', sans-serif; /* Stylish, bold font */
-    font-size: 16px; /* Slightly larger font size for emphasis */
-    font-weight: 700; /* Make the text bold */
-    padding: 5px 10px; /* Add some padding around the text */
+    /*display: inline-block; /* Treat the label as an inline block element */
+    color: #0057FF; /* White text color for contrast */
+    font-family: 'Avenir', sans-serif; /* Stylish, bold font */
+    font-size: 11px; /* Slightly larger font size for emphasis */
+    font-weight: 300; /* Make the text bold */
     border-radius: 5px; /* Rounded corners for the label */
-    margin-bottom: 10px; /* Space below the label */
+    margin-bottom: -6px; /* Space below the label */
+    text-transform: uppercase; /* Uppercase text for emphasis */
 }
 
 .result-details {
@@ -253,8 +252,9 @@ button:hover {
     flex: 0 0 40%; /* Change the flex-basis to 40%, giving it more room */
     position: static;
     width: 50%; /* Adjust the width as necessary */
-    background-color: #fff;
+    background-color: #ffffff;
     padding: 10px;
+    padding-left: 2%;
     box-sizing: border-box;
     overflow-y: auto;
     position: fixed;
@@ -339,12 +339,14 @@ button:hover {
     font-size: 13px;
     font-family: Avenir;
     word-wrap: break-word;
+    text-transform: capitalize;
 }
 
 .title {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+
 }
 
 .bio{
@@ -356,22 +358,14 @@ button:hover {
 
 .title-location, .title-email, .title-phone_number, .about-title {
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
 }
 
 .subdivision {
     margin-bottom: 20px;
 }
 
-.about {
-    color: black;
-    font-size: 20px;
-    font-family: Avenir;
-    font-weight: 800;
-    text-transform: uppercase;
-    word-wrap: break-word;
-    margin-bottom: 10px;
-}
+
 
 .about-text {
     background-color:#D9D9D9 ;
@@ -383,8 +377,19 @@ button:hover {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 15px;
-    row-gap: 40px;
-    padding-left: 5%;
+    row-gap: 0;
+    padding-left: 0%;
+    padding-bottom: 3%;
+}
+
+.about-text p {
+    margin: 0;
+    padding: 0;
+    text-transform: capitalize;
+}
+
+.about-text h3 {
+    margin-bottom: 0;
 }
 
 .finances,
@@ -399,10 +404,11 @@ button:hover {
 }
 
 .profile-pic img {
-    width: 180px; /* Adjust as needed */
-    height: 180px; /* Adjust as needed */
+    width: 220px; /* Adjust as needed */
+    height: 220px; /* Adjust as needed */
     border-radius: 50%;
     margin-bottom: 3%;
+    margin-left: 0;
 }
 
 /* Arrange the elements within the location and contact div */

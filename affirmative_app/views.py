@@ -133,7 +133,7 @@ def index():
         'Hair removal - laser', 'Hair Transplantation'
     ]
     psychological_procedures = [
-        'Counseling with a social worker', 'Psychologist', 'Other Practitioner', 'Psychiatric Care', 'Medical Letter'
+        'Social Worker Counseling', 'Psychologist', 'Other Practitioner', 'Psychiatric Care', 'Medical Letter'
     ]
 
     patients = db.session.query(Patient).join(

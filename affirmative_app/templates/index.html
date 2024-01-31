@@ -10,7 +10,7 @@
 
     <header>
         <div class="logo">
-            <div style="width: 100%; height: 100%; position: relative; background: #D2CACA">
+            <div style="width: 100%; height: 100%; position: relative; background: #F0F0F0">
                 <div style="width: 16.38px; height: 16.38px; left: 13.56px; top: 0px; position: absolute; border-radius: 50%; background: #C4BD91"></div>
                 <div style="width: 16.38px; height: 16.38px; left: 13.56px; top: 27.12px; position: absolute; border-radius: 50%; background: #C4BD91"></div>
                 <div style="width: 16.38px; height: 16.38px; left: 27.12px; top: 13.55px; position: absolute; border-radius: 50%; background: #C4BD91"></div>
@@ -28,17 +28,18 @@
 
     <div class="container">
 
-    
     <div class="searching">
-
         <nav class="category-buttons">
             <div class="category-title">PSYCHOLOGICAL</div>
-            {% for procedure in psychological_procedures %}
+            <div class = "services">
+                {% for procedure in psychological_procedures %}
                 <form method="post" action="{{ url_for('results', procedure=procedure) }}">
                     <input type="hidden" name="procedure" value="{{ procedure }}">
                     <button class="service-type" type="submit">{{ procedure }}</button>
                 </form>
-            {% endfor %}
+                {% endfor %}
+            </div>
+            
 
             <div class="category-title">SURGICAL</div>
             {% for procedure in surgical_procedures %}
@@ -51,7 +52,7 @@
             <div class="category-title">Endodermal</div>
                 <form method="post" action="{{ url_for('results', procedure='Hormone Replacement Therapy')}}">
                     <input type="hidden" name="procedure" value="Hormone Replacement Therapy">
-                    <button class="service-type" type="submit">Hormone Replacement Therapy</button>
+                    <button class="service-type" type="submit">HRT</button>
                 </form>
         </nav>
     </div>
@@ -62,12 +63,15 @@
     <div class="patient-cards-container">
         {% for patient in patients %}
         <div class="patient-card">
-            <h2>{{ patient.name }}</h2>
-            <p>Email: {{ patient.email }}</p>
-            <p>Location: {{ patient.city }}, {{ patient.state }}</p>
-            <p>Insurance: {{ patient.insurance }}</p>
-            <p>Accessibility: {{ patient.accessibility }}</p>
-            <p>Preferred Gender: {{ patient.display_gender }}</p>
+            <div class = "patient-info">
+                <h2>{{ patient.name }}</h2>
+                <p>Email: {{ patient.email }}</p>
+                <p>Location: {{ patient.city }}, {{ patient.state }}</p>
+                <p>Insurance: {{ patient.insurance }}</p>
+                <p>Accessibility: {{ patient.accessibility }}</p>
+                <p>Preferred Gender: {{ patient.display_gender }}</p>
+            </div>
+            
             <div class="saved-providers">
                 <strong>Saved Providers:</strong>
                 <ul>
