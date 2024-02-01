@@ -74,6 +74,7 @@ function updateResults(data) {
         var resultBlock = document.createElement('div');
         resultBlock.className = 'result-block';
 
+
         // Create and style the label
         var label = document.createElement('p');
         label.className = 'label'; // Make sure this matches your CSS class for styling the label
@@ -96,9 +97,9 @@ function updateResults(data) {
         languages.textContent = 'Languages Spoken: ' + result.languages;
 
         // Create and style the view details button
-        var viewDetailsButton = document.createElement('button');
-        viewDetailsButton.textContent = 'View Details';
-        viewDetailsButton.addEventListener('click', function() {
+        var resultBlock = document.createElement('div');
+        resultBlock.className = 'result-block';
+        resultBlock.addEventListener('click', function() {
             showResultDetails(result.provider_ID);
         });
 
@@ -108,7 +109,6 @@ function updateResults(data) {
         resultBlock.appendChild(specialties);
         resultBlock.appendChild(location);
         resultBlock.appendChild(languages);
-        resultBlock.appendChild(viewDetailsButton);
 
         // Append the result block to the results container
         resultsContainer.appendChild(resultBlock);

@@ -253,8 +253,7 @@ button:hover {
     position: static;
     width: 50%; /* Adjust the width as necessary */
     background-color: #ffffff;
-    padding: 10px;
-    padding-left: 2%;
+    /*padding-left: 2%;*/
     box-sizing: border-box;
     overflow-y: auto;
     position: fixed;
@@ -290,7 +289,7 @@ button:hover {
     color: #666;
 }
 
-.location-and-contact, .contact-buttons, .subdivision {
+.contact-buttons, .subdivision {
     margin-bottom: 20px;
 }
 
@@ -346,6 +345,7 @@ button:hover {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    margin-left: 3%;
 
 }
 
@@ -354,6 +354,7 @@ button:hover {
     display: flex;
     flex-direction: row;
     align-items: stretch;
+    margin-left: 3%;
 }
 
 .title-location, .title-email, .title-phone_number, .about-title {
@@ -361,10 +362,17 @@ button:hover {
     margin-bottom: 0px;
 }
 
+.about-title {
+    margin-left: 3%;
+}   
+
 .subdivision {
     margin-bottom: 20px;
 }
 
+.subdivision-insurance{
+    margin-left: 3%;
+}
 
 
 .about-text {
@@ -378,8 +386,8 @@ button:hover {
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 15px;
     row-gap: 0;
-    padding-left: 0%;
-    padding-bottom: 3%;
+    padding-left: 3%;
+    padding-bottom: 2%;
 }
 
 .about-text p {
@@ -412,12 +420,19 @@ button:hover {
 }
 
 /* Arrange the elements within the location and contact div */
-.location-and-contact {
+.location-and-bookmark {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: flex-start;
+    margin-right: 0;
+}
+
+.info{
+    margin-left: 0;
+    width: 60%;
     display: flex;
     flex-direction: column;
-    margin-right: 5%;
-    width: 33%;
-    align-items: flex-start;
 }
 
 .location, .email, .phone {
@@ -432,15 +447,15 @@ button:hover {
     border-radius: 50%;
     border-radius: 10px;
     background-color: #C4BD91;
-    margin-right: 10%;
     color: white;
     cursor: pointer;
-    margin-top: 40%;
+    margin-top: 50%;
 }
 
 .bookmark_buttons {
     width: 20%;
     align-items: center;
+    margin-top: 20%;
 }
 
 #bookmark_button:hover {
@@ -495,11 +510,11 @@ button:hover {
 }
 
 .profile-pic{
-    width: 33%;
+    width: 40%;
     padding: 10px;
     box-sizing: border-box;
-    overflow-y: auto;
-    right: 0; /* Align with the right side of the viewport */
+    padding-right: 0;
+    margin-right: 0;
     bottom: 0; /* Stretch to the bottom of the viewport */
     flex-direction: column;
     align-items: center;

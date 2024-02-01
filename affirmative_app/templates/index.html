@@ -41,7 +41,7 @@
             </div>
             
 
-            <div class="category-title">SURGICAL</div>
+            <div class="category-title-line">SURGICAL</div>
             {% for procedure in surgical_procedures %}
                 <form method="post" action="{{ url_for('results', procedure=procedure) }}">
                     <input type="hidden" name="procedure" value="{{ procedure }}">
@@ -49,7 +49,7 @@
                 </form>
             {% endfor %}
 
-            <div class="category-title">Endodermal</div>
+            <div class="category-title-line">Endodermal</div>
                 <form method="post" action="{{ url_for('results', procedure='Hormone Replacement Therapy')}}">
                     <input type="hidden" name="procedure" value="Hormone Replacement Therapy">
                     <button class="service-type" type="submit">HRT</button>
