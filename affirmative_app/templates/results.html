@@ -24,10 +24,13 @@
     </header>
 
     <div id="left-column">
-        <div class="go-back">
-            <button onclick="window.location.href='/';">Replace this</button>
+        <div class = "first-line">
+            <div class="go-back">
+                <button onclick="window.location.href='/';">Replace this</button>
+            </div>
+            <h2 id="procedure-title">{{procedure}}</h2>
         </div>
-        <h2 id="procedure-title">{{procedure}}</h2>
+        
         
         <div class="sort-section">
             <h3>Sort</h3>
@@ -90,13 +93,12 @@
         <div class="results-container">
             {% if results %}
                 {% for result in results %}
-                    <div class="result-block">
+                    <div class="result-block" onclick="showResultDetails('{{ result.provider_ID }}')">
                         <p class="label"> Recommended </p>
                         <h3>{{ result.name }} </h3>
                         <p>Specialties: {{ result.category }}</p>
                         <p>Location: {{ result.location }}</p>
-                        <p >Languages Spoken: {{ result.languages }}</p>
-                        <button onclick="showResultDetails('{{ result.provider_ID }}')">replace</button>
+                        <p style = "text-transform: capitalize;" >Languages Spoken: {{ result.languages }}</p>
                     </div>
                 {% endfor %}
             {% else %}
@@ -119,12 +121,29 @@
             <div class="profile-pic">
                 <img id="details-provider-profile_picture" src = "/static/uploads/default_profile_pic.png">
             </div>
-            <div class="location-and-contact">
-                <div class="location">
-                    <h3 class="title-location">LOCATION</h3>
-                    <p id="details-provider-address"></p>
-                    <p id="details-provider-cityandstate"></p>
-                    <p id="details-provider-zip_code"></p>
+            <div class = "info">
+                <div class = "location-and-bookmark">
+                    <div class="location">
+                        <h3 class="title-location">LOCATION</h3>
+                        <p id="details-provider-address"></p>
+                        <p id="details-provider-cityandstate"></p>
+                        <p id="details-provider-zip_code"></p>
+                    </div>
+                    <div class="bookmark_buttons">
+                        <button id="bookmark-button">Bookmark</button>
+                        <div id="bookmark-dropdown" style="display: none;">
+                            <form class="patient-bookmark-form">
+                                {% for patient in patients %}
+                                <label>
+                                    <input type="checkbox" class="patient-checkbox" value="{{ patient.user_ID }}"
+                                           {% if patient.user_ID in bookmarked_patients %}checked{% endif %}>
+                                    {{ patient.name }}
+                                </label><br>
+                                {% endfor %}
+                            </form>
+                            <button id="save-bookmark">Save Changes</button>
+                        </div>
+                    </div>
                 </div>
                 <div class = "email_and_phone">
                     <div class="email">
@@ -137,25 +156,7 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="bookmark_buttons">
-                <button id="bookmark-button">Bookmark</button>
-                <div id="bookmark-dropdown" style="display: none;">
-                    <form class="patient-bookmark-form">
-                        {% for patient in patients %}
-                        <label>
-                            <input type="checkbox" class="patient-checkbox" value="{{ patient.user_ID }}"
-                                   {% if patient.user_ID in bookmarked_patients %}checked{% endif %}>
-                            {{ patient.name }}
-                        </label><br>
-                        {% endfor %}
-                    </form>
-                    <button id="save-bookmark">Save Changes</button>
-                </div>
-            </div>
-
-            
-        </div>
+        </div>  
         <div class="subdivision_about">
             <h3 class="about-title">ABOUT</h3>
             <div class = "about-text">   
@@ -183,7 +184,7 @@
             <p id="details-provider-languages" class="title-languages"></p>
         </div>
 
-        <div class="subdivision insurance">
+        <div class="subdivision-insurance">
             <h3 class="insurance-title">INSURANCE</h3>
             <p id="details-provider-insurance"></p>
         </div>
