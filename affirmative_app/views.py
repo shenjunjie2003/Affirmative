@@ -142,7 +142,6 @@ def index():
     ).filter(
         CareNavigatorPatientRelate.care_navigator_id == care_navigator_id
     ).limit(4).all()
-    print("eeeee:", db.engine.pool.status())
 
     def get_gender_string(gender_number):
         try:
@@ -160,8 +159,7 @@ def index():
         ).filter(
             PatientProviderSaved.patient_id == patient.user_ID
         ).all()
-        print("ffff:", db.engine.pool.status())
-        patient.saved_provider_names = [provider.name for provider in saved_providers]
+        patient.saved_provider_names = [provider.name for provider in saved_providers][:4]
 
     return render_template('index.html', patients=patients,
                            surgical_procedures=surgical_procedures,
@@ -171,12 +169,14 @@ def index():
 def results(procedure):
     care_navigator_id = session.get('user_id')  # Get the current care navigator's ID from the session
 
+    if procedure == 'Social Worker Counseling':
+        procedure = 'counseling with a social worker'
+
     if care_navigator_id is None:
         return redirect(url_for('login'))  # Redirect to login if the user is not logged in
 
     if request.method == 'POST':
         service = procedure.lower()
-        print(f"Received procedure: {service}")
         search_results = (
             Provider.query
             .join(ProviderService, Provider.provider_ID == ProviderService.provider_id)

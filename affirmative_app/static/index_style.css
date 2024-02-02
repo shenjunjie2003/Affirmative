@@ -21,7 +21,7 @@ header {
     left: 0;
     right: 0;
     border-bottom: 1px solid rgb(228, 228, 228);
-    z-index: 100;
+    z-index: 1000;
     background-color: #f0f0f0;
     padding: 0 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -38,9 +38,11 @@ header {
 }
 
 .searching {
+    position: sticky;
+    top: 70px; /* Height of the header */
     background-color: white;
     width: 20%;
-    z-index: 200;
+    z-index: 1;
     padding-top: 28px;
     display: flex;
     flex-direction: column;
@@ -125,6 +127,7 @@ form {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: calc(45% - 2%); /* Adjust width and account for margin */
+    height: 315px;
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 5px;
@@ -154,34 +157,40 @@ form {
 
 
 .patient-card p:last-of-type {
-    margin-bottom: 60px; /* This should be at least the height of your saved-providers block */
+    margin-bottom: 25px; /* This should be at least the height of your saved-providers block */
 }
 
 /* Saved Providers List */
 .saved-providers {
-    margin-top: -40px; /* Pushes the saved providers to the bottom of the card */
-    padding-top: 15px;
-    border-block-start-width: 10px;
-    border-block-start-style: solid;
+    padding-top: 5px; /* Provide enough space for the title */
     border-top: 1px solid #e1e1e1; /* Separating line for the section */
+    height: 80px; /* Fixed height to fit the provider names */
+    overflow: hidden;
 }
 
 .saved-providers strong {
-    color: #333; /* Match the heading color */
-    font-size: 16px; /* Slightly larger font size for the subheading */
-    text-transform: uppercase; /* All caps for the subheading */
+    display: block; /* Ensures the title is on its own line */
+    color: #333;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
 }
 
 .saved-providers ul {
-    list-style: none; /* No bullets for the list */
-    padding-left: 0; /* No padding on the left */
-    margin-top: 5px; /* Spacing above the list */
+    columns: 2; /* Creates two columns for names */
+    -webkit-columns: 2;
+    -moz-columns: 2;
+    margin: 0; /* Removes default margin */
+    padding: 0; /* Removes default padding */
+    list-style: none;
 }
 
 .saved-providers li {
-    font-size: 14px; /* Matching font size for list items */
-    line-height: 1.6; /* Adequate line height for readability */
-    margin-bottom: 5px; /* Space between list items */
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 5px;
+    list-style: none;
+    break-inside: avoid-column; 
 }
 
 /* Responsive Design Adjustments */
