@@ -185,7 +185,6 @@ def results(procedure):
             .limit(5)
             .all()
         )
-        print("ggggg:", db.engine.pool.status())
 
         # Query the patients associated with the logged-in care navigator
         patients = db.session.query(Patient).join(
@@ -194,7 +193,6 @@ def results(procedure):
         ).filter(
             CareNavigatorPatientRelate.care_navigator_id == care_navigator_id
         ).all()
-        print("hhhh:", db.engine.pool.status())
 
         filtered_results_dicts = [provider_to_dict(provider) for provider in search_results]
 
@@ -235,7 +233,6 @@ def apply_filters():
 
     # Execute the query
     filtered_results = query.all()
-    print("iiii:", db.engine.pool.status())
     base_zip_code = distance if distance is not None else 48105
     filtered_results.sort(key=lambda provider: abs(int(provider.zip_code or 0) - base_zip_code))
 
@@ -253,7 +250,6 @@ def apply_filters():
     )
         sample_size = 3
         provider_list = query_2.all()
-        print("jjjjj:", db.engine.pool.status())
         results = random.sample(provider_list, sample_size)
         for provider in results:
             provider.label = "Not Match but Recommended"
@@ -290,8 +286,6 @@ def provider_to_dict(provider):
         .limit(5)
         .all()
     )
-
-    print("aaaaa:", db.engine.pool.status())
 
     language_ids = [row.language_id for row in languages]  
     language_names = [language_dict_reverse.get(language_id, "Unknown") for language_id in language_ids]
@@ -452,8 +446,6 @@ def get_result_details(provider_id):
             .limit(5)
             .all()
         )
-        print("bbbbb:", db.engine.pool.status())
-
         insurance_ids = [row.insurance_id for row in insurance]
 
         insurance_names = [insurance_dict_reverse.get(insurance_id, "Unknown") for insurance_id in insurance_ids]
@@ -466,7 +458,6 @@ def get_result_details(provider_id):
             .limit(5)
             .all()
         )
-        print("ccccc:", db.engine.pool.status())
 
         language_ids = [row.language_id for row in languages]  
         language_names = [language_dict_reverse.get(language_id, "Unknown") for language_id in language_ids]
@@ -498,7 +489,6 @@ def get_result_details(provider_id):
            
 @app.route('/update_bookmarks', methods=['POST'])
 def update_bookmarks():
-    print(2123123)
     data = request.json
     provider_id = data.get('provider_id')
     checked_patients = set(map(int, data['checked_patients']))
@@ -524,7 +514,6 @@ def update_bookmarks():
 def get_bookmarked_patients(provider_id):
     # Query the database for all patients who have bookmarked this provider
     bookmarked_patients = PatientProviderSaved.query.filter_by(provider_id=provider_id).all()
-    print("dddddd:", db.engine.pool.status())
     # Extract the patient IDs and send them back as JSON
     patient_ids = [patient.patient_id for patient in bookmarked_patients]
     return jsonify(patient_ids)
