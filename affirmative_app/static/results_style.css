@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
+    height: 50px;
     position: fixed;
     top: 0;
     left: 0;
@@ -15,8 +15,8 @@
 }
 
 .logo {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     background-color: #f0f0f0;
     border-radius: 50%;
     display: flex;
@@ -72,15 +72,14 @@ body {
     width:20%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 20% */
     background-color: #e0e0e0;
     padding: 20px;
-    margin-top: 70px;
+    margin-top: 50px;
     height: calc(100vh - 70px); /* Full height minus header */
     overflow-y: auto;
     position: sticky; /* Stick to the top when scrolling */
-    top: 70px; /* Offset from the top */
 }
 
 #left-column h2 {
-    font-size: 24px;
+    font-size: 22px;
     color: #333;
     margin-bottom: 20px;
     text-transform: uppercase;
@@ -154,7 +153,7 @@ button:hover {
 #center-column {
     flex: 1; /* Grow and shrink as needed */
     max-width: 26%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 60% */
-    margin-top: 70px;
+    margin-top: 50px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     background-color: #474735;
@@ -253,21 +252,21 @@ button:hover {
     box-sizing: border-box;
     overflow-y: auto;
     position: fixed;
-    top: 70px; /* Align with the top of your other columns */
+    top: 50px; /* Align with the top of your other columns */
     right: 0; /* Align with the right side of the viewport */
     bottom: 0; /* Stretch to the bottom of the viewport */
     display: none; /* Hide the column by default */
     flex-direction: column;
-    padding-right: 2%;
 }
 
 .close-button {
     cursor: pointer;
     position: absolute; /* Position it absolutely within its relative parent */
-    top: 25px; /* Align to the top */
+    top: 22px; /* Align to the top */
     right: 10px; /* Align to the right */
     z-index: 10; /* Make sure it's above other elements */
     font-size: 50px;
+    margin-right: 1%;
 }
 
 .name-and-pronoun {
@@ -275,21 +274,6 @@ button:hover {
     justify-content: space-between;
     align-items: center;
 }
-
-.provider-name h2 {
-    font-size: 1.5em;
-    color: #333;
-}
-
-.provider-pronoun h2 {
-    font-size: 1em;
-    color: #666;
-}
-
-.contact-buttons, .subdivision {
-    margin-bottom: 20px;
-}
-
 
 #details-provider-pronoun {
     color: black;
@@ -309,7 +293,7 @@ button:hover {
 
 #details-provider-name {
     color: #666644;
-    font-size: 35px;
+    font-size: 30px;
     font-family: Avenir;
     font-weight: 800;
     text-transform: uppercase;
@@ -335,6 +319,7 @@ button:hover {
     font-family: Avenir;
     word-wrap: break-word;
     text-transform: capitalize;
+    height: 15px;
 }
 
 .title {
@@ -342,7 +327,6 @@ button:hover {
     justify-content: space-between;
     align-items: flex-start;
     margin-left: 3%;
-
 }
 
 .bio{
@@ -351,6 +335,7 @@ button:hover {
     flex-direction: row;
     align-items: stretch;
     margin-left: 3%;
+    margin-top: 0;
 }
 
 .title-location, .title-email, .title-phone_number, .about-title {
@@ -362,12 +347,10 @@ button:hover {
     margin-left: 3%;
 }   
 
-.subdivision {
-    margin-bottom: 20px;
-}
-
 .subdivision-insurance{
     margin-left: 3%;
+    margin-top: 0;
+    padding-top: 0;
 }
 
 
@@ -408,8 +391,8 @@ button:hover {
 }
 
 .profile-pic img {
-    width: 220px; /* Adjust as needed */
-    height: 220px; /* Adjust as needed */
+    width: 180px; /* Adjust as needed */
+    height: 180px; /* Adjust as needed */
     border-radius: 50%;
     margin-bottom: 3%;
     margin-left: 0;
@@ -425,14 +408,22 @@ button:hover {
 }
 
 .info{
-    margin-left: 0;
-    width: 60%;
+    margin-left: 20px;
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.location, .email, .phone {
-    margin-right: 15%;
+.email{
+    margin-right: 40px;
+}
+
+.location{
+    margin-right: 40px;
+}
+
+.subdivision-about{
+    margin-bottom: 0;
 }
 
 .bookmark-button {
@@ -448,7 +439,7 @@ button:hover {
 
 .bookmark_buttons {
     width: 40%;
-    margin-top: 2%;
+    margin-top: 12px;
     align-items: center;
 }
 
