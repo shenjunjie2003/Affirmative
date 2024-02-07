@@ -45,8 +45,8 @@
             <label for="gender">Gender:</label>
             <select id="gender" name="gender">
                 <option value="">Select Gender</option>
-                <option value="woman">Woman</option>
-                <option value="man">Man</option>
+                <option value="female">Woman</option>
+                <option value="male">Man</option>
                 <option value="non-binary">Non-Binary</option>
                 <option value="transgender">Transgender</option>
                 <option value="genderfluid">Genderfluid</option>
@@ -91,7 +91,7 @@
         <button onclick="applyFilters()">Apply Filters</button>
     </div>
 
-    <div id="center-column">
+    <div id="center-column", style="display: none">
         <div class="results-container">
             {% if results %}
                 {% for result in results %}

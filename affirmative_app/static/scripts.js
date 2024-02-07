@@ -58,6 +58,7 @@ function applyFilters() {
     .then(data => {
         // Assuming 'data' is an array of provider objects
         updateResults(data);
+        document.getElementById('center-column').style.display = 'block';
     })
     .catch(error => {
         console.error('Error:', error);

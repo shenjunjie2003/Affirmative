@@ -127,13 +127,14 @@ def index():
     care_navigator_id = session['user_id']
 
     surgical_procedures = [
-        'Orchiectomy', 'Vaginoplasty', 'Hysterectomy', 'Oophrectomy',
-        'Metidoplasty', 'Phalloplasty', 'Breast Augmentation', 'Breast Removal',
-        'Facial Reconstructive', 'Body Contouring', 'Electrolysis',
-        'Hair removal - laser', 'Hair Transplantation'
+        'Plastic Surgery', 'Reconstructive Surgery',
     ]
     psychological_procedures = [
-        'Social Worker Counseling', 'Psychologist', 'Other Practitioner', 'Psychiatric Care', 'Medical Letter'
+        'Mental Health',
+    ]
+
+    specialist = [
+        'Endocrinology', 'Urogynecology', 'Urology'
     ]
 
     patients = db.session.query(Patient).join(
@@ -163,7 +164,7 @@ def index():
 
     return render_template('index.html', patients=patients,
                            surgical_procedures=surgical_procedures,
-                           psychological_procedures=psychological_procedures)
+                           psychological_procedures=psychological_procedures, specialist=specialist)
 
 
 def results(procedure):
@@ -176,12 +177,10 @@ def results(procedure):
         return redirect(url_for('login'))  # Redirect to login if the user is not logged in
 
     if request.method == 'POST':
-        service = procedure.lower()
+        #service = procedure.lower()
         search_results = (
             Provider.query
-            .join(ProviderService, Provider.provider_ID == ProviderService.provider_id)
-            .join(Service, ProviderService.service_id == Service.service_ID)
-            .filter(Service.name == service)
+            .filter(Provider.category == procedure)
             .limit(5)
             .all()
         )
@@ -209,13 +208,10 @@ def apply_filters():
     meeting_form = availability_table.get(request.args.get('meetingForm', ''), None)
     language = language_dict.get(request.args.get('language', ''), None)
     insurance = insurance_dict.get(request.args.get('insurance', ''), None)
-
     # Initial query to get providers in the given category
     query = (
         Provider.query
-        .join(ProviderService, Provider.provider_ID == ProviderService.provider_id)
-        .join(Service, ProviderService.service_id == Service.service_ID)
-        .filter(Service.name == procedure)
+        .filter(Provider.category == procedure)
     )
 
     # Apply additional filters with explicit joins
@@ -243,9 +239,7 @@ def apply_filters():
         # Therefore, ensure the sample size is not larger than the length of filtered_results
         query_2 = (
         Provider.query
-        .join(ProviderService, Provider.provider_ID == ProviderService.provider_id)
-        .join(Service, ProviderService.service_id == Service.service_ID)
-        .filter(Service.name == procedure)
+        .filter(Provider.category == procedure)
         .limit(10)
     )
         sample_size = 3
@@ -288,7 +282,7 @@ def provider_to_dict(provider):
     )
 
     language_ids = [row.language_id for row in languages]  
-    language_names = [language_dict_reverse.get(language_id, "Unknown") for language_id in language_ids]
+    language_names = [language_dict_reverse.get(language_id, "Unknown").title() for language_id in language_ids]
 
     language_return = ""
     for language in language_names:

@@ -50,10 +50,12 @@
             {% endfor %}
 
             <div class="category-title-line">Endodermal</div>
-                <form method="post" action="{{ url_for('results', procedure='Hormone Replacement Therapy')}}">
-                    <input type="hidden" name="procedure" value="Hormone Replacement Therapy">
-                    <button class="service-type" type="submit">HRT</button>
+            {% for procedure in specialist %}
+                <form method="post" action="{{ url_for('results', procedure=procedure) }}">
+                    <input type="hidden" name="procedure" value="{{ procedure }}">
+                    <button class="service-type" type="submit">{{ procedure }}</button>
                 </form>
+            {% endfor %}
         </nav>
     </div>
 <div class = "main-content">
@@ -65,6 +67,7 @@
         <div class="patient-card">
             <div class = "patient-info">
                 <h2>{{ patient.name }}</h2>
+                <p>Pronoun: {{ patient.pronoun }}</p>
                 <p>Email: {{ patient.email }}</p>
                 <p>Location: {{ patient.city }}, {{ patient.state }}</p>
                 <p>Insurance: {{ patient.insurance }}</p>

@@ -9,22 +9,22 @@ def generate_patients_with_relations(db_session, care_navigator_id):
         {'name': 'Lake Green', 'email': 'lakegreen@gmail.com', 'state': 'MI', 'city': 'Ann Arbor',
          'address': '123123 Max Rd', 'environment': '0', 'insurance': 'Blue Cross',
          'accessibility': 'Hearing Accessibility', 'ethnicity': 'Asian', 'gender': 'Male',
-         'language': 'English', 'preferred_gender': '1', 'preferred_ethnicity': 'Asian'},
+         'language': 'English', 'preferred_gender': '1', 'preferred_ethnicity': 'Asian', 'pronoun': 'He/Him'},
         
         {'name': 'Emily Link', 'email': 'emilylink@123mail.com', 'state': 'MI', 'city': 'Ann Arbor',
          'address': '123123 St', 'environment': '2', 'insurance': 'Humana',
          'accessibility': 'None', 'ethnicity': 'White', 'gender': 'Female',
-         'language': 'English', 'preferred_gender': '0', 'preferred_ethnicity': 'White'},
+         'language': 'English', 'preferred_gender': '0', 'preferred_ethnicity': 'White', 'pronoun': 'She/Her'},
         
         {'name': 'Luke Lance', 'email': 'lukelance@gmail.com', 'state': 'MI', 'city': 'Detroit',
          'address': '123123 Main St', 'environment': '3', 'insurance': 'McLaren',
          'accessibility': 'Hearing Accessibility', 'ethnicity': 'Black', 'gender': 'Male',
-         'language': 'English', 'preferred_gender': '1', 'preferred_ethnicity': 'Black'},
+         'language': 'English', 'preferred_gender': '1', 'preferred_ethnicity': 'Black', 'pronoun': 'They/Them'},
         
         {'name': 'Julia Nancy', 'email': 'julianancy@gmail.com', 'state': 'MI', 'city': 'Troy',
          'address': '1324 South St', 'environment': '1', 'insurance': 'Aetna',
          'accessibility': 'Hearing accessibility', 'ethnicity': 'Asian', 'gender': 'Female',
-         'language': 'English', 'preferred_gender': '0', 'preferred_ethnicity': 'Asian'}
+         'language': 'English', 'preferred_gender': '0', 'preferred_ethnicity': 'Asian', 'pronoun': 'She/Her'}
     ]
 
     # Create and add each patient to the session

@@ -101,6 +101,7 @@ class Patient(db.Model):
     language = db.Column(db.String(256), nullable=True)
     preferred_gender = db.Column(db.String(256), nullable=True)
     preferred_ethnicity = db.Column(db.String(256), nullable=True)
+    pronoun = db.Column(db.String(256), nullable=True)
 
 class ReviewForProvider(db.Model):
     __tablename__ = 'review_for_provider'
