@@ -10,13 +10,13 @@
 
     <header>
         <div class="logo">
-            <div style="width: 100%; height: 100%; position: relative; background: #F0F0F0">
-                <div style="width: 16.38px; height: 16.38px; left: 13.56px; top: 0px; position: absolute; border-radius: 50%; background: #C4BD91"></div>
-                <div style="width: 16.38px; height: 16.38px; left: 13.56px; top: 27.12px; position: absolute; border-radius: 50%; background: #C4BD91"></div>
-                <div style="width: 16.38px; height: 16.38px; left: 27.12px; top: 13.55px; position: absolute; border-radius: 50%; background: #C4BD91"></div>
-                <div style="width: 16.38px; height: 16.38px; left: 0px; top: 13.55px; position: absolute; border-radius: 50%;background: #C4BD91"></div>
-                <div style="width: 18.92px; height: 2.21px; left: 12.58px; top: 20.72px; position: absolute; background: #666644"></div>
-                <div style="width: 18.92px; height: 2.10px; left: 20.99px; top: 31.29px; position: absolute; transform: rotate(-90deg); transform-origin: 0 0; background: #666644"></div>
+            <div style="width: 30px; height: 30px; position: relative; background: #F0F0F0">
+                <div style="width: 13px; height: 13px; left: 10.64px; top: 0px; position: absolute; border-radius: 50%; background: #C4BD91"></div>
+                <div style="width: 13px; height: 13px; left: 10.64px; top: 21.84px; position: absolute; border-radius: 50%; background: #C4BD91"></div>
+                <div style="width: 13px; height: 13px; left: 21.84px; top: 10.64px; position: absolute; border-radius: 50%; background: #C4BD91"></div>
+                <div style="width: 13px; height: 13px; left: 0px; top: 10.64px; position: absolute; border-radius: 50%;background: #C4BD91"></div>
+                <div style="width: 15.09px; height: 1.77px; left: 10.05px; top: 16.66px; position: absolute; background: #666644"></div>
+                <div style="width: 15.09px; height: 1.68px; left: 16.79px; top: 23.61px; position: absolute; transform: rotate(-90deg); transform-origin: 0 0; background: #666644"></div>
             </div>
         </div>
         <!--
@@ -60,11 +60,11 @@
     </div>
 <div class = "main-content">
     <div class="patient-cards-title">
-        <h1>MY CLIENTS</h1>
+        <h1 style = "height: 30px; margin-bottom: 35px">MY CLIENTS</h1>
     </div>
     <div class="patient-cards-container">
         {% for patient in patients %}
-        <div class="patient-card">
+        <div class="patient-card" onclick="showModal(this)">
             <div class = "patient-info">
                 <h2>{{ patient.name }}</h2>
                 <p>Pronoun: {{ patient.pronoun }}</p>
@@ -85,9 +85,30 @@
             </div>
         </div>
         {% endfor %}
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <!-- Content of the patient card will be displayed here -->
+            </div>
+        </div>
     </div>
 </div>
 </div>
-    
+
+<script>
+    // JavaScript code
+    function showModal(card) {
+        var content = card.innerHTML;
+        var modal = document.getElementById("modal");
+        var modalContent = modal.getElementsByClassName("modal-content")[0];
+        modalContent.innerHTML = content + '<div class="close-button" onclick="closeModal()"><img src="/static/uploads/close.png" alt="Close"></div>';
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        var modal = document.getElementById("modal");
+        modal.style.display = "none";
+    }
+</script>
+
 </body>
        
