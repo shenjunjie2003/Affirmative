@@ -235,18 +235,29 @@ def apply_filters():
 
     # If fewer than 4 results, give random results
     if len(filtered_results) < 4:
-        # random.sample may raise a ValueError if the sample size is larger than the population size
-        # Therefore, ensure the sample size is not larger than the length of filtered_results
-        query_2 = (
-        Provider.query
-        .filter(Provider.category == procedure)
-        .limit(10)
-    )
-        sample_size = 3
-        provider_list = query_2.all()
-        results = random.sample(provider_list, sample_size)
-        for provider in results:
-            provider.label = "Not Match but Recommended"
+
+        if (len(filtered_results) == 1):
+            filtered_results[0].label = "Best Match"
+            results = filtered_results
+            print(1)
+        elif (len(filtered_results) == 2):
+            filtered_results[0].label = "Best Match"
+            filtered_results[1].label = "Not Match but Recommended"
+            print(2)
+            results = filtered_results
+        else:
+            # random.sample may raise a ValueError if the sample size is larger than the population size
+            # Therefore, ensure the sample size is not larger than the length of filtered_results
+            query_2 = (
+            Provider.query
+            .filter(Provider.category == procedure)
+            .limit(10)
+        )
+            sample_size = 3
+            provider_list = query_2.all()
+            results = random.sample(provider_list, sample_size)
+            for provider in results:
+                provider.label = "Not Match but Recommended"
     else:
         # Assign labels to the first four results
         temp_results = filtered_results[:7]  
