@@ -221,7 +221,7 @@ def apply_filters():
         query = query.filter(Provider.availability == meeting_form)
 
     # For language and insurance, ensure explicit joins with the many-to-many relationship tables
-    if language is not None:
+    if language is not None and language is not 0:
         query = query.join(ProviderLanguage, Provider.provider_ID == ProviderLanguage.provider_id).filter(ProviderLanguage.language_id == language)
     if insurance is not None:
         query = query.join(ProviderInsurance, Provider.provider_ID == ProviderInsurance.provider_id).filter(ProviderInsurance.insurance_id == insurance)
@@ -282,6 +282,8 @@ def provider_to_dict(provider):
     )
 
     language_ids = [row.language_id for row in languages]  
+    if 0 not in language_ids:
+        language_ids.insert(0, 0)
     language_names = [language_dict_reverse.get(language_id, "Unknown").title() for language_id in language_ids]
 
     language_return = ""
